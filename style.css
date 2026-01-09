@@ -1,0 +1,33 @@
+@media (max-width: 468px) {
+    /* Seleciona o título da Home especificamente */
+    #home h1 { 
+        font-size: 1.4rem !important; /* Reduz o tamanho para caber na largura */
+        line-height: 1.2 !important;
+        display: block !important;
+        width: 100% !important;
+        word-break: break-word !important; /* Quebra a palavra se necessário */
+        overflow-wrap: anywhere !important; /* Garante que não vaze */
+        text-align: left;
+    }
+
+    /* Ajusta o espaçamento do card para o texto ter mais área útil */
+    #home .card {
+        padding: 30px 15px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Diminui o texto que vem abaixo do título */
+    #home p {
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+        max-width: 100% !important;
+    }
+
+    /* Garante que o container principal não tenha scroll lateral */
+    .content-area {
+        padding: 15px !important;
+        overflow-x: hidden !important;
+    }
+}
