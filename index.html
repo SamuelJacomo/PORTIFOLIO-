@@ -1,353 +1,1113 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <link rel="stylesheet" href="style.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samuel Jacomo | Portfólio App</title>
+    <title>Samuel Jacomo | TI & Desenvolvimento</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary: #0078d4;
-            --secondary: #00bcf2;
-            --accent: #00f2fe;
-            --bg-dark: #020617;
-            --card: rgba(30, 41, 59, 0.6);
-            --text-main: #f1f5f9;
-            --text-dim: #94a3b8;
-            --border: rgba(255, 255, 255, 0.1);
+            --primary: #0ea5e9;
+            --primary-dim: rgba(14, 165, 233, 0.15);
+            --primary-glow: rgba(14, 165, 233, 0.35);
+            --accent: #38bdf8;
+            --accent2: #7dd3fc;
+            --green: #4ade80;
+            --bg: #060a12;
+            --bg2: #0d1525;
+            --bg3: #111d30;
+            --card: rgba(13, 21, 37, 0.85);
+            --card-hover: rgba(17, 29, 48, 0.95);
+            --border: rgba(255,255,255,0.07);
+            --border-accent: rgba(14, 165, 233, 0.3);
+            --text: #f0f6ff;
+            --text-dim: #64748b;
+            --text-mid: #94a3b8;
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --sidebar-w: 270px;
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            height: 100vh; 
-            overflow: hidden; /* Oculta rolagem da janela inteira */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
             display: flex;
         }
 
-        /* FUNDO COM DEGRADÊ */
-        .bg-fixed {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(circle at 10% 20%, rgba(0, 120, 212, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 90% 80%, rgba(0, 242, 254, 0.1) 0%, transparent 40%);
+        /* ── NOISE TEXTURE OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.5;
         }
 
-        /* SIDEBAR (MENU LATERAL) */
+        /* ── ANIMATED BACKGROUND ── */
+        .bg-orbs {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+        }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px);
+            animation: orb-float 20s ease-in-out infinite;
+        }
+        .orb-1 { width: 500px; height: 500px; background: rgba(14,165,233,0.06); top: -10%; left: -10%; animation-delay: 0s; }
+        .orb-2 { width: 400px; height: 400px; background: rgba(56,189,248,0.05); bottom: -5%; right: 5%; animation-delay: -8s; }
+        .orb-3 { width: 300px; height: 300px; background: rgba(125,211,252,0.04); top: 40%; left: 40%; animation-delay: -14s; }
+
+        @keyframes orb-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.05); }
+            66% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+
+        /* ── SIDEBAR ── */
         .sidebar {
-            width: 260px;
-            background: rgba(15, 23, 42, 0.9);
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            background: rgba(6, 10, 18, 0.92);
             border-right: 1px solid var(--border);
-            display: flex; flex-direction: column;
-            padding: 30px 20px;
-            z-index: 100;
+            backdrop-filter: blur(24px);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            z-index: 50;
+            position: relative;
         }
 
-        .profile-box { text-align: center; margin-bottom: 40px; }
-        .profile-pic {
-            width: 90px; height: 90px; border-radius: 50%; 
-            border: 3px solid var(--primary); margin: 0 auto 15px;
-            background-image: url('https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&w=600');
-            background-size: cover; background-position: center;
+        .sidebar-inner {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 32px 20px;
+            overflow-y: auto;
         }
 
-        /* MENU DE BOTÕES */
-        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        
+        /* Profile */
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            width: 88px; height: 88px;
+            margin-bottom: 16px;
+        }
+
+        .avatar-ring {
+            position: absolute; inset: -3px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0deg, var(--accent2) 120deg, transparent 180deg, var(--primary) 360deg);
+            animation: spin-slow 8s linear infinite;
+        }
+
+        @keyframes spin-slow { to { transform: rotate(360deg); } }
+
+        .avatar {
+            position: relative; z-index: 1;
+            width: 88px; height: 88px;
+            border-radius: 50%;
+            background: url('https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&w=300') center/cover;
+            border: 3px solid var(--bg);
+        }
+
+        .avatar-status {
+            position: absolute; z-index: 2;
+            bottom: 4px; right: 4px;
+            width: 13px; height: 13px;
+            border-radius: 50%;
+            background: var(--green);
+            border: 2px solid var(--bg);
+            box-shadow: 0 0 6px var(--green);
+        }
+
+        .profile h3 {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .profile-role {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .profile-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            margin-top: 10px;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            color: var(--green);
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .profile-badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* Nav */
+        .nav { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+
         .nav-item {
-            padding: 14px 18px;
+            display: flex; align-items: center; gap: 12px;
+            padding: 11px 14px;
             border-radius: 10px;
             cursor: pointer;
             color: var(--text-dim);
-            font-weight: 600;
-            display: flex; align-items: center; gap: 12px;
-            transition: all 0.3s ease;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
-        
-        /* CLASSE ATIVA (QUANDO CLICADO) */
-        .nav-item.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 120, 212, 0.4);
-        }
-
-        /* CONTEÚDO PRINCIPAL (COM SCROLL) */
-        .content-area {
-            flex: 1;
-            padding: 40px 60px;
-            overflow-y: auto; /* Rolagem só aqui */
-            scroll-behavior: smooth;
-        }
-
-        /* SISTEMA DE ABAS (TABS) */
-        .page { 
-            display: none; /* Esconde tudo por padrão */
+        .nav-item::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, var(--primary-dim), transparent);
             opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.3s;
         }
-        
-        .page.active-page { 
-            display: block; /* Mostra só o ativo */
+
+        .nav-item:hover { color: var(--text); }
+        .nav-item:hover::before { opacity: 0.5; }
+
+        .nav-item.active {
+            color: var(--primary);
+            background: var(--primary-dim);
+        }
+
+        .nav-item.active::before { opacity: 1; }
+
+        .nav-item .nav-icon {
+            width: 18px; text-align: center;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .nav-item.active .nav-icon { color: var(--primary); }
+
+        .nav-indicator {
+            margin-left: auto;
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-item.active .nav-indicator { opacity: 1; }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        /* ── CONTENT AREA ── */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            z-index: 1;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+
+        .content::-webkit-scrollbar { width: 4px; }
+        .content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        /* ── PAGES ── */
+        .page {
+            display: none;
+            padding: 48px 56px;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            min-height: 100vh;
+        }
+
+        .page.active-page {
+            display: block;
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* COMPONENTES DE DESIGN */
-        .page-title { font-size: 2.5rem; margin-bottom: 5px; font-weight: 800; }
-        .page-desc { color: var(--text-dim); margin-bottom: 30px; font-size: 1.1rem; }
+        /* Stagger children animation */
+        .page.active-page > * {
+            animation: fade-up 0.5s ease both;
+        }
+        .page.active-page > *:nth-child(1) { animation-delay: 0.05s; }
+        .page.active-page > *:nth-child(2) { animation-delay: 0.1s; }
+        .page.active-page > *:nth-child(3) { animation-delay: 0.15s; }
+        .page.active-page > *:nth-child(4) { animation-delay: 0.2s; }
+        .page.active-page > *:nth-child(5) { animation-delay: 0.25s; }
 
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header { margin-bottom: 36px; }
+
+        .page-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .page-title {
+            font-family: var(--font-head);
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .page-desc {
+            color: var(--text-mid);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* ── CARDS ── */
         .card {
-            background: var(--card); border: 1px solid var(--border);
-            padding: 25px; border-radius: 16px; margin-bottom: 20px;
-            transition: 0.3s;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: var(--transition);
+            backdrop-filter: blur(12px);
         }
-        .card:hover { border-color: var(--primary); transform: translateY(-4px); }
 
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card:hover {
+            border-color: var(--border-accent);
+            background: var(--card-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(14, 165, 233, 0.08);
+        }
 
-        /* TAGS */
-        .tag-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        /* ── GRIDS ── */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+        /* ── TAGS ── */
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
         .tag {
-            background: rgba(0, 120, 212, 0.1); border: 1px solid rgba(0, 120, 212, 0.3);
-            color: #dbeafe; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem;
+            background: rgba(14, 165, 233, 0.08);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            color: var(--accent2);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            transition: var(--transition);
         }
 
-        /* MOBILE RESPONSIVO */
-        @media (max-width: 468px) {
-            body { flex-direction: column; height: auto; overflow: auto; }
-            .sidebar { 
-                width: 100%; height: auto; padding: 15px; 
-                border-right: none; border-bottom: 1px solid var(--border);
-                position: sticky; top: 0; background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(10px);
+        .tag:hover {
+            background: rgba(14, 165, 233, 0.16);
+            border-color: var(--primary);
+        }
+
+        /* ── SECTION DIVIDER ── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 28px 0;
+        }
+
+        /* ════════════════════════════════
+           HOME PAGE
+        ════════════════════════════════ */
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            padding: 56px 52px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-accent);
+            background: linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(6,10,18,0.9) 60%);
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&w=1260') center/cover;
+            opacity: 0.06;
+        }
+
+        .hero-card > * { position: relative; z-index: 1; }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--primary-dim);
+            border: 1px solid var(--border-accent);
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-family: var(--font-head);
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+            margin-bottom: 18px;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-mid);
+            max-width: 520px;
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+
+        .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--primary-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-accent);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-dim);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Feature cards */
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(14, 165, 233, 0.07);
+        }
+
+        .feature-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon.blue { background: rgba(14,165,233,0.12); color: var(--primary); }
+        .feature-icon.cyan { background: rgba(56,189,248,0.12); color: var(--accent); }
+        .feature-icon.green { background: rgba(74,222,128,0.12); color: var(--green); }
+
+        .feature-card h3 {
+            font-family: var(--font-head);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.55; }
+
+        /* ════════════════════════════════
+           SOBRE PAGE
+        ════════════════════════════════ */
+        .about-intro {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--text-mid);
+            margin-bottom: 28px;
+        }
+
+        .about-intro b { color: var(--text); }
+
+        .highlight-list { display: flex; flex-direction: column; gap: 14px; }
+
+        .highlight-item {
+            display: flex; align-items: flex-start; gap: 14px;
+            padding: 16px 20px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .highlight-item:hover { border-color: var(--border-accent); }
+
+        .hi-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            margin-top: 6px;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .highlight-item p { font-size: 0.9rem; }
+        .highlight-item b { color: var(--accent2); }
+
+        /* ════════════════════════════════
+           EXPERIÊNCIA PAGE
+        ════════════════════════════════ */
+        .timeline { display: flex; flex-direction: column; gap: 16px; }
+
+        .timeline-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 14px 14px 0;
+            padding: 24px 28px;
+            transition: var(--transition);
+        }
+
+        .timeline-card:hover {
+            border-left-color: var(--accent);
+            transform: translateX(4px);
+            box-shadow: 0 8px 30px rgba(14,165,233,0.07);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            gap: 16px;
+        }
+
+        .timeline-title {
+            font-family: var(--font-head);
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .timeline-company {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .timeline-badge {
+            background: var(--primary-dim);
+            border: 1px solid var(--border-accent);
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .timeline-list {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+
+        .timeline-list li {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.88rem;
+            color: var(--text-mid);
+        }
+
+        .timeline-list li::before {
+            content: '→';
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ════════════════════════════════
+           FORMAÇÃO PAGE
+        ════════════════════════════════ */
+        .edu-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .edu-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(14,165,233,0.07);
+        }
+
+        .edu-inst {
+            font-family: var(--font-head);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .edu-degree {
+            font-size: 0.88rem;
+            color: var(--text-mid);
+            margin-bottom: 10px;
+        }
+
+        .edu-period {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: rgba(255,255,255,0.05);
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+
+        .edu-highlight {
+            border-top: 1px solid var(--border);
+            margin-top: 14px;
+            padding-top: 14px;
+        }
+
+        /* ════════════════════════════════
+           COMPETÊNCIAS PAGE
+        ════════════════════════════════ */
+        .skill-group {
+            margin-bottom: 8px;
+        }
+
+        .skill-group-title {
+            font-family: var(--font-head);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            color: var(--primary);
+        }
+
+        /* ════════════════════════════════
+           CONTATO PAGE
+        ════════════════════════════════ */
+        .contact-card {
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 40px 28px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-card.whatsapp:hover {
+            border-color: rgba(37, 211, 102, 0.4);
+            box-shadow: 0 16px 48px rgba(37, 211, 102, 0.1);
+        }
+
+        .contact-card.email:hover {
+            border-color: var(--border-accent);
+            box-shadow: 0 16px 48px rgba(14, 165, 233, 0.1);
+        }
+
+        .contact-icon {
+            width: 70px; height: 70px;
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .contact-icon.wa {
+            background: rgba(37, 211, 102, 0.1);
+            color: #25d366;
+        }
+
+        .contact-card.whatsapp:hover .contact-icon.wa {
+            background: rgba(37, 211, 102, 0.18);
+            transform: scale(1.08);
+        }
+
+        .contact-icon.em {
+            background: var(--primary-dim);
+            color: var(--primary);
+        }
+
+        .contact-card.email:hover .contact-icon.em {
+            background: rgba(14, 165, 233, 0.18);
+            transform: scale(1.08);
+        }
+
+        .contact-card h3 {
+            font-family: var(--font-head);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .contact-card p { font-size: 0.88rem; color: var(--text-dim); }
+
+        /* ═══════════════════════════════
+           SCROLLBAR CONTENT
+        ═══════════════════════════════ */
+        .content::-webkit-scrollbar { width: 3px; }
+        .content::-webkit-scrollbar-track { background: transparent; }
+        .content::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+        /* ═══════════════════════════════
+           MOBILE
+        ═══════════════════════════════ */
+        @media (max-width: 640px) {
+            body { flex-direction: column; height: 100dvh; overflow: hidden; }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                position: sticky;
+                top: 0;
+                background: rgba(6, 10, 18, 0.96);
+                backdrop-filter: blur(20px);
             }
-            .profile-box { display: none; } /* Simplifica no celular */
-            .nav-list { flex-direction: row; overflow-x: auto; padding-bottom: 5px; }
-            .nav-item { white-space: nowrap; font-size: 0.85rem; padding: 10px 15px; }
-            .content-area { padding: 25px 20px; overflow: visible; }
-            .page-title { font-size: 2rem; }
+
+            .sidebar-inner {
+                padding: 12px 16px;
+                overflow-y: visible;
+            }
+
+            .profile { display: none; }
+
+            .nav {
+                flex-direction: row;
+                overflow-x: auto;
+                gap: 4px;
+                padding-bottom: 2px;
+                scrollbar-width: none;
+            }
+
+            .nav::-webkit-scrollbar { display: none; }
+
+            .nav-item {
+                white-space: nowrap;
+                font-size: 0.82rem;
+                padding: 9px 13px;
+                border-radius: 8px;
+            }
+
+            .nav-indicator { display: none; }
+
+            .sidebar-footer { display: none; }
+
+            .content {
+                flex: 1;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            .page { padding: 24px 20px; min-height: auto; }
+
+            .hero-card { padding: 32px 24px; }
+            .hero-title { font-size: 2rem; }
+            .page-title { font-size: 1.8rem; }
+
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+
+            .timeline-header { flex-direction: column; gap: 8px; }
+        }
+
+        @media (min-width: 641px) and (max-width: 900px) {
+            .page { padding: 36px 32px; }
+            .hero-title { font-size: 2.5rem; }
+            .page-title { font-size: 2.1rem; }
+            --sidebar-w: 230px;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-fixed"></div>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
 
+    <!-- SIDEBAR -->
     <nav class="sidebar">
-        <div class="profile-box">
-            <div class="profile-pic"></div>
-            <h3>Samuel Jacomo</h3>
-            <p style="color: var(--text-dim); font-size: 0.85rem;">TI & Desenvolvimento</p>
-        </div>
+        <div class="sidebar-inner">
 
-        <ul class="nav-list">
-            <li class="nav-item active" data-target="home">
-                <i class="fas fa-home"></i> Início
-            </li>
-            <li class="nav-item" data-target="sobre">
-                <i class="fas fa-user"></i> Sobre Mim
-            </li>
-            <li class="nav-item" data-target="experiencia">
-                <i class="fas fa-briefcase"></i> Experiência
-            </li>
-            <li class="nav-item" data-target="formacao">
-                <i class="fas fa-graduation-cap"></i> Formação
-            </li>
-            <li class="nav-item" data-target="competencias">
-                <i class="fas fa-code"></i> Competências
-            </li>
-            <li class="nav-item" data-target="contato">
-                <i class="fas fa-envelope"></i> Contato
-            </li>
-        </ul>
-        
-        <div style="margin-top: auto; padding-top: 20px; text-align: center; font-size: 0.75rem; color: #475569;">
-            © 2026 Samuel Jacomo
+            <div class="profile">
+                <div class="avatar-wrap">
+                    <div class="avatar-ring"></div>
+                    <div class="avatar"></div>
+                    <div class="avatar-status"></div>
+                </div>
+                <h3>Samuel Jacomo</h3>
+                <p class="profile-role">TI & Desenvolvimento</p>
+                <span class="profile-badge">Disponível</span>
+            </div>
+
+            <ul class="nav">
+                <li class="nav-item active" data-target="home">
+                    <span class="nav-icon"><i class="fas fa-house-chimney"></i></span>
+                    Início
+                    <span class="nav-indicator"></span>
+                </li>
+                <li class="nav-item" data-target="sobre">
+                    <span class="nav-icon"><i class="fas fa-user-astronaut"></i></span>
+                    Sobre
+                    <span class="nav-indicator"></span>
+                </li>
+                <li class="nav-item" data-target="experiencia">
+                    <span class="nav-icon"><i class="fas fa-briefcase"></i></span>
+                    Experiência
+                    <span class="nav-indicator"></span>
+                </li>
+                <li class="nav-item" data-target="formacao">
+                    <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+                    Formação
+                    <span class="nav-indicator"></span>
+                </li>
+                <li class="nav-item" data-target="competencias">
+                    <span class="nav-icon"><i class="fas fa-microchip"></i></span>
+                    Skills
+                    <span class="nav-indicator"></span>
+                </li>
+                <li class="nav-item" data-target="contato">
+                    <span class="nav-icon"><i class="fas fa-satellite-dish"></i></span>
+                    Contato
+                    <span class="nav-indicator"></span>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">© 2026 Samuel Jacomo</div>
+
         </div>
     </nav>
 
-    <main class="content-area">
-        
+    <!-- CONTENT -->
+    <main class="content">
+
+        <!-- ──── HOME ──── -->
         <section id="home" class="page active-page">
-            <div class="card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&w=1260'); background-size: cover; padding: 60px;">
-                <span style="background: var(--primary); padding: 5px 12px; border-radius: 6px; font-weight: 800; font-size: 0.8rem;">PORTFÓLIO OFICIAL</span>
-                <h1 style="font-size: 3rem; margin-top: 15px; line-height: 1.1;">Infraestrutura & <br> <span style="color: var(--accent);">Desenvolvimento</span></h1>
-                <p style="margin-top: 15px; font-size: 1.1rem; max-width: 600px; color: #e2e8f0;">
-                    Unindo a excelência acadêmica do <b>MIT</b> com a prática de suporte crítico no <b>TI</b>.
+
+            <div class="hero-card">
+                <span class="hero-badge"><i class="fas fa-circle-dot"></i> Portfólio 2026</span>
+                <h1 class="hero-title">
+                    Infraestrutura &<br>
+                    <span class="gradient-text">Desenvolvimento</span>
+                </h1>
+                <p class="hero-desc">
+                    Unindo o rigor técnico do <b style="color:var(--text)">MIT</b> com suporte crítico de TI na prática.
+                    Resolvo desde falhas de hardware até automações em Python.
                 </p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary" onclick="goTo('contato'); return false;">
+                        <i class="fas fa-satellite-dish"></i> Entre em contato
+                    </a>
+                    <a href="#" class="btn btn-outline" onclick="goTo('competencias'); return false;">
+                        <i class="fas fa-microchip"></i> Ver skills
+                    </a>
+                </div>
             </div>
 
             <div class="grid-3">
-                <div class="card" style="text-align: center;">
-                    <i class="fas fa-server" style="font-size: 2rem; color: var(--accent); margin-bottom: 15px;"></i>
+                <div class="feature-card">
+                    <div class="feature-icon blue"><i class="fas fa-server"></i></div>
                     <h3>Infraestrutura</h3>
-                    <p style="color: var(--text-dim); font-size: 0.9rem;">Manutenção de servidores e redes físicas.</p>
+                    <p>Servidores, redes físicas e Active Directory. Do cabeamento ao domínio.</p>
                 </div>
-                <div class="card" style="text-align: center;">
-                    <i class="fas fa-laptop-code" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
-                    <h3>Software</h3>
-                    <p style="color: var(--text-dim); font-size: 0.9rem;">Automação, Python e Desenvolvimento Web.</p>
+                <div class="feature-card">
+                    <div class="feature-icon cyan"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Desenvolvimento</h3>
+                    <p>Automação com Python, Web com JS/HTML/CSS e soluções inteligentes.</p>
                 </div>
-                <div class="card" style="text-align: center;">
-                    <i class="fas fa-shield-alt" style="font-size: 2rem; color: #25d366; margin-bottom: 15px;"></i>
+                <div class="feature-card">
+                    <div class="feature-icon green"><i class="fas fa-shield-halved"></i></div>
                     <h3>Segurança</h3>
-                    <p style="color: var(--text-dim); font-size: 0.9rem;">Proteção de dados, Backup e Active Directory.</p>
+                    <p>Proteção de dados, backup, CFTV e monitoramento com Zabbix.</p>
                 </div>
             </div>
+
         </section>
 
+        <!-- ──── SOBRE ──── -->
         <section id="sobre" class="page">
-    <h2 class="page-title">Perfil Profissional</h2>
-    <p class="page-desc">Especialista em TI e Desenvolvedor.</p>
-    
-    <div class="card">
-        <p style="font-size: 0.95rem; line-height: 1.6; color: #cbd5e1; margin-bottom: 20px;">
-            Olá, sou <b>Samuel Jacomo</b>. Atuo na resolução de problemas complexos, unindo o domínio do <b>Hardware</b> (infraestrutura física) ao <b>Software</b> (lógica e código).
-        </p>
-
-        <div style="display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-            <div style="display: flex; gap: 10px; align-items: flex-start;">
-                <span style="color: var(--accent);">🔹</span>
-                <p style="font-size: 0.9rem;"><b>Desenvolvimento:</b> Lógica em JS, CSS avançado e HTML semântico.</p>
-            </div>
-            
-            <div style="display: flex; gap: 10px; align-items: flex-start;">
-                <span style="color: var(--accent);">🔹</span>
-                <p style="font-size: 0.9rem;"><b>Infra & Hardware:</b> Servidores, Active Directory e Redes Cisco.</p>
+            <div class="page-header">
+                <p class="page-eyebrow">Quem sou</p>
+                <h2 class="page-title">Perfil Profissional</h2>
+                <p class="page-desc">Especialista em TI com visão full-stack de infraestrutura.</p>
             </div>
 
-            <div style="display: flex; gap: 10px; align-items: flex-start;">
-                <span style="color: var(--accent);">🔹</span>
-                <p style="font-size: 0.9rem;"><b>Diferenciais:</b> Expertise em DVR, PDV e Automação de processos.</p>
-            </div>
-        </div>
-    </div>
-</section>
+            <div class="card">
+                <p class="about-intro">
+                    Sou <b>Samuel Jacomo</b>, profissional de TI com sólida experiência em <b>infraestrutura física</b> e <b>desenvolvimento de software</b>. 
+                    Atuo na interseção entre hardware e código — diagnosticando, automatizando e construindo soluções que funcionam de verdade.
+                </p>
 
+                <div class="highlight-list">
+                    <div class="highlight-item">
+                        <div class="hi-dot"></div>
+                        <p><b>Desenvolvimento Web:</b> JavaScript ES6+, CSS avançado e HTML semântico. Interfaces funcionais e otimizadas.</p>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="hi-dot"></div>
+                        <p><b>Infra & Hardware:</b> Servidores Windows/Linux, Active Directory, roteadores Cisco e redes estruturadas.</p>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="hi-dot"></div>
+                        <p><b>Automação:</b> Python para processos repetitivos, scripts de monitoramento e integrações.</p>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="hi-dot"></div>
+                        <p><b>Diferenciais:</b> Expertise em DVR/CFTV, PDV, Coletores de Dados e suporte N1-N2-N3.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── EXPERIÊNCIA ──── -->
         <section id="experiencia" class="page">
-            <h2 class="page-title">Experiência Profissional</h2>
-            <p class="page-desc">Minha atuação no mercado de trabalho.</p>
-
-            <div class="card" style="border-left: 5px solid var(--primary);">
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                    <div>
-                        <h3 style="font-size: 1.4rem;">TI</h3>
-                        <span style="color: var(--primary); font-weight: 700;">Serviços Prestados em Diversas Categorias</span>
-                    </div>
-                    <span style="background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">Atual</span>
-                </div>
-                <ul style="margin-top: 20px; margin-left: 20px; color: var(--text-dim); line-height: 1.8;">
-                    <li>Gerenciamento total de chamados de suporte (N1, N2 e N3).</li>
-                    <li>Administração de Servidores e Active Directory.</li>
-                    <li>Configuração e manutenção de Coletores de Dados (Logística).</li>
-                    <li>Gestão de CFTV, DVR e segurança patrimonial digital.</li>
-                </ul>
+            <div class="page-header">
+                <p class="page-eyebrow">Carreira</p>
+                <h2 class="page-title">Experiência</h2>
+                <p class="page-desc">Minha atuação no mercado de trabalho.</p>
             </div>
 
-            <div class="card">
-                <h3>Consultor Técnico Autônomo</h3>
-                <p style="color: var(--text-dim); margin-top: 5px;">2021 - Presente</p>
-                <p style="margin-top: 10px;">Atuação com manutenção de hardware avançado, montagem de setups, infraestrutura de redes domésticas e corporativas.</p>
+            <div class="timeline">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div>
+                            <p class="timeline-title">Analista de TI</p>
+                            <p class="timeline-company">Serviços Prestados — Diversas Categorias</p>
+                        </div>
+                        <span class="timeline-badge">● Atual</span>
+                    </div>
+                    <ul class="timeline-list">
+                        <li>Gerenciamento completo de chamados de suporte N1, N2 e N3.</li>
+                        <li>Administração de Servidores e Active Directory.</li>
+                        <li>Configuração e manutenção de Coletores de Dados (Logística).</li>
+                        <li>Gestão de CFTV, DVR e segurança patrimonial digital.</li>
+                        <li>Monitoramento de infraestrutura com Zabbix.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div>
+                            <p class="timeline-title">Consultor Técnico Autônomo</p>
+                            <p class="timeline-company">Pessoa Física</p>
+                        </div>
+                        <span class="timeline-badge">2021 – Presente</span>
+                    </div>
+                    <ul class="timeline-list">
+                        <li>Manutenção de hardware avançado e montagem de setups.</li>
+                        <li>Infraestrutura de redes domésticas e corporativas.</li>
+                        <li>Suporte técnico especializado para PMEs.</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
+        <!-- ──── FORMAÇÃO ──── -->
         <section id="formacao" class="page">
-            <h2 class="page-title">Educação</h2>
-            <p class="page-desc">Base acadêmica e especializações.</p>
+            <div class="page-header">
+                <p class="page-eyebrow">Educação</p>
+                <h2 class="page-title">Formação</h2>
+                <p class="page-desc">Base acadêmica e especializações.</p>
+            </div>
 
             <div class="grid-2">
-                <div class="card">
-                    <h3 style="color: var(--accent);">MIT</h3>
-                    <p style="font-size: 0.9rem;">Massachusetts Institute of Technology</p>
-                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 10px 0;">
-                    <p><b>Tecnologia da Informação</b></p>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">2021 - 2022</p>
-                    <div class="tag-container">
-                        <span class="tag">Gestão de Projetos (2025)</span>
-                        <span class="tag">Circuitos Integrados (2025)</span>
+                <div class="edu-card" style="border-color: rgba(14,165,233,0.3);">
+                    <p class="edu-inst" style="color: var(--accent);">MIT</p>
+                    <p style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 8px;">Massachusetts Institute of Technology</p>
+                    <p class="edu-degree">Tecnologia da Informação</p>
+                    <span class="edu-period">2021 – 2022</span>
+                    <div class="edu-highlight">
+                        <div class="tags">
+                            <span class="tag">Gestão de Projetos (2025)</span>
+                            <span class="tag">Circuitos Integrados (2025)</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <h3>Centro Universitário Eniac</h3>
-                    <p><b>Manutenção e Suporte em Informática</b></p>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">2023 - 2028</p>
+                <div class="edu-card">
+                    <p class="edu-inst">Centro Universitário Eniac</p>
+                    <p class="edu-degree">Manutenção e Suporte em Informática</p>
+                    <span class="edu-period">2023 – 2028</span>
                 </div>
 
-                <div class="card">
-                    <h3>Fundação Bradesco</h3>
-                    <p><b>Técnico Integrado em TI</b></p>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">Concluído em 2024</p>
+                <div class="edu-card">
+                    <p class="edu-inst">Fundação Bradesco</p>
+                    <p class="edu-degree">Técnico Integrado em TI</p>
+                    <span class="edu-period">Concluído em 2024</span>
                 </div>
 
-                <div class="card">
-                    <h3>Udemy</h3>
-                    <p><b>Redes Cisco & Infraestrutura</b></p>
-                    <p style="font-size: 0.8rem; color: var(--text-dim);">Certificação Profissional</p>
+                <div class="edu-card">
+                    <p class="edu-inst">Udemy</p>
+                    <p class="edu-degree">Redes Cisco & Infraestrutura</p>
+                    <span class="edu-period">Certificação Profissional</span>
                 </div>
             </div>
         </section>
 
+        <!-- ──── COMPETÊNCIAS ──── -->
         <section id="competencias" class="page">
-            <h2 class="page-title">Competências</h2>
-            <p class="page-desc">Tecnologias e hard skills dominadas.</p>
-
-            <div class="card">
-                <h3 style="margin-bottom: 15px; color: var(--primary);">Infraestrutura & Redes</h3>
-                <div class="tag-container">
-                    <span class="tag">Hardware Avançado</span>
-                    <span class="tag">Active Directory</span>
-                    <span class="tag">Zabbix Monitoramento</span>
-                    <span class="tag">Redes Estruturadas</span>
-                    <span class="tag">Cisco Networking</span>
-                    <span class="tag">DVR / CFTV</span>
-                    <span class="tag">PDV</span>
-                    <span class="tag">Coletores de Dados</span>
-                    <span class="tag">Manutenção Preventiva</span>
-                </div>
+            <div class="page-header">
+                <p class="page-eyebrow">Hard Skills</p>
+                <h2 class="page-title">Competências</h2>
+                <p class="page-desc">Tecnologias e ferramentas dominadas.</p>
             </div>
 
-            <div class="card">
-                <h3 style="margin-bottom: 15px; color: var(--secondary);">Desenvolvimento & DevOps</h3>
-                <div class="tag-container">
-                    <span class="tag">JavaScript (ES6+)</span>
-                    <span class="tag">HTML5 & CSS3</span>
-                    <span class="tag">Python Automation</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">Kubernetes</span>
-                    <span class="tag">MySQL / SQL</span>
-                    <span class="tag">Git & GitHub</span>
-                    <span class="tag">Linux (Ubuntu/Debian)</span>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div class="card skill-group">
+                    <p class="skill-group-title"><i class="fas fa-server" style="margin-right:8px;"></i>Infraestrutura & Redes</p>
+                    <div class="tags">
+                        <span class="tag">Hardware Avançado</span>
+                        <span class="tag">Active Directory</span>
+                        <span class="tag">Zabbix</span>
+                        <span class="tag">Redes Estruturadas</span>
+                        <span class="tag">Cisco Networking</span>
+                        <span class="tag">DVR / CFTV</span>
+                        <span class="tag">PDV</span>
+                        <span class="tag">Coletores de Dados</span>
+                        <span class="tag">Manutenção Preventiva</span>
+                        <span class="tag">Suporte N1 N2 N3</span>
+                    </div>
+                </div>
+
+                <div class="card skill-group">
+                    <p class="skill-group-title" style="color: var(--accent2);"><i class="fas fa-code" style="margin-right:8px;"></i>Desenvolvimento & DevOps</p>
+                    <div class="tags">
+                        <span class="tag">JavaScript ES6+</span>
+                        <span class="tag">HTML5 & CSS3</span>
+                        <span class="tag">Python Automation</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Kubernetes</span>
+                        <span class="tag">MySQL / SQL</span>
+                        <span class="tag">Git & GitHub</span>
+                        <span class="tag">Linux (Ubuntu/Debian)</span>
+                    </div>
+                </div>
+
+                <div class="card skill-group">
+                    <p class="skill-group-title" style="color: var(--green);"><i class="fas fa-shield-halved" style="margin-right:8px;"></i>Segurança & Monitoramento</p>
+                    <div class="tags">
+                        <span class="tag">Backup & Recovery</span>
+                        <span class="tag">Segurança Patrimonial</span>
+                        <span class="tag">Análise de Logs</span>
+                        <span class="tag">Firewall</span>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- ──── CONTATO ──── -->
         <section id="contato" class="page">
-            <h2 class="page-title">Fale Comigo</h2>
-            <p class="page-desc">Canais diretos de comunicação.</p>
+            <div class="page-header">
+                <p class="page-eyebrow">Conecte-se</p>
+                <h2 class="page-title">Fale Comigo</h2>
+                <p class="page-desc">Canais diretos de comunicação.</p>
+            </div>
 
             <div class="grid-2">
-                <a href="https://wa.me/5511911195124" target="_blank" style="text-decoration: none; color: inherit;">
-                    <div class="card" style="text-align: center; cursor: pointer; border-color: #25d366;">
-                        <i class="fab fa-whatsapp" style="font-size: 3rem; color: #25d366; margin-bottom: 20px;"></i>
-                        <h3>WhatsApp</h3>
-                        <p>Clique para conversar agora</p>
-                    </div>
+                <a href="https://wa.me/5511911195124" target="_blank" class="contact-card whatsapp">
+                    <div class="contact-icon wa"><i class="fab fa-whatsapp"></i></div>
+                    <h3>WhatsApp</h3>
+                    <p>Clique para conversar agora</p>
                 </a>
-                
-                <a href="mailto:ss2099samu@gmail.com" style="text-decoration: none; color: inherit;">
-                    <div class="card" style="text-align: center; cursor: pointer;">
-                        <i class="fas fa-envelope" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-                        <h3>E-mail</h3>
-                        <p>ss2099samu@gmail.com</p>
-                    </div>
+
+                <a href="mailto:ss2099samu@gmail.com" class="contact-card email">
+                    <div class="contact-icon em"><i class="fas fa-envelope"></i></div>
+                    <h3>E-mail</h3>
+                    <p>ss2099samu@gmail.com</p>
                 </a>
             </div>
         </section>
@@ -355,37 +1115,65 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Seleciona todos os botões do menu
-            const buttons = document.querySelectorAll('.nav-item');
-            // Seleciona todas as páginas (seções)
-            const pages = document.querySelectorAll('.page');
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
 
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // 1. Remove a classe 'active' de todos os botões
-                    buttons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // 2. Adiciona a classe 'active' no botão clicado
-                    button.classList.add('active');
+        function goTo(targetId) {
+            navItems.forEach(n => n.classList.remove('active'));
+            pages.forEach(p => {
+                p.classList.remove('active-page');
+                p.style.display = 'none';
+            });
 
-                    // 3. Pega o ID alvo (ex: 'home', 'sobre')
-                    const targetId = button.getAttribute('data-target');
+            const targetNav = document.querySelector(`[data-target="${targetId}"]`);
+            const targetPage = document.getElementById(targetId);
 
-                    // 4. Esconde todas as páginas
-                    pages.forEach(page => page.classList.remove('active-page'));
-
-                    // 5. Mostra apenas a página correspondente ao ID
-                    const targetPage = document.getElementById(targetId);
-                    if (targetPage) {
+            if (targetNav) targetNav.classList.add('active');
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
                         targetPage.classList.add('active-page');
-                        
-                        // Scroll suave para o topo do conteúdo no mobile
-                        document.querySelector('.content-area').scrollTop = 0;
+                        document.querySelector('.content').scrollTop = 0;
+                    });
+                });
+            }
+        }
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const target = item.getAttribute('data-target');
+                pages.forEach(p => {
+                    if (p.classList.contains('active-page')) {
+                        p.classList.remove('active-page');
+                        setTimeout(() => { p.style.display = 'none'; }, 50);
                     }
                 });
+                navItems.forEach(n => n.classList.remove('active'));
+                item.classList.add('active');
+
+                const targetPage = document.getElementById(target);
+                if (targetPage) {
+                    setTimeout(() => {
+                        targetPage.style.display = 'block';
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                targetPage.classList.add('active-page');
+                                document.querySelector('.content').scrollTop = 0;
+                            });
+                        });
+                    }, 60);
+                }
             });
         });
+
+        // Init: make sure only home is visible
+        pages.forEach(p => {
+            if (!p.classList.contains('active-page')) {
+                p.style.display = 'none';
+            }
+        });
     </script>
+
 </body>
 </html>
