@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samuel Jacomo | TI & Desenvolvimento</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -30,6 +30,7 @@
             --text-mid: #94a3b8;
             --font-head: 'Syne', sans-serif;
             --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
             --sidebar-w: 270px;
             --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -56,13 +57,8 @@
             opacity: 0.5;
         }
 
-        .bg-orbs {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-        }
-        .orb {
-            position: absolute; border-radius: 50%; filter: blur(80px);
-            animation: orb-float 20s ease-in-out infinite;
-        }
+        .bg-orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); animation: orb-float 20s ease-in-out infinite; }
         .orb-1 { width: 500px; height: 500px; background: rgba(14,165,233,0.06); top: -10%; left: -10%; animation-delay: 0s; }
         .orb-2 { width: 400px; height: 400px; background: rgba(56,189,248,0.05); bottom: -5%; right: 5%; animation-delay: -8s; }
         .orb-3 { width: 300px; height: 300px; background: rgba(125,211,252,0.04); top: 40%; left: 40%; animation-delay: -14s; }
@@ -87,33 +83,18 @@
             position: relative;
         }
 
-        .sidebar-inner {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            padding: 32px 20px;
-            overflow-y: auto;
-        }
+        .sidebar-inner { display: flex; flex-direction: column; height: 100%; padding: 32px 20px; overflow-y: auto; }
 
         .profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding-bottom: 28px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 24px;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; padding-bottom: 28px;
+            border-bottom: 1px solid var(--border); margin-bottom: 24px;
         }
 
-        .avatar-wrap {
-            position: relative;
-            width: 88px; height: 88px;
-            margin-bottom: 16px;
-        }
+        .avatar-wrap { position: relative; width: 88px; height: 88px; margin-bottom: 16px; }
 
         .avatar-ring {
-            position: absolute; inset: -3px;
-            border-radius: 50%;
+            position: absolute; inset: -3px; border-radius: 50%;
             background: conic-gradient(var(--primary) 0deg, var(--accent2) 120deg, transparent 180deg, var(--primary) 360deg);
             animation: spin-slow 8s linear infinite;
         }
@@ -121,183 +102,108 @@
         @keyframes spin-slow { to { transform: rotate(360deg); } }
 
         .avatar {
-            position: relative; z-index: 1;
-            width: 88px; height: 88px;
-            border-radius: 50%;
+            position: relative; z-index: 1; width: 88px; height: 88px; border-radius: 50%;
             background: url('https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&w=300') center/cover;
             border: 3px solid var(--bg);
         }
 
         .avatar-status {
-            position: absolute; z-index: 2;
-            bottom: 4px; right: 4px;
-            width: 13px; height: 13px;
-            border-radius: 50%;
-            background: var(--green);
-            border: 2px solid var(--bg);
-            box-shadow: 0 0 6px var(--green);
+            position: absolute; z-index: 2; bottom: 4px; right: 4px;
+            width: 13px; height: 13px; border-radius: 50%;
+            background: var(--green); border: 2px solid var(--bg); box-shadow: 0 0 6px var(--green);
         }
 
-        .profile h3 {
-            font-family: var(--font-head);
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .profile-role {
-            font-size: 0.78rem;
-            color: var(--text-dim);
-            margin-top: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
+        .profile h3 { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+        .profile-role { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
 
         .profile-badge {
-            display: inline-flex; align-items: center; gap: 5px;
-            margin-top: 10px;
-            background: rgba(74, 222, 128, 0.1);
-            border: 1px solid rgba(74, 222, 128, 0.25);
-            color: var(--green);
-            font-size: 0.7rem;
-            font-weight: 500;
-            padding: 3px 10px;
-            border-radius: 20px;
+            display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;
+            background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.25);
+            color: var(--green); font-size: 0.7rem; font-weight: 500; padding: 3px 10px; border-radius: 20px;
         }
 
         .profile-badge::before {
-            content: '';
-            width: 6px; height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            animation: pulse-dot 2s ease-in-out infinite;
+            content: ''; width: 6px; height: 6px; background: var(--green);
+            border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite;
         }
 
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
 
         .nav { list-style: none; display: flex; flex-direction: column; gap: 4px; }
 
         .nav-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 11px 14px;
-            border-radius: 10px;
-            cursor: pointer;
-            color: var(--text-dim);
-            font-size: 0.88rem;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            display: flex; align-items: center; gap: 12px; padding: 11px 14px;
+            border-radius: 10px; cursor: pointer; color: var(--text-dim);
+            font-size: 0.88rem; font-weight: 500; transition: var(--transition);
+            position: relative; overflow: hidden;
         }
 
         .nav-item::before {
-            content: '';
-            position: absolute; inset: 0;
+            content: ''; position: absolute; inset: 0;
             background: linear-gradient(90deg, var(--primary-dim), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
+            opacity: 0; transition: opacity 0.3s;
         }
 
         .nav-item:hover { color: var(--text); }
         .nav-item:hover::before { opacity: 0.5; }
-
-        .nav-item.active {
-            color: var(--primary);
-            background: var(--primary-dim);
-        }
-
+        .nav-item.active { color: var(--primary); background: var(--primary-dim); }
         .nav-item.active::before { opacity: 1; }
 
-        /* Nav item especial para Full Stack */
-        .nav-item.fullstack-nav.active {
-            color: var(--purple);
-            background: var(--purple-dim);
-        }
-        .nav-item.fullstack-nav.active::before {
-            background: linear-gradient(90deg, var(--purple-dim), transparent);
-            opacity: 1;
-        }
+        .nav-item.fullstack-nav.active { color: var(--purple); background: var(--purple-dim); }
+        .nav-item.fullstack-nav.active::before { background: linear-gradient(90deg, var(--purple-dim), transparent); opacity: 1; }
         .nav-item.fullstack-nav:hover { color: var(--purple); }
 
-        .nav-item .nav-icon {
-            width: 18px; text-align: center;
-            font-size: 0.85rem;
-            transition: var(--transition);
+        /* DevOS nav special */
+        .nav-item.devos-nav.active {
+            color: #00f5a0;
+            background: rgba(0,245,160,0.07);
         }
+        .nav-item.devos-nav.active::before {
+            background: linear-gradient(90deg, rgba(0,245,160,0.1), transparent);
+            opacity: 1;
+        }
+        .nav-item.devos-nav:hover { color: #00f5a0; }
+        .nav-item.devos-nav .nav-indicator { background: #00f5a0; }
+        .nav-item.devos-nav.active .nav-indicator { opacity: 1; background: #00f5a0; }
 
+        .nav-item .nav-icon { width: 18px; text-align: center; font-size: 0.85rem; transition: var(--transition); }
         .nav-item.active .nav-icon { color: var(--primary); }
         .nav-item.fullstack-nav.active .nav-icon { color: var(--purple); }
+        .nav-item.devos-nav.active .nav-icon { color: #00f5a0; }
 
-        .nav-indicator {
-            margin-left: auto;
-            width: 4px; height: 4px;
-            border-radius: 50%;
-            background: var(--primary);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
+        .nav-indicator { margin-left: auto; width: 4px; height: 4px; border-radius: 50%; background: var(--primary); opacity: 0; transition: opacity 0.3s; }
         .nav-item.active .nav-indicator { opacity: 1; }
         .nav-item.fullstack-nav.active .nav-indicator { background: var(--purple); opacity: 1; }
 
-        /* Badge "novo" na nav */
         .nav-new {
-            margin-left: auto;
-            background: linear-gradient(135deg, var(--purple), #818cf8);
-            color: #fff;
-            font-size: 0.6rem;
-            font-weight: 700;
-            padding: 2px 7px;
-            border-radius: 20px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+            margin-left: auto; background: linear-gradient(135deg, var(--purple), #818cf8);
+            color: #fff; font-size: 0.6rem; font-weight: 700; padding: 2px 7px;
+            border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase;
         }
 
-        .sidebar-footer {
-            margin-top: auto;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            font-size: 0.7rem;
-            color: var(--text-dim);
+        .nav-new.green-badge {
+            background: linear-gradient(135deg, #00f5a0, #00b4d8);
+            color: #060a12;
         }
 
-        /* ── CONTENT AREA ── */
+        .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; font-size: 0.7rem; color: var(--text-dim); }
+
+        /* ── CONTENT ── */
         .content {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            position: relative;
-            z-index: 1;
-            scrollbar-width: thin;
-            scrollbar-color: var(--border) transparent;
+            flex: 1; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 1;
+            scrollbar-width: thin; scrollbar-color: var(--border) transparent;
         }
-
         .content::-webkit-scrollbar { width: 4px; }
         .content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
         /* ── PAGES ── */
         .page {
-            display: none;
-            padding: 48px 56px;
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            min-height: 100vh;
+            display: none; padding: 48px 56px; opacity: 0; transform: translateY(12px);
+            transition: opacity 0.4s ease, transform 0.4s ease; min-height: 100vh;
         }
 
-        .page.active-page {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .page.active-page > * {
-            animation: fade-up 0.5s ease both;
-        }
+        .page.active-page { display: block; opacity: 1; transform: translateY(0); }
+        .page.active-page > * { animation: fade-up 0.5s ease both; }
         .page.active-page > *:nth-child(1) { animation-delay: 0.05s; }
         .page.active-page > *:nth-child(2) { animation-delay: 0.1s; }
         .page.active-page > *:nth-child(3) { animation-delay: 0.15s; }
@@ -306,550 +212,105 @@
         .page.active-page > *:nth-child(6) { animation-delay: 0.3s; }
         .page.active-page > *:nth-child(7) { animation-delay: 0.35s; }
 
-        @keyframes fade-up {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ── PAGE HEADER ── */
         .page-header { margin-bottom: 36px; }
+        .page-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+        .page-title { font-family: var(--font-head); font-size: 2.6rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 10px; }
+        .page-desc { color: var(--text-mid); font-size: 1rem; font-weight: 300; }
 
-        .page-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: var(--transition); backdrop-filter: blur(12px); }
+        .card:hover { border-color: var(--border-accent); background: var(--card-hover); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(14, 165, 233, 0.08); }
 
-        .page-title {
-            font-family: var(--font-head);
-            font-size: 2.6rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-
-        .page-desc {
-            color: var(--text-mid);
-            font-size: 1rem;
-            font-weight: 300;
-        }
-
-        /* ── CARDS ── */
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
-            transition: var(--transition);
-            backdrop-filter: blur(12px);
-        }
-
-        .card:hover {
-            border-color: var(--border-accent);
-            background: var(--card-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(14, 165, 233, 0.08);
-        }
-
-        /* ── GRIDS ── */
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
 
-        /* ── TAGS ── */
         .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .tag { background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.2); color: var(--accent2); padding: 5px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 500; transition: var(--transition); }
+        .tag:hover { background: rgba(14, 165, 233, 0.16); border-color: var(--primary); }
 
-        .tag {
-            background: rgba(14, 165, 233, 0.08);
-            border: 1px solid rgba(14, 165, 233, 0.2);
-            color: var(--accent2);
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 0.78rem;
-            font-weight: 500;
-            transition: var(--transition);
-        }
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 28px 0; }
 
-        .tag:hover {
-            background: rgba(14, 165, 233, 0.16);
-            border-color: var(--primary);
-        }
-
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border), transparent);
-            margin: 28px 0;
-        }
-
-        /* ════════════════════════════════
-           HOME PAGE
-        ════════════════════════════════ */
-        .hero-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            padding: 56px 52px;
-            margin-bottom: 24px;
-            border: 1px solid var(--border-accent);
-            background: linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(6,10,18,0.9) 60%);
-        }
-
-        .hero-card::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: url('https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&w=1260') center/cover;
-            opacity: 0.06;
-        }
-
+        /* ── HOME ── */
+        .hero-card { position: relative; overflow: hidden; border-radius: 20px; padding: 56px 52px; margin-bottom: 24px; border: 1px solid var(--border-accent); background: linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(6,10,18,0.9) 60%); }
+        .hero-card::before { content: ''; position: absolute; inset: 0; background: url('https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&w=1260') center/cover; opacity: 0.06; }
         .hero-card > * { position: relative; z-index: 1; }
 
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: var(--primary-dim);
-            border: 1px solid var(--border-accent);
-            color: var(--primary);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-        }
+        .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-dim); border: 1px solid var(--border-accent); color: var(--primary); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 20px; }
 
-        .hero-title {
-            font-family: var(--font-head);
-            font-size: 3.4rem;
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.05em;
-            margin-bottom: 18px;
-        }
-
-        .hero-title .gradient-text {
-            background: linear-gradient(135deg, var(--primary), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-desc {
-            font-size: 1.05rem;
-            color: var(--text-mid);
-            max-width: 520px;
-            line-height: 1.65;
-            margin-bottom: 28px;
-        }
-
+        .hero-title { font-family: var(--font-head); font-size: 3.4rem; font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 18px; }
+        .hero-title .gradient-text { background: linear-gradient(135deg, var(--primary), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-desc { font-size: 1.05rem; color: var(--text-mid); max-width: 520px; line-height: 1.65; margin-bottom: 28px; }
         .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
-        .btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 12px 22px;
-            border-radius: 10px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            border: none;
-        }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: var(--transition); text-decoration: none; border: none; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px var(--primary-glow); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-accent); color: var(--text); }
+        .btn-outline:hover { background: var(--primary-dim); border-color: var(--primary); transform: translateY(-2px); }
 
-        .btn-primary {
-            background: var(--primary);
-            color: #fff;
-        }
+        .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; transition: var(--transition); cursor: default; }
+        .feature-card:hover { border-color: var(--border-accent); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(14, 165, 233, 0.07); }
 
-        .btn-primary:hover {
-            background: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px var(--primary-glow);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border-accent);
-            color: var(--text);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-dim);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .feature-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px 24px;
-            transition: var(--transition);
-            cursor: default;
-        }
-
-        .feature-card:hover {
-            border-color: var(--border-accent);
-            transform: translateY(-4px);
-            box-shadow: 0 16px 40px rgba(14, 165, 233, 0.07);
-        }
-
-        .feature-icon {
-            width: 48px; height: 48px;
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem;
-            margin-bottom: 16px;
-        }
-
+        .feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 16px; }
         .feature-icon.blue { background: rgba(14,165,233,0.12); color: var(--primary); }
         .feature-icon.cyan { background: rgba(56,189,248,0.12); color: var(--accent); }
         .feature-icon.green { background: rgba(74,222,128,0.12); color: var(--green); }
         .feature-icon.purple { background: var(--purple-dim); color: var(--purple); }
+        .feature-icon.devos { background: rgba(0,245,160,0.1); color: #00f5a0; }
 
-        .feature-card h3 {
-            font-family: var(--font-head);
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
+        .feature-card h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
         .feature-card p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.55; }
 
-        /* ════════════════════════════════
-           SOBRE PAGE
-        ════════════════════════════════ */
-        .about-intro {
-            font-size: 1.05rem;
-            line-height: 1.75;
-            color: var(--text-mid);
-            margin-bottom: 28px;
-        }
-
+        /* ── SOBRE ── */
+        .about-intro { font-size: 1.05rem; line-height: 1.75; color: var(--text-mid); margin-bottom: 28px; }
         .about-intro b { color: var(--text); }
-
         .highlight-list { display: flex; flex-direction: column; gap: 14px; }
-
-        .highlight-item {
-            display: flex; align-items: flex-start; gap: 14px;
-            padding: 16px 20px;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: var(--transition);
-        }
-
+        .highlight-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; transition: var(--transition); }
         .highlight-item:hover { border-color: var(--border-accent); }
-
-        .hi-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: var(--primary);
-            margin-top: 6px;
-            flex-shrink: 0;
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-
+        .hi-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); margin-top: 6px; flex-shrink: 0; box-shadow: 0 0 8px var(--primary-glow); }
         .highlight-item p { font-size: 0.9rem; }
         .highlight-item b { color: var(--accent2); }
 
-        /* ════════════════════════════════
-           EXPERIÊNCIA PAGE
-        ════════════════════════════════ */
+        /* ── EXPERIÊNCIA ── */
         .timeline { display: flex; flex-direction: column; gap: 16px; }
+        .timeline-card { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 0 14px 14px 0; padding: 24px 28px; transition: var(--transition); }
+        .timeline-card:hover { border-left-color: var(--accent); transform: translateX(4px); box-shadow: 0 8px 30px rgba(14,165,233,0.07); }
+        .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 16px; }
+        .timeline-title { font-family: var(--font-head); font-size: 1.15rem; font-weight: 700; }
+        .timeline-company { color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-top: 3px; }
+        .timeline-badge { background: var(--primary-dim); border: 1px solid var(--border-accent); color: var(--primary); font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+        .timeline-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .timeline-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--text-mid); }
+        .timeline-list li::before { content: '→'; color: var(--primary); flex-shrink: 0; margin-top: 1px; }
 
-        .timeline-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--primary);
-            border-radius: 0 14px 14px 0;
-            padding: 24px 28px;
-            transition: var(--transition);
-        }
+        /* ── FORMAÇÃO ── */
+        .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: var(--transition); }
+        .edu-card:hover { border-color: var(--border-accent); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(14,165,233,0.07); }
+        .edu-inst { font-family: var(--font-head); font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+        .edu-degree { font-size: 0.88rem; color: var(--text-mid); margin-bottom: 10px; }
+        .edu-period { font-size: 0.75rem; color: var(--text-dim); background: rgba(255,255,255,0.05); display: inline-block; padding: 3px 8px; border-radius: 5px; }
+        .edu-highlight { border-top: 1px solid var(--border); margin-top: 14px; padding-top: 14px; }
 
-        .timeline-card:hover {
-            border-left-color: var(--accent);
-            transform: translateX(4px);
-            box-shadow: 0 8px 30px rgba(14,165,233,0.07);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-            gap: 16px;
-        }
-
-        .timeline-title {
-            font-family: var(--font-head);
-            font-size: 1.15rem;
-            font-weight: 700;
-        }
-
-        .timeline-company {
-            color: var(--primary);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 3px;
-        }
-
-        .timeline-badge {
-            background: var(--primary-dim);
-            border: 1px solid var(--border-accent);
-            color: var(--primary);
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .timeline-list {
-            list-style: none;
-            display: flex; flex-direction: column; gap: 8px;
-        }
-
-        .timeline-list li {
-            display: flex; align-items: flex-start; gap: 10px;
-            font-size: 0.88rem;
-            color: var(--text-mid);
-        }
-
-        .timeline-list li::before {
-            content: '→';
-            color: var(--primary);
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        /* ════════════════════════════════
-           FORMAÇÃO PAGE
-        ════════════════════════════════ */
-        .edu-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: var(--transition);
-        }
-
-        .edu-card:hover {
-            border-color: var(--border-accent);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(14,165,233,0.07);
-        }
-
-        .edu-inst {
-            font-family: var(--font-head);
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .edu-degree {
-            font-size: 0.88rem;
-            color: var(--text-mid);
-            margin-bottom: 10px;
-        }
-
-        .edu-period {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            background: rgba(255,255,255,0.05);
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 5px;
-        }
-
-        .edu-highlight {
-            border-top: 1px solid var(--border);
-            margin-top: 14px;
-            padding-top: 14px;
-        }
-
-        /* ════════════════════════════════
-           COMPETÊNCIAS PAGE
-        ════════════════════════════════ */
+        /* ── COMPETÊNCIAS ── */
         .skill-group { margin-bottom: 8px; }
+        .skill-group-title { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); color: var(--primary); }
 
-        .skill-group-title {
-            font-family: var(--font-head);
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
-            color: var(--primary);
-        }
-
-        /* ════════════════════════════════
-           CONTATO PAGE
-        ════════════════════════════════ */
-        .contact-card {
-            display: flex; flex-direction: column; align-items: center;
-            text-align: center;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 40px 28px;
-            transition: var(--transition);
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        .contact-card:hover { transform: translateY(-5px); }
-
-        .contact-card.whatsapp:hover {
-            border-color: rgba(37, 211, 102, 0.4);
-            box-shadow: 0 16px 48px rgba(37, 211, 102, 0.1);
-        }
-
-        .contact-card.email:hover {
-            border-color: var(--border-accent);
-            box-shadow: 0 16px 48px rgba(14, 165, 233, 0.1);
-        }
-
-        .contact-icon {
-            width: 70px; height: 70px;
-            border-radius: 18px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
-
-        .contact-icon.wa { background: rgba(37, 211, 102, 0.1); color: #25d366; }
-        .contact-card.whatsapp:hover .contact-icon.wa { background: rgba(37, 211, 102, 0.18); transform: scale(1.08); }
-
-        .contact-icon.em { background: var(--primary-dim); color: var(--primary); }
-        .contact-card.email:hover .contact-icon.em { background: rgba(14, 165, 233, 0.18); transform: scale(1.08); }
-
-        .contact-card h3 {
-            font-family: var(--font-head);
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .contact-card p { font-size: 0.88rem; color: var(--text-dim); }
-
-        /* ════════════════════════════════
-           FULL STACK PAGE — ESTILOS NOVOS
-        ════════════════════════════════ */
-
-        /* Header especial com gradiente roxo */
-        #fullstack .page-eyebrow {
-            color: var(--purple);
-        }
-
-        #fullstack .page-title .gradient-fs {
-            background: linear-gradient(135deg, var(--purple), #818cf8, var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Banner de destaque do projeto */
-        .fs-hero {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            padding: 40px 44px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(167,139,250,0.3);
-            background: linear-gradient(135deg, rgba(167,139,250,0.08) 0%, rgba(6,10,18,0.92) 70%);
-        }
-
-        .fs-hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at top right, rgba(167,139,250,0.12), transparent 60%);
-            pointer-events: none;
-        }
-
+        /* ── FULL STACK ── */
+        #fullstack .page-eyebrow { color: var(--purple); }
+        #fullstack .page-title .gradient-fs { background: linear-gradient(135deg, var(--purple), #818cf8, var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .fs-hero { position: relative; overflow: hidden; border-radius: 20px; padding: 40px 44px; margin-bottom: 24px; border: 1px solid rgba(167,139,250,0.3); background: linear-gradient(135deg, rgba(167,139,250,0.08) 0%, rgba(6,10,18,0.92) 70%); }
+        .fs-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top right, rgba(167,139,250,0.12), transparent 60%); pointer-events: none; }
         .fs-hero > * { position: relative; z-index: 1; }
-
-        .fs-hero-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-
-        .fs-project-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: var(--purple-dim);
-            border: 1px solid rgba(167,139,250,0.3);
-            color: var(--purple);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 20px;
-            margin-bottom: 14px;
-        }
-
-        .fs-hero h3 {
-            font-family: var(--font-head);
-            font-size: 1.7rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin-bottom: 10px;
-        }
-
-        .fs-hero p {
-            font-size: 0.95rem;
-            color: var(--text-mid);
-            max-width: 560px;
-            line-height: 1.65;
-        }
-
-        .fs-status-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(74,222,128,0.1);
-            border: 1px solid rgba(74,222,128,0.25);
-            color: var(--green);
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 5px 12px;
-            border-radius: 20px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .fs-status-badge::before {
-            content: '';
-            width: 6px; height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-
-        /* Stack pills coloridas */
+        .fs-hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+        .fs-project-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--purple-dim); border: 1px solid rgba(167,139,250,0.3); color: var(--purple); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+        .fs-hero h3 { font-family: var(--font-head); font-size: 1.7rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 10px; }
+        .fs-hero p { font-size: 0.95rem; color: var(--text-mid); max-width: 560px; line-height: 1.65; }
+        .fs-status-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); color: var(--green); font-size: 0.72rem; font-weight: 600; padding: 5px 12px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+        .fs-status-badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
         .fs-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-
-        .fs-pill {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid;
-            transition: var(--transition);
-        }
-
+        .fs-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; border: 1px solid; transition: var(--transition); }
         .fs-pill:hover { transform: translateY(-2px); }
-
         .pill-node { background: rgba(83,176,83,0.1); border-color: rgba(83,176,83,0.3); color: #4ade80; }
         .pill-mysql { background: rgba(0,116,173,0.1); border-color: rgba(0,116,173,0.3); color: #38bdf8; }
         .pill-xamp { background: rgba(251,146,60,0.1); border-color: rgba(251,146,60,0.3); color: var(--orange); }
@@ -858,236 +319,264 @@
         .pill-html { background: rgba(249,115,22,0.1); border-color: rgba(249,115,22,0.3); color: #f97316; }
         .pill-css { background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3); color: #60a5fa; }
         .pill-git { background: rgba(244,63,94,0.1); border-color: rgba(244,63,94,0.3); color: #f43f5e; }
-        .pill-docker { background: rgba(14,165,233,0.1); border-color: rgba(14,165,233,0.3); color: var(--primary); }
-
-        /* Seção de arquitetura */
-        .fs-arch {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 16px;
-        }
-
-        .fs-arch-title {
-            font-family: var(--font-head);
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--purple);
-            margin-bottom: 20px;
-            display: flex; align-items: center; gap: 8px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .arch-flow {
-            display: flex;
-            align-items: center;
-            gap: 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .arch-node {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 18px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: var(--bg2);
-            transition: var(--transition);
-            min-width: 90px;
-            text-align: center;
-        }
-
-        .arch-node:hover {
-            transform: translateY(-3px);
-        }
-
-        .arch-node.frontend { border-color: rgba(250,204,21,0.3); }
-        .arch-node.frontend:hover { box-shadow: 0 8px 24px rgba(250,204,21,0.1); }
-        .arch-node.backend { border-color: rgba(74,222,128,0.3); }
-        .arch-node.backend:hover { box-shadow: 0 8px 24px rgba(74,222,128,0.1); }
-        .arch-node.db { border-color: rgba(56,189,248,0.3); }
-        .arch-node.db:hover { box-shadow: 0 8px 24px rgba(56,189,248,0.1); }
-        .arch-node.server { border-color: rgba(251,146,60,0.3); }
-        .arch-node.server:hover { box-shadow: 0 8px 24px rgba(251,146,60,0.1); }
-
-        .arch-icon {
-            width: 40px; height: 40px;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .arch-label {
-            font-family: var(--font-head);
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
-
-        .arch-sub {
-            font-size: 0.68rem;
-            color: var(--text-dim);
-        }
-
-        .arch-arrow {
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            padding: 0 8px;
-            flex-shrink: 0;
-        }
-
-        /* Cards de skills Full Stack */
-        .fs-skill-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px;
-            transition: var(--transition);
-        }
-
-        .fs-skill-card:hover {
-            transform: translateY(-3px);
-        }
-
+        .fs-arch { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 16px; }
+        .fs-arch-title { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .arch-flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center; }
+        .arch-node { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 18px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg2); transition: var(--transition); min-width: 90px; text-align: center; }
+        .arch-node:hover { transform: translateY(-3px); }
+        .arch-node.frontend { border-color: rgba(250,204,21,0.3); } .arch-node.frontend:hover { box-shadow: 0 8px 24px rgba(250,204,21,0.1); }
+        .arch-node.backend { border-color: rgba(74,222,128,0.3); } .arch-node.backend:hover { box-shadow: 0 8px 24px rgba(74,222,128,0.1); }
+        .arch-node.db { border-color: rgba(56,189,248,0.3); } .arch-node.db:hover { box-shadow: 0 8px 24px rgba(56,189,248,0.1); }
+        .arch-node.server { border-color: rgba(251,146,60,0.3); } .arch-node.server:hover { box-shadow: 0 8px 24px rgba(251,146,60,0.1); }
+        .arch-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .arch-label { font-family: var(--font-head); font-size: 0.78rem; font-weight: 700; }
+        .arch-sub { font-size: 0.68rem; color: var(--text-dim); }
+        .arch-arrow { color: var(--text-dim); font-size: 1.2rem; padding: 0 8px; flex-shrink: 0; }
+        .fs-skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; transition: var(--transition); }
+        .fs-skill-card:hover { transform: translateY(-3px); }
         .fs-skill-card.backend:hover { border-color: rgba(74,222,128,0.3); box-shadow: 0 12px 32px rgba(74,222,128,0.06); }
         .fs-skill-card.frontend:hover { border-color: rgba(250,204,21,0.3); box-shadow: 0 12px 32px rgba(250,204,21,0.06); }
         .fs-skill-card.db:hover { border-color: rgba(56,189,248,0.3); box-shadow: 0 12px 32px rgba(56,189,248,0.06); }
         .fs-skill-card.devops:hover { border-color: rgba(167,139,250,0.3); box-shadow: 0 12px 32px rgba(167,139,250,0.06); }
-
-        .fs-card-head {
-            display: flex; align-items: center; gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .fs-card-icon {
-            width: 42px; height: 42px;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
+        .fs-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .fs-card-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
         .fs-card-icon.green { background: rgba(74,222,128,0.12); color: var(--green); }
         .fs-card-icon.yellow { background: rgba(250,204,21,0.1); color: #facc15; }
         .fs-card-icon.blue { background: rgba(56,189,248,0.12); color: var(--accent); }
         .fs-card-icon.purple { background: var(--purple-dim); color: var(--purple); }
-        .fs-card-icon.orange { background: rgba(251,146,60,0.1); color: var(--orange); }
-
-        .fs-card-title {
-            font-family: var(--font-head);
-            font-size: 0.95rem;
-            font-weight: 700;
-        }
-
-        .fs-card-sub {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
+        .fs-card-title { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; }
+        .fs-card-sub { font-size: 0.75rem; color: var(--text-dim); }
         .fs-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-
-        .fs-tag {
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border: 1px solid;
-            transition: var(--transition);
-        }
-
+        .fs-tag { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; border: 1px solid; transition: var(--transition); }
         .fs-tag.green { background: rgba(74,222,128,0.07); border-color: rgba(74,222,128,0.2); color: #86efac; }
         .fs-tag.yellow { background: rgba(250,204,21,0.07); border-color: rgba(250,204,21,0.2); color: #fde047; }
         .fs-tag.blue { background: rgba(56,189,248,0.07); border-color: rgba(56,189,248,0.2); color: var(--accent2); }
         .fs-tag.purple { background: rgba(167,139,250,0.07); border-color: rgba(167,139,250,0.2); color: #c4b5fd; }
         .fs-tag.orange { background: rgba(251,146,60,0.07); border-color: rgba(251,146,60,0.2); color: #fdba74; }
-
-        /* Barra de progresso de aprendizado */
-        .fs-learning-banner {
-            background: linear-gradient(135deg, rgba(167,139,250,0.06), rgba(14,165,233,0.06));
-            border: 1px solid rgba(167,139,250,0.2);
-            border-radius: 14px;
-            padding: 22px 26px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .fs-learning-icon {
-            width: 48px; height: 48px;
-            border-radius: 12px;
-            background: var(--purple-dim);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem;
-            color: var(--purple);
-            flex-shrink: 0;
-        }
-
-        .fs-learning-text h4 {
-            font-family: var(--font-head);
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .fs-learning-text p {
-            font-size: 0.83rem;
-            color: var(--text-mid);
-        }
-
+        .fs-learning-banner { background: linear-gradient(135deg, rgba(167,139,250,0.06), rgba(14,165,233,0.06)); border: 1px solid rgba(167,139,250,0.2); border-radius: 14px; padding: 22px 26px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .fs-learning-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--purple-dim); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--purple); flex-shrink: 0; }
+        .fs-learning-text h4 { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+        .fs-learning-text p { font-size: 0.83rem; color: var(--text-mid); }
         .fs-learning-text p b { color: var(--purple); }
 
-        /* ═══════════════════════════════
-           MOBILE
-        ═══════════════════════════════ */
-        .content::-webkit-scrollbar { width: 3px; }
-        .content::-webkit-scrollbar-track { background: transparent; }
-        .content::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+        /* ── CONTATO ── */
+        .contact-card { display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 40px 28px; transition: var(--transition); text-decoration: none; color: inherit; cursor: pointer; }
+        .contact-card:hover { transform: translateY(-5px); }
+        .contact-card.whatsapp:hover { border-color: rgba(37, 211, 102, 0.4); box-shadow: 0 16px 48px rgba(37, 211, 102, 0.1); }
+        .contact-card.email:hover { border-color: var(--border-accent); box-shadow: 0 16px 48px rgba(14, 165, 233, 0.1); }
+        .contact-icon { width: 70px; height: 70px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 20px; transition: var(--transition); }
+        .contact-icon.wa { background: rgba(37, 211, 102, 0.1); color: #25d366; }
+        .contact-card.whatsapp:hover .contact-icon.wa { background: rgba(37, 211, 102, 0.18); transform: scale(1.08); }
+        .contact-icon.em { background: var(--primary-dim); color: var(--primary); }
+        .contact-card.email:hover .contact-icon.em { background: rgba(14, 165, 233, 0.18); transform: scale(1.08); }
+        .contact-card h3 { font-family: var(--font-head); font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+        .contact-card p { font-size: 0.88rem; color: var(--text-dim); }
 
+        /* ══════════════════════════════════════
+           DEVOS PAGE — SISTEMA INTEGRADO
+        ══════════════════════════════════════ */
+        #devos {
+            padding: 0 !important;
+            min-height: 100vh;
+            background: #080c14;
+            display: none;
+            flex-direction: column;
+        }
+        #devos.active-page {
+            display: flex !important;
+        }
+
+        /* DevOS Topbar */
+        .dos-topbar {
+            height: 40px;
+            background: rgba(8,12,20,0.98);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; padding: 0 1rem; gap: 1rem;
+            flex-shrink: 0; z-index: 10;
+        }
+        .dos-logo { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #00f5a0; letter-spacing: -0.5px; }
+        .dos-nav { display: flex; gap: 3px; flex: 1; }
+        .dos-btn {
+            padding: 3px 11px; font-size: 0.6rem; font-family: var(--font-mono);
+            background: transparent; border: 1px solid transparent; border-radius: 5px;
+            color: #6b7385; cursor: pointer; transition: all 0.15s; letter-spacing: 0.5px;
+        }
+        .dos-btn:hover { color: #f0f6ff; background: rgba(255,255,255,0.04); }
+        .dos-btn.dos-active { color: #00f5a0; border-color: rgba(0,245,160,0.2); background: rgba(0,245,160,0.05); }
+        .dos-topbar-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+        .dos-status { width: 6px; height: 6px; border-radius: 50%; background: #00f5a0; animation: pulse-dot 2s infinite; }
+        .dos-clock { font-family: var(--font-mono); font-size: 0.6rem; color: #6b7385; }
+
+        /* DevOS Body */
+        .dos-body { flex: 1; display: flex; overflow: hidden; }
+
+        /* DevOS Sidebar */
+        .dos-sidebar {
+            width: 190px; background: rgba(8,12,20,0.95); border-right: 1px solid rgba(255,255,255,0.05);
+            display: flex; flex-direction: column; flex-shrink: 0;
+        }
+        .dos-sidebar-section { padding: 0.85rem 0.65rem 0.4rem; }
+        .dos-sidebar-label { font-family: var(--font-mono); font-size: 0.52rem; color: #6b7385; letter-spacing: 2px; margin-bottom: 0.4rem; }
+        .dos-sidebar-item {
+            display: flex; align-items: center; gap: 7px; padding: 5px 7px; border-radius: 6px;
+            font-family: var(--font-mono); font-size: 0.6rem; color: #6b7385; cursor: pointer;
+            transition: all 0.15s; border: 1px solid transparent; margin-bottom: 1px;
+        }
+        .dos-sidebar-item:hover { color: #f0f6ff; background: rgba(255,255,255,0.03); }
+        .dos-sidebar-item.dos-si-active { color: #00f5a0; background: rgba(0,245,160,0.05); border-color: rgba(0,245,160,0.12); }
+        .dos-si-icon { width: 14px; text-align: center; font-size: 0.65rem; }
+        .dos-si-badge { margin-left: auto; font-size: 0.5rem; background: #f72585; color: #fff; padding: 1px 4px; border-radius: 6px; }
+        .dos-sidebar-status { margin-top: auto; padding: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); }
+        .dos-status-line { font-family: var(--font-mono); font-size: 0.55rem; color: #6b7385; margin-bottom: 2px; }
+        .dos-status-line.on { color: #00f5a0; }
+
+        /* DevOS Panels */
+        .dos-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+        .dos-panel { flex: 1; overflow: hidden; display: none; }
+        .dos-panel.dos-panel-active { display: flex; flex-direction: column; }
+        .dos-panel-inner { flex: 1; overflow-y: auto; padding: 1.1rem 1.2rem; }
+        .dos-panel-inner::-webkit-scrollbar { width: 3px; }
+        .dos-panel-inner::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 2px; }
+
+        /* DevOS Panel Header */
+        .dos-panel-title { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: #f0f6ff; }
+        .dos-panel-sub { font-family: var(--font-mono); font-size: 0.58rem; color: #6b7385; margin-top: 2px; }
+        .dos-panel-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* DevOS Stat Cards */
+        .dos-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1rem; }
+        .dos-stat-card { background: rgba(13,21,37,0.7); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 0.85rem; position: relative; overflow: hidden; }
+        .dos-stat-card::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+        .dos-stat-card.c-green::after { background: #00f5a0; }
+        .dos-stat-card.c-blue::after { background: #00b4d8; }
+        .dos-stat-card.c-red::after { background: #f72585; }
+        .dos-stat-card.c-yellow::after { background: #ffd60a; }
+        .dos-stat-label { font-family: var(--font-mono); font-size: 0.52rem; color: #6b7385; letter-spacing: 1px; margin-bottom: 5px; }
+        .dos-stat-value { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; }
+        .dos-stat-card.c-green .dos-stat-value { color: #00f5a0; }
+        .dos-stat-card.c-blue .dos-stat-value { color: #00b4d8; }
+        .dos-stat-card.c-red .dos-stat-value { color: #f72585; }
+        .dos-stat-card.c-yellow .dos-stat-value { color: #ffd60a; }
+        .dos-stat-delta { font-family: var(--font-mono); font-size: 0.52rem; color: #6b7385; margin-top: 3px; }
+
+        /* DevOS Two-col layout */
+        .dos-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        /* DevOS Skills section */
+        .dos-section { background: rgba(13,21,37,0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 0.85rem; }
+        .dos-section-title { font-family: var(--font-mono); font-size: 0.58rem; color: #6b7385; letter-spacing: 1.5px; margin-bottom: 0.75rem; text-transform: uppercase; }
+        .dos-skill-row { margin-bottom: 8px; }
+        .dos-skill-top { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.58rem; margin-bottom: 3px; color: #94a3b8; }
+        .dos-skill-pct { color: #6b7385; }
+        .dos-skill-bar { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+        .dos-skill-fill { height: 100%; border-radius: 2px; transition: width 1.5s cubic-bezier(0.25,1,0.5,1); }
+
+        /* DevOS Activity Feed */
+        .dos-feed-item { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: flex-start; }
+        .dos-feed-item:last-child { border-bottom: none; }
+        .dos-feed-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+        .dos-feed-text { font-family: var(--font-mono); font-size: 0.58rem; color: #94a3b8; line-height: 1.5; }
+        .dos-feed-time { font-family: var(--font-mono); font-size: 0.52rem; color: #6b7385; }
+
+        /* DevOS Terminal */
+        .dos-terminal-wrap { background: #050810; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+        .dos-term-bar { background: rgba(13,21,37,0.8); padding: 6px 10px; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dos-tbar-dot { width: 9px; height: 9px; border-radius: 50%; }
+        .dos-tbar-dot.r { background: #ff5f57; } .dos-tbar-dot.y { background: #ffbd2e; } .dos-tbar-dot.g { background: #28ca41; }
+        .dos-term-title { font-family: var(--font-mono); font-size: 0.58rem; color: #6b7385; margin-left: 4px; }
+        .dos-term-output { flex: 1; padding: 0.85rem; overflow-y: auto; font-size: 0.65rem; line-height: 1.8; }
+        .dos-term-output::-webkit-scrollbar { width: 2px; }
+        .dos-term-output::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); }
+        .t-prompt { color: #00f5a0; font-family: var(--font-mono); }
+        .t-cmd { color: #f0f6ff; font-family: var(--font-mono); }
+        .t-out { color: #6b7385; font-family: var(--font-mono); }
+        .t-success { color: #00f5a0; font-family: var(--font-mono); }
+        .t-err { color: #f72585; font-family: var(--font-mono); }
+        .t-info { color: #00b4d8; font-family: var(--font-mono); }
+        .dos-term-input-row { display: flex; align-items: center; gap: 6px; padding: 6px 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); background: #050810; }
+        .dos-term-prompt { color: #00f5a0; font-family: var(--font-mono); font-size: 0.65rem; }
+        .dos-term-input { flex: 1; background: transparent; border: none; outline: none; color: #f0f6ff; font-family: var(--font-mono); font-size: 0.65rem; caret-color: #00f5a0; }
+
+        /* DevOS Kanban */
+        .dos-kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 100%; }
+        .dos-kol { background: rgba(13,21,37,0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 0.65rem; display: flex; flex-direction: column; }
+        .dos-kol-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem; }
+        .dos-kol-title { font-family: var(--font-mono); font-size: 0.58rem; font-weight: 500; letter-spacing: 1px; }
+        .dos-kol-count { font-family: var(--font-mono); font-size: 0.55rem; background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 6px; color: #6b7385; }
+        .dos-kcards { flex: 1; display: flex; flex-direction: column; gap: 6px; min-height: 40px; }
+        .dos-kcard { background: rgba(8,12,20,0.8); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 8px 10px; cursor: grab; transition: all 0.15s; }
+        .dos-kcard:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-1px); }
+        .dos-kcard.dragging { opacity: 0.3; }
+        .dos-kcard-title { font-family: var(--font-mono); font-size: 0.58rem; color: #f0f6ff; font-weight: 500; margin-bottom: 5px; line-height: 1.4; }
+        .dos-kcard-meta { display: flex; align-items: center; gap: 5px; }
+        .dos-ktag { font-family: var(--font-mono); font-size: 0.5rem; padding: 1px 5px; border-radius: 3px; }
+        .dos-ktag.fe { background: rgba(0,180,216,0.1); color: #00b4d8; }
+        .dos-ktag.be { background: rgba(0,245,160,0.1); color: #00f5a0; }
+        .dos-ktag.bg { background: rgba(247,37,133,0.1); color: #f72585; }
+        .dos-ktag.dv { background: rgba(255,214,10,0.1); color: #ffd60a; }
+        .dos-kpri { margin-left: auto; font-family: var(--font-mono); font-size: 0.5rem; color: #6b7385; }
+        .dos-kadd { margin-top: 6px; padding: 5px; border: 1px dashed rgba(255,255,255,0.07); border-radius: 5px; font-family: var(--font-mono); font-size: 0.55rem; color: #6b7385; text-align: center; cursor: pointer; transition: all 0.15s; }
+        .dos-kadd:hover { border-color: #00f5a0; color: #00f5a0; }
+
+        /* DevOS AI Chat */
+        .dos-ai-wrap { display: flex; flex-direction: column; height: 100%; }
+        .dos-chat-header { padding: 0.85rem 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05); flex-shrink: 0; }
+        .dos-chat-msgs { flex: 1; overflow-y: auto; padding: 0.85rem 1.1rem; display: flex; flex-direction: column; gap: 10px; }
+        .dos-chat-msgs::-webkit-scrollbar { width: 2px; }
+        .dos-chat-msgs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); }
+        .dos-msg { display: flex; gap: 8px; align-items: flex-start; max-width: 82%; }
+        .dos-msg.dos-user { flex-direction: row-reverse; align-self: flex-end; }
+        .dos-msg-av { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.55rem; flex-shrink: 0; }
+        .dos-msg.dos-ai .dos-msg-av { background: rgba(0,245,160,0.08); color: #00f5a0; border: 1px solid rgba(0,245,160,0.15); }
+        .dos-msg.dos-user .dos-msg-av { background: rgba(0,180,216,0.08); color: #00b4d8; border: 1px solid rgba(0,180,216,0.15); }
+        .dos-msg-bubble { padding: 8px 12px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.6rem; line-height: 1.6; }
+        .dos-msg.dos-ai .dos-msg-bubble { background: rgba(13,21,37,0.8); border: 1px solid rgba(255,255,255,0.07); color: #94a3b8; }
+        .dos-msg.dos-user .dos-msg-bubble { background: rgba(0,180,216,0.07); border: 1px solid rgba(0,180,216,0.15); color: #f0f6ff; }
+        .dos-msg-time { font-family: var(--font-mono); font-size: 0.5rem; color: #6b7385; margin-top: 3px; display: block; }
+        .dos-chat-input-area { padding: 0.75rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 6px; flex-shrink: 0; }
+        .dos-chat-in { flex: 1; background: rgba(13,21,37,0.8); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; padding: 7px 10px; color: #f0f6ff; font-family: var(--font-mono); font-size: 0.6rem; outline: none; resize: none; }
+        .dos-chat-in:focus { border-color: rgba(0,180,216,0.3); }
+        .dos-chat-send { background: rgba(0,180,216,0.08); border: 1px solid rgba(0,180,216,0.25); color: #00b4d8; border-radius: 6px; padding: 7px 14px; font-family: var(--font-mono); font-size: 0.6rem; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+        .dos-chat-send:hover { background: rgba(0,180,216,0.15); }
+        .dos-chat-send:disabled { opacity: 0.35; cursor: not-allowed; }
+        .dos-typing { display: flex; gap: 3px; padding: 8px 12px; }
+        .dos-typing-dot { width: 5px; height: 5px; border-radius: 50%; background: #6b7385; animation: typingB 1.2s infinite; }
+        .dos-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .dos-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingB { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+        /* DevOS Projects */
+        .dos-proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+        .dos-proj-card { background: rgba(13,21,37,0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 1rem; transition: all 0.15s; cursor: pointer; }
+        .dos-proj-card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .dos-proj-title { font-family: var(--font-head); font-size: 0.82rem; font-weight: 700; color: #f0f6ff; margin-bottom: 5px; }
+        .dos-proj-desc { font-family: var(--font-mono); font-size: 0.57rem; color: #6b7385; line-height: 1.55; margin-bottom: 8px; }
+        .dos-proj-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
+        .dos-proj-tag { font-family: var(--font-mono); font-size: 0.5rem; padding: 2px 6px; border-radius: 3px; }
+        .dos-proj-footer { display: flex; align-items: center; justify-content: space-between; }
+        .dos-proj-stars { font-family: var(--font-mono); font-size: 0.55rem; color: #ffd60a; }
+        .dos-proj-lang { font-family: var(--font-mono); font-size: 0.52rem; color: #6b7385; }
+        .dos-proj-live { font-family: var(--font-mono); font-size: 0.52rem; color: #00f5a0; border: 1px solid rgba(0,245,160,0.2); padding: 1px 5px; border-radius: 3px; }
+
+        /* DevOS exit button */
+        .dos-exit-btn {
+            background: transparent; border: 1px solid rgba(255,255,255,0.08); border-radius: 5px;
+            color: #6b7385; font-family: var(--font-mono); font-size: 0.6rem;
+            padding: 3px 10px; cursor: pointer; transition: all 0.15s;
+        }
+        .dos-exit-btn:hover { color: #f0f6ff; border-color: rgba(255,255,255,0.15); }
+
+        /* ── MOBILE ── */
         @media (max-width: 640px) {
             body { flex-direction: column; height: 100dvh; overflow: hidden; }
-
-            .sidebar {
-                width: 100%;
-                height: auto;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-                position: sticky;
-                top: 0;
-                background: rgba(6, 10, 18, 0.96);
-                backdrop-filter: blur(20px);
-            }
-
+            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(6, 10, 18, 0.96); backdrop-filter: blur(20px); }
             .sidebar-inner { padding: 12px 16px; overflow-y: visible; }
             .profile { display: none; }
-
-            .nav {
-                flex-direction: row;
-                overflow-x: auto;
-                gap: 4px;
-                padding-bottom: 2px;
-                scrollbar-width: none;
-            }
-
+            .nav { flex-direction: row; overflow-x: auto; gap: 4px; padding-bottom: 2px; scrollbar-width: none; }
             .nav::-webkit-scrollbar { display: none; }
-
-            .nav-item {
-                white-space: nowrap;
-                font-size: 0.82rem;
-                padding: 9px 13px;
-                border-radius: 8px;
-            }
-
-            .nav-indicator { display: none; }
-            .nav-new { display: none; }
+            .nav-item { white-space: nowrap; font-size: 0.82rem; padding: 9px 13px; border-radius: 8px; }
+            .nav-indicator, .nav-new { display: none; }
             .sidebar-footer { display: none; }
-
             .content { flex: 1; overflow-y: auto; overflow-x: hidden; }
             .page { padding: 24px 20px; min-height: auto; }
             .hero-card { padding: 32px 24px; }
@@ -1097,12 +586,17 @@
             .fs-hero { padding: 28px 22px; }
             .arch-flow { gap: 8px; }
             .arch-arrow { display: none; }
+            .dos-cards-grid { grid-template-columns: repeat(2, 1fr); }
+            .dos-two-col { grid-template-columns: 1fr; }
+            .dos-kanban { grid-template-columns: 1fr; }
+            .dos-sidebar { display: none; }
         }
 
         @media (min-width: 641px) and (max-width: 900px) {
             .page { padding: 36px 32px; }
             .hero-title { font-size: 2.5rem; }
             .page-title { font-size: 2.1rem; }
+            .dos-cards-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -1117,7 +611,6 @@
     <!-- SIDEBAR -->
     <nav class="sidebar">
         <div class="sidebar-inner">
-
             <div class="profile">
                 <div class="avatar-wrap">
                     <div class="avatar-ring"></div>
@@ -1160,6 +653,11 @@
                     Full Stack
                     <span class="nav-new">Novo</span>
                 </li>
+                <li class="nav-item devos-nav" data-target="devos">
+                    <span class="nav-icon"><i class="fas fa-terminal"></i></span>
+                    DevOS
+                    <span class="nav-new green-badge">OS</span>
+                </li>
                 <li class="nav-item" data-target="contato">
                     <span class="nav-icon"><i class="fas fa-satellite-dish"></i></span>
                     Contato
@@ -1168,7 +666,6 @@
             </ul>
 
             <div class="sidebar-footer">© 2026 Samuel Jacomo</div>
-
         </div>
     </nav>
 
@@ -1177,7 +674,6 @@
 
         <!-- ──── HOME ──── -->
         <section id="home" class="page active-page">
-
             <div class="hero-card">
                 <span class="hero-badge"><i class="fas fa-circle-dot"></i> Portfólio 2026</span>
                 <h1 class="hero-title">
@@ -1192,8 +688,8 @@
                     <a href="#" class="btn btn-primary" onclick="goTo('contato'); return false;">
                         <i class="fas fa-satellite-dish"></i> Entre em contato
                     </a>
-                    <a href="#" class="btn btn-outline" onclick="goTo('competencias'); return false;">
-                        <i class="fas fa-microchip"></i> Ver skills
+                    <a href="#" class="btn btn-outline" onclick="goTo('devos'); return false;">
+                        <i class="fas fa-terminal"></i> Abrir DevOS
                     </a>
                 </div>
             </div>
@@ -1219,8 +715,12 @@
                     <h3>Full Stack</h3>
                     <p>CRM com Node.js + MySQL. Backend, APIs REST e banco de dados.</p>
                 </div>
+                <div class="feature-card" style="cursor:pointer;" onclick="goTo('devos')">
+                    <div class="feature-icon devos"><i class="fas fa-terminal"></i></div>
+                    <h3>DevOS</h3>
+                    <p>Sistema interativo com terminal, kanban, AI chat e dashboard ao vivo.</p>
+                </div>
             </div>
-
         </section>
 
         <!-- ──── SOBRE ──── -->
@@ -1230,34 +730,17 @@
                 <h2 class="page-title">Perfil Profissional</h2>
                 <p class="page-desc">Especialista em TI com visão full-stack de infraestrutura.</p>
             </div>
-
             <div class="card">
                 <p class="about-intro">
                     Sou <b>Samuel Jacomo</b>, profissional de TI com sólida experiência em <b>infraestrutura física</b> e <b>desenvolvimento de software</b>.
                     Atuo na interseção entre hardware e código — diagnosticando, automatizando e construindo soluções que funcionam de verdade.
                 </p>
-
                 <div class="highlight-list">
-                    <div class="highlight-item">
-                        <div class="hi-dot"></div>
-                        <p><b>Desenvolvimento Web:</b> JavaScript ES6+, CSS avançado e HTML semântico. Interfaces funcionais e otimizadas.</p>
-                    </div>
-                    <div class="highlight-item">
-                        <div class="hi-dot"></div>
-                        <p><b>Infra & Hardware:</b> Servidores Windows/Linux, Active Directory, roteadores Cisco e redes estruturadas.</p>
-                    </div>
-                    <div class="highlight-item">
-                        <div class="hi-dot"></div>
-                        <p><b>Automação:</b> Python para processos repetitivos, scripts de monitoramento e integrações.</p>
-                    </div>
-                    <div class="highlight-item">
-                        <div class="hi-dot"></div>
-                        <p><b>Full Stack:</b> Node.js + MySQL para aplicações completas, como o CRM desenvolvido com XAMPP.</p>
-                    </div>
-                    <div class="highlight-item">
-                        <div class="hi-dot"></div>
-                        <p><b>Diferenciais:</b> Expertise em DVR/CFTV, PDV, Coletores de Dados e suporte N1-N2-N3.</p>
-                    </div>
+                    <div class="highlight-item"><div class="hi-dot"></div><p><b>Desenvolvimento Web:</b> JavaScript ES6+, CSS avançado e HTML semântico. Interfaces funcionais e otimizadas.</p></div>
+                    <div class="highlight-item"><div class="hi-dot"></div><p><b>Infra & Hardware:</b> Servidores Windows/Linux, Active Directory, roteadores Cisco e redes estruturadas.</p></div>
+                    <div class="highlight-item"><div class="hi-dot"></div><p><b>Automação:</b> Python para processos repetitivos, scripts de monitoramento e integrações.</p></div>
+                    <div class="highlight-item"><div class="hi-dot"></div><p><b>Full Stack:</b> Node.js + MySQL para aplicações completas, como o CRM desenvolvido com XAMPP.</p></div>
+                    <div class="highlight-item"><div class="hi-dot"></div><p><b>Diferenciais:</b> Expertise em DVR/CFTV, PDV, Coletores de Dados e suporte N1-N2-N3.</p></div>
                 </div>
             </div>
         </section>
@@ -1269,14 +752,10 @@
                 <h2 class="page-title">Experiência</h2>
                 <p class="page-desc">Minha atuação no mercado de trabalho.</p>
             </div>
-
             <div class="timeline">
                 <div class="timeline-card">
                     <div class="timeline-header">
-                        <div>
-                            <p class="timeline-title">Analista de TI</p>
-                            <p class="timeline-company">Serviços Prestados — Diversas Categorias</p>
-                        </div>
+                        <div><p class="timeline-title">Analista de TI</p><p class="timeline-company">Serviços Prestados — Diversas Categorias</p></div>
                         <span class="timeline-badge">● Atual</span>
                     </div>
                     <ul class="timeline-list">
@@ -1287,13 +766,9 @@
                         <li>Monitoramento de infraestrutura com Zabbix.</li>
                     </ul>
                 </div>
-
                 <div class="timeline-card">
                     <div class="timeline-header">
-                        <div>
-                            <p class="timeline-title">Consultor Técnico Autônomo</p>
-                            <p class="timeline-company">Pessoa Física</p>
-                        </div>
+                        <div><p class="timeline-title">Consultor Técnico Autônomo</p><p class="timeline-company">Pessoa Física</p></div>
                         <span class="timeline-badge">2021 – Presente</span>
                     </div>
                     <ul class="timeline-list">
@@ -1312,38 +787,17 @@
                 <h2 class="page-title">Formação</h2>
                 <p class="page-desc">Base acadêmica e especializações.</p>
             </div>
-
             <div class="grid-2">
                 <div class="edu-card" style="border-color: rgba(14,165,233,0.3);">
                     <p class="edu-inst" style="color: var(--accent);">MIT</p>
                     <p style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 8px;">Massachusetts Institute of Technology</p>
                     <p class="edu-degree">Tecnologia da Informação</p>
                     <span class="edu-period">2021 – 2022</span>
-                    <div class="edu-highlight">
-                        <div class="tags">
-                            <span class="tag">Gestão de Projetos (2025)</span>
-                            <span class="tag">Circuitos Integrados (2025)</span>
-                        </div>
-                    </div>
+                    <div class="edu-highlight"><div class="tags"><span class="tag">Gestão de Projetos (2025)</span><span class="tag">Circuitos Integrados (2025)</span></div></div>
                 </div>
-
-                <div class="edu-card">
-                    <p class="edu-inst">Centro Universitário Eniac</p>
-                    <p class="edu-degree">Manutenção e Suporte em Informática</p>
-                    <span class="edu-period">2023 – 2028</span>
-                </div>
-
-                <div class="edu-card">
-                    <p class="edu-inst">Fundação Bradesco</p>
-                    <p class="edu-degree">Técnico Integrado em TI</p>
-                    <span class="edu-period">Concluído em 2024</span>
-                </div>
-
-                <div class="edu-card">
-                    <p class="edu-inst">Udemy</p>
-                    <p class="edu-degree">Redes Cisco & Infraestrutura</p>
-                    <span class="edu-period">Certificação Profissional</span>
-                </div>
+                <div class="edu-card"><p class="edu-inst">Centro Universitário Eniac</p><p class="edu-degree">Manutenção e Suporte em Informática</p><span class="edu-period">2023 – 2028</span></div>
+                <div class="edu-card"><p class="edu-inst">Fundação Bradesco</p><p class="edu-degree">Técnico Integrado em TI</p><span class="edu-period">Concluído em 2024</span></div>
+                <div class="edu-card"><p class="edu-inst">Udemy</p><p class="edu-degree">Redes Cisco & Infraestrutura</p><span class="edu-period">Certificação Profissional</span></div>
             </div>
         </section>
 
@@ -1354,48 +808,18 @@
                 <h2 class="page-title">Competências</h2>
                 <p class="page-desc">Tecnologias e ferramentas dominadas.</p>
             </div>
-
             <div style="display: flex; flex-direction: column; gap: 16px;">
                 <div class="card skill-group">
                     <p class="skill-group-title"><i class="fas fa-server" style="margin-right:8px;"></i>Infraestrutura & Redes</p>
-                    <div class="tags">
-                        <span class="tag">Hardware Avançado</span>
-                        <span class="tag">Active Directory</span>
-                        <span class="tag">Zabbix</span>
-                        <span class="tag">Redes Estruturadas</span>
-                        <span class="tag">Cisco Networking</span>
-                        <span class="tag">DVR / CFTV</span>
-                        <span class="tag">PDV</span>
-                        <span class="tag">Coletores de Dados</span>
-                        <span class="tag">Manutenção Preventiva</span>
-                        <span class="tag">Suporte N1 N2 N3</span>
-                    </div>
+                    <div class="tags"><span class="tag">Hardware Avançado</span><span class="tag">Active Directory</span><span class="tag">Zabbix</span><span class="tag">Redes Estruturadas</span><span class="tag">Cisco Networking</span><span class="tag">DVR / CFTV</span><span class="tag">PDV</span><span class="tag">Coletores de Dados</span><span class="tag">Manutenção Preventiva</span><span class="tag">Suporte N1 N2 N3</span></div>
                 </div>
-
                 <div class="card skill-group">
                     <p class="skill-group-title" style="color: var(--accent2);"><i class="fas fa-code" style="margin-right:8px;"></i>Desenvolvimento & DevOps</p>
-                    <div class="tags">
-                        <span class="tag">JavaScript ES6+</span>
-                        <span class="tag">HTML5 & CSS3</span>
-                        <span class="tag">Python Automation</span>
-                        <span class="tag">Node.js</span>
-                        <span class="tag">Docker</span>
-                        <span class="tag">Kubernetes</span>
-                        <span class="tag">MySQL / SQL</span>
-                        <span class="tag">Git & GitHub</span>
-                        <span class="tag">Linux (Ubuntu/Debian)</span>
-                        <span class="tag">REST APIs</span>
-                    </div>
+                    <div class="tags"><span class="tag">JavaScript ES6+</span><span class="tag">HTML5 & CSS3</span><span class="tag">Python Automation</span><span class="tag">Node.js</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">MySQL / SQL</span><span class="tag">Git & GitHub</span><span class="tag">Linux (Ubuntu/Debian)</span><span class="tag">REST APIs</span></div>
                 </div>
-
                 <div class="card skill-group">
                     <p class="skill-group-title" style="color: var(--green);"><i class="fas fa-shield-halved" style="margin-right:8px;"></i>Segurança & Monitoramento</p>
-                    <div class="tags">
-                        <span class="tag">Backup & Recovery</span>
-                        <span class="tag">Segurança Patrimonial</span>
-                        <span class="tag">Análise de Logs</span>
-                        <span class="tag">Firewall</span>
-                    </div>
+                    <div class="tags"><span class="tag">Backup & Recovery</span><span class="tag">Segurança Patrimonial</span><span class="tag">Análise de Logs</span><span class="tag">Firewall</span></div>
                 </div>
             </div>
         </section>
@@ -1407,22 +831,15 @@
                 <h2 class="page-title"><span class="gradient-fs">Full Stack</span></h2>
                 <p class="page-desc">Projetos e tecnologias de desenvolvimento completo, do banco ao browser.</p>
             </div>
-
-            <!-- Banner do projeto CRM -->
             <div class="fs-hero">
                 <div class="fs-hero-top">
                     <div>
                         <span class="fs-project-badge"><i class="fas fa-layer-group"></i> Projeto Real</span>
                         <h3>CRM — Sistema de Gestão de Clientes</h3>
-                        <p>
-                            Sistema completo de CRM desenvolvido do zero com <b style="color:var(--green)">Node.js</b> no backend,
-                            <b style="color:var(--accent)">MySQL</b> como banco de dados e ambiente local via <b style="color:var(--orange)">XAMPP</b>.
-                            Projeto que marca minha entrada prática no desenvolvimento Full Stack.
-                        </p>
+                        <p>Sistema completo de CRM desenvolvido do zero com <b style="color:var(--green)">Node.js</b> no backend, <b style="color:var(--accent)">MySQL</b> como banco de dados e ambiente local via <b style="color:var(--orange)">XAMPP</b>.</p>
                     </div>
                     <span class="fs-status-badge">Concluído</span>
                 </div>
-
                 <div class="fs-stack">
                     <span class="fs-pill pill-node"><i class="fab fa-node-js"></i> Node.js</span>
                     <span class="fs-pill pill-mysql"><i class="fas fa-database"></i> MySQL</span>
@@ -1434,133 +851,173 @@
                     <span class="fs-pill pill-git"><i class="fab fa-git-alt"></i> Git</span>
                 </div>
             </div>
-
-            <!-- Arquitetura do projeto -->
             <div class="fs-arch">
-                <p class="fs-arch-title">
-                    <i class="fas fa-diagram-project"></i>
-                    Arquitetura do Sistema
-                </p>
+                <p class="fs-arch-title"><i class="fas fa-diagram-project"></i> Arquitetura do Sistema</p>
                 <div class="arch-flow">
-                    <div class="arch-node frontend">
-                        <div class="arch-icon" style="background:rgba(250,204,21,0.1); color:#facc15;">
-                            <i class="fas fa-display"></i>
-                        </div>
-                        <span class="arch-label" style="color:#facc15;">Frontend</span>
-                        <span class="arch-sub">HTML / CSS / JS</span>
-                    </div>
+                    <div class="arch-node frontend"><div class="arch-icon" style="background:rgba(250,204,21,0.1); color:#facc15;"><i class="fas fa-display"></i></div><span class="arch-label" style="color:#facc15;">Frontend</span><span class="arch-sub">HTML / CSS / JS</span></div>
                     <span class="arch-arrow">→</span>
-                    <div class="arch-node backend">
-                        <div class="arch-icon" style="background:rgba(74,222,128,0.1); color:var(--green);">
-                            <i class="fab fa-node-js"></i>
-                        </div>
-                        <span class="arch-label" style="color:var(--green);">Backend</span>
-                        <span class="arch-sub">Node.js / Express</span>
-                    </div>
+                    <div class="arch-node backend"><div class="arch-icon" style="background:rgba(74,222,128,0.1); color:var(--green);"><i class="fab fa-node-js"></i></div><span class="arch-label" style="color:var(--green);">Backend</span><span class="arch-sub">Node.js / Express</span></div>
                     <span class="arch-arrow">→</span>
-                    <div class="arch-node db">
-                        <div class="arch-icon" style="background:rgba(56,189,248,0.1); color:var(--accent);">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <span class="arch-label" style="color:var(--accent);">Banco</span>
-                        <span class="arch-sub">MySQL</span>
-                    </div>
+                    <div class="arch-node db"><div class="arch-icon" style="background:rgba(56,189,248,0.1); color:var(--accent);"><i class="fas fa-database"></i></div><span class="arch-label" style="color:var(--accent);">Banco</span><span class="arch-sub">MySQL</span></div>
                     <span class="arch-arrow">←→</span>
-                    <div class="arch-node server">
-                        <div class="arch-icon" style="background:rgba(251,146,60,0.1); color:var(--orange);">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <span class="arch-label" style="color:var(--orange);">Servidor</span>
-                        <span class="arch-sub">XAMPP / Apache</span>
-                    </div>
+                    <div class="arch-node server"><div class="arch-icon" style="background:rgba(251,146,60,0.1); color:var(--orange);"><i class="fas fa-server"></i></div><span class="arch-label" style="color:var(--orange);">Servidor</span><span class="arch-sub">XAMPP / Apache</span></div>
                 </div>
             </div>
-
-            <!-- Cards de skills Full Stack -->
             <div class="grid-2">
-                <div class="fs-skill-card backend">
-                    <div class="fs-card-head">
-                        <div class="fs-card-icon green"><i class="fab fa-node-js"></i></div>
-                        <div>
-                            <p class="fs-card-title">Backend — Node.js</p>
-                            <p class="fs-card-sub">Servidor, lógica e APIs</p>
-                        </div>
-                    </div>
-                    <div class="fs-tags">
-                        <span class="fs-tag green">Node.js</span>
-                        <span class="fs-tag green">Express.js</span>
-                        <span class="fs-tag green">REST API</span>
-                        <span class="fs-tag green">Rotas HTTP</span>
-                        <span class="fs-tag green">Middlewares</span>
-                        <span class="fs-tag green">npm</span>
-                    </div>
-                </div>
-
-                <div class="fs-skill-card db">
-                    <div class="fs-card-head">
-                        <div class="fs-card-icon blue"><i class="fas fa-database"></i></div>
-                        <div>
-                            <p class="fs-card-title">Banco de Dados — MySQL</p>
-                            <p class="fs-card-sub">Modelagem e consultas SQL</p>
-                        </div>
-                    </div>
-                    <div class="fs-tags">
-                        <span class="fs-tag blue">MySQL</span>
-                        <span class="fs-tag blue">SQL Queries</span>
-                        <span class="fs-tag blue">CRUD</span>
-                        <span class="fs-tag blue">Relacionamentos</span>
-                        <span class="fs-tag blue">phpMyAdmin</span>
-                        <span class="fs-tag blue">XAMPP</span>
-                    </div>
-                </div>
-
-                <div class="fs-skill-card frontend">
-                    <div class="fs-card-head">
-                        <div class="fs-card-icon yellow"><i class="fas fa-code"></i></div>
-                        <div>
-                            <p class="fs-card-title">Frontend — Web</p>
-                            <p class="fs-card-sub">Interface e experiência do usuário</p>
-                        </div>
-                    </div>
-                    <div class="fs-tags">
-                        <span class="fs-tag yellow">HTML5</span>
-                        <span class="fs-tag yellow">CSS3</span>
-                        <span class="fs-tag yellow">JavaScript ES6+</span>
-                        <span class="fs-tag yellow">DOM Manipulation</span>
-                        <span class="fs-tag yellow">Fetch API</span>
-                    </div>
-                </div>
-
-                <div class="fs-skill-card devops">
-                    <div class="fs-card-head">
-                        <div class="fs-card-icon purple"><i class="fas fa-terminal"></i></div>
-                        <div>
-                            <p class="fs-card-title">Ambiente & Ferramentas</p>
-                            <p class="fs-card-sub">Infraestrutura de desenvolvimento</p>
-                        </div>
-                    </div>
-                    <div class="fs-tags">
-                        <span class="fs-tag purple">XAMPP</span>
-                        <span class="fs-tag purple">Apache</span>
-                        <span class="fs-tag purple">Git</span>
-                        <span class="fs-tag purple">VS Code</span>
-                        <span class="fs-tag purple">Postman</span>
-                        <span class="fs-tag purple">Linux</span>
-                    </div>
-                </div>
+                <div class="fs-skill-card backend"><div class="fs-card-head"><div class="fs-card-icon green"><i class="fab fa-node-js"></i></div><div><p class="fs-card-title">Backend — Node.js</p><p class="fs-card-sub">Servidor, lógica e APIs</p></div></div><div class="fs-tags"><span class="fs-tag green">Node.js</span><span class="fs-tag green">Express.js</span><span class="fs-tag green">REST API</span><span class="fs-tag green">Rotas HTTP</span><span class="fs-tag green">Middlewares</span><span class="fs-tag green">npm</span></div></div>
+                <div class="fs-skill-card db"><div class="fs-card-head"><div class="fs-card-icon blue"><i class="fas fa-database"></i></div><div><p class="fs-card-title">Banco de Dados — MySQL</p><p class="fs-card-sub">Modelagem e consultas SQL</p></div></div><div class="fs-tags"><span class="fs-tag blue">MySQL</span><span class="fs-tag blue">SQL Queries</span><span class="fs-tag blue">CRUD</span><span class="fs-tag blue">Relacionamentos</span><span class="fs-tag blue">phpMyAdmin</span><span class="fs-tag blue">XAMPP</span></div></div>
+                <div class="fs-skill-card frontend"><div class="fs-card-head"><div class="fs-card-icon yellow"><i class="fas fa-code"></i></div><div><p class="fs-card-title">Frontend — Web</p><p class="fs-card-sub">Interface e experiência do usuário</p></div></div><div class="fs-tags"><span class="fs-tag yellow">HTML5</span><span class="fs-tag yellow">CSS3</span><span class="fs-tag yellow">JavaScript ES6+</span><span class="fs-tag yellow">DOM Manipulation</span><span class="fs-tag yellow">Fetch API</span></div></div>
+                <div class="fs-skill-card devops"><div class="fs-card-head"><div class="fs-card-icon purple"><i class="fas fa-terminal"></i></div><div><p class="fs-card-title">Ambiente & Ferramentas</p><p class="fs-card-sub">Infraestrutura de desenvolvimento</p></div></div><div class="fs-tags"><span class="fs-tag purple">XAMPP</span><span class="fs-tag purple">Apache</span><span class="fs-tag purple">Git</span><span class="fs-tag purple">VS Code</span><span class="fs-tag purple">Postman</span><span class="fs-tag purple">Linux</span></div></div>
             </div>
-
-            <!-- Banner de aprendizado contínuo -->
             <div class="fs-learning-banner" style="margin-top: 16px;">
-                <div class="fs-learning-icon">
-                    <i class="fas fa-rocket"></i>
-                </div>
+                <div class="fs-learning-icon"><i class="fas fa-rocket"></i></div>
                 <div class="fs-learning-text">
                     <h4>Em constante evolução</h4>
-                    <p>Atualmente aprofundando conhecimentos em <b>Node.js</b>, <b>APIs REST</b> e <b>MySQL</b>. Próximos passos: autenticação JWT, deploy em nuvem e frameworks como React.</p>
+                    <p>Aprofundando em <b>Node.js</b>, <b>APIs REST</b> e <b>MySQL</b>. Próximos: autenticação JWT, deploy em nuvem e React.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ──── DEVOS ──── -->
+        <section id="devos" class="page">
+            <!-- DevOS Topbar -->
+            <div class="dos-topbar">
+                <div class="dos-logo">⬡ DevOS</div>
+                <div class="dos-nav">
+                    <button class="dos-btn dos-active" onclick="dosSwitch('dashboard', this)">Dashboard</button>
+                    <button class="dos-btn" onclick="dosSwitch('terminal', this)">Terminal</button>
+                    <button class="dos-btn" onclick="dosSwitch('kanban', this)">Kanban</button>
+                    <button class="dos-btn" onclick="dosSwitch('ai', this)">AI Chat</button>
+                    <button class="dos-btn" onclick="dosSwitch('projects', this)">Projetos</button>
+                </div>
+                <div class="dos-topbar-right">
+                    <div class="dos-status"></div>
+                    <div class="dos-clock" id="dos-clock">00:00:00</div>
+                    <button class="dos-exit-btn" onclick="goTo('home')">← Sair</button>
                 </div>
             </div>
 
+            <!-- DevOS Body -->
+            <div class="dos-body">
+                <!-- DevOS Sidebar -->
+                <div class="dos-sidebar">
+                    <div class="dos-sidebar-section">
+                        <div class="dos-sidebar-label">WORKSPACE</div>
+                        <div class="dos-sidebar-item dos-si-active" onclick="dosSwitch('dashboard', null)"><span class="dos-si-icon">◈</span> Overview</div>
+                        <div class="dos-sidebar-item" onclick="dosSwitch('projects', null)"><span class="dos-si-icon">◻</span> Projetos<span class="dos-si-badge">6</span></div>
+                        <div class="dos-sidebar-item" onclick="dosSwitch('kanban', null)"><span class="dos-si-icon">◧</span> Kanban</div>
+                    </div>
+                    <div class="dos-sidebar-section">
+                        <div class="dos-sidebar-label">TOOLS</div>
+                        <div class="dos-sidebar-item" onclick="dosSwitch('terminal', null)"><span class="dos-si-icon">$</span> Terminal</div>
+                        <div class="dos-sidebar-item" onclick="dosSwitch('ai', null)"><span class="dos-si-icon">◉</span> AI Chat<span class="dos-si-badge">AI</span></div>
+                    </div>
+                    <div class="dos-sidebar-status">
+                        <div class="dos-status-line on">● Online & Disponível</div>
+                        <div class="dos-status-line">Node.js · React · Python</div>
+                    </div>
+                </div>
+
+                <!-- DevOS Content Panels -->
+                <div class="dos-content">
+
+                    <!-- DASHBOARD -->
+                    <div class="dos-panel dos-panel-active" id="dos-panel-dashboard">
+                        <div class="dos-panel-inner">
+                            <div class="dos-panel-header">
+                                <div>
+                                    <div class="dos-panel-title">System Overview</div>
+                                    <div class="dos-panel-sub">samuel@devos:~$ status --all</div>
+                                </div>
+                            </div>
+                            <div class="dos-cards-grid">
+                                <div class="dos-stat-card c-green"><div class="dos-stat-label">PROJETOS</div><div class="dos-stat-value" id="dc-proj">0</div><div class="dos-stat-delta">↑ 2 este mês</div></div>
+                                <div class="dos-stat-card c-blue"><div class="dos-stat-label">COMMITS</div><div class="dos-stat-value" id="dc-commits">0</div><div class="dos-stat-delta">↑ 47 esta semana</div></div>
+                                <div class="dos-stat-card c-red"><div class="dos-stat-label">TASKS</div><div class="dos-stat-value" id="dc-tasks">0</div><div class="dos-stat-delta">3 em progresso</div></div>
+                                <div class="dos-stat-card c-yellow"><div class="dos-stat-label">UPTIME</div><div class="dos-stat-value" id="dc-uptime">0%</div><div class="dos-stat-delta">Último deploy: hoje</div></div>
+                            </div>
+                            <div class="dos-two-col">
+                                <div class="dos-section">
+                                    <div class="dos-section-title">HABILIDADES TÉCNICAS</div>
+                                    <div id="dos-skills"></div>
+                                </div>
+                                <div class="dos-section">
+                                    <div class="dos-section-title">ATIVIDADE RECENTE</div>
+                                    <div id="dos-activity"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TERMINAL -->
+                    <div class="dos-panel" id="dos-panel-terminal">
+                        <div class="dos-panel-inner" style="display:flex; flex-direction:column; height:100%;">
+                            <div class="dos-panel-header">
+                                <div><div class="dos-panel-title">Terminal</div><div class="dos-panel-sub">Digite <span style="color:#00f5a0">help</span> para ver os comandos</div></div>
+                            </div>
+                            <div class="dos-terminal-wrap">
+                                <div class="dos-term-bar">
+                                    <div class="dos-tbar-dot r"></div><div class="dos-tbar-dot y"></div><div class="dos-tbar-dot g"></div>
+                                    <span class="dos-term-title">samuel@portfolio: ~</span>
+                                </div>
+                                <div class="dos-term-output" id="dos-term-out">
+                                    <p><span class="t-success">DevOS Terminal v2.0 — Samuel Jacomo Portfolio</span></p>
+                                    <p><span class="t-out">Type 'help' to see available commands.</span></p>
+                                    <p>&nbsp;</p>
+                                </div>
+                                <div class="dos-term-input-row">
+                                    <span class="dos-term-prompt">❯</span>
+                                    <input class="dos-term-input" id="dos-term-in" placeholder="Digite um comando..." autocomplete="off" spellcheck="false">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KANBAN -->
+                    <div class="dos-panel" id="dos-panel-kanban">
+                        <div class="dos-panel-inner">
+                            <div class="dos-panel-header">
+                                <div><div class="dos-panel-title">Kanban Board</div><div class="dos-panel-sub">Arraste os cards entre colunas para atualizar o status.</div></div>
+                            </div>
+                            <div class="dos-kanban" id="dos-kanban"></div>
+                        </div>
+                    </div>
+
+                    <!-- AI CHAT -->
+                    <div class="dos-panel" id="dos-panel-ai">
+                        <div class="dos-ai-wrap">
+                            <div class="dos-chat-header">
+                                <div class="dos-panel-title">AI Assistant</div>
+                                <div class="dos-panel-sub">Powered by Claude · Pergunte sobre o portfólio, skills ou projetos.</div>
+                            </div>
+                            <div class="dos-chat-msgs" id="dos-msgs">
+                                <div class="dos-msg dos-ai">
+                                    <div class="dos-msg-av">AI</div>
+                                    <div>
+                                        <div class="dos-msg-bubble">Olá! Sou o assistente AI do portfólio do Samuel Jacomo. Posso te contar sobre os projetos, skills técnicas ou experiência. Como posso ajudar?</div>
+                                        <span class="dos-msg-time">Sistema · agora</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dos-chat-input-area">
+                                <textarea class="dos-chat-in" id="dos-chat-in" rows="1" placeholder="Pergunte algo sobre o portfólio..."></textarea>
+                                <button class="dos-chat-send" id="dos-chat-send" onclick="dosSendChat()">Enviar ↗</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PROJECTS -->
+                    <div class="dos-panel" id="dos-panel-projects">
+                        <div class="dos-panel-inner">
+                            <div class="dos-panel-header">
+                                <div><div class="dos-panel-title">Projects</div><div class="dos-panel-sub">Todos os projetos do portfólio.</div></div>
+                            </div>
+                            <div class="dos-proj-grid" id="dos-proj-grid"></div>
+                        </div>
+                    </div>
+
+                </div><!-- /.dos-content -->
+            </div><!-- /.dos-body -->
         </section>
 
         <!-- ──── CONTATO ──── -->
@@ -1570,14 +1027,12 @@
                 <h2 class="page-title">Fale Comigo</h2>
                 <p class="page-desc">Canais diretos de comunicação.</p>
             </div>
-
             <div class="grid-2">
                 <a href="https://wa.me/5511911195124" target="_blank" class="contact-card whatsapp">
                     <div class="contact-icon wa"><i class="fab fa-whatsapp"></i></div>
                     <h3>WhatsApp</h3>
                     <p>Clique para conversar agora</p>
                 </a>
-
                 <a href="mailto:ss2099samu@gmail.com" class="contact-card email">
                     <div class="contact-icon em"><i class="fas fa-envelope"></i></div>
                     <h3>E-mail</h3>
@@ -1589,64 +1044,439 @@
     </main>
 
     <script>
-        const navItems = document.querySelectorAll('.nav-item');
-        const pages = document.querySelectorAll('.page');
+    // ═══════════════════════════════════════
+    // PORTFOLIO NAVIGATION
+    // ═══════════════════════════════════════
+    const navItems = document.querySelectorAll('.nav-item');
+    const pages = document.querySelectorAll('.page');
 
-        function goTo(targetId) {
-            navItems.forEach(n => n.classList.remove('active'));
-            pages.forEach(p => {
-                p.classList.remove('active-page');
-                p.style.display = 'none';
-            });
-
-            const targetNav = document.querySelector(`[data-target="${targetId}"]`);
-            const targetPage = document.getElementById(targetId);
-
-            if (targetNav) targetNav.classList.add('active');
-            if (targetPage) {
-                targetPage.style.display = 'block';
+    function goTo(targetId) {
+        navItems.forEach(n => n.classList.remove('active'));
+        pages.forEach(p => {
+            p.classList.remove('active-page');
+            p.style.display = 'none';
+        });
+        const targetNav = document.querySelector(`[data-target="${targetId}"]`);
+        const targetPage = document.getElementById(targetId);
+        if (targetNav) targetNav.classList.add('active');
+        if (targetPage) {
+            targetPage.style.display = targetId === 'devos' ? 'flex' : 'block';
+            requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        targetPage.classList.add('active-page');
-                        document.querySelector('.content').scrollTop = 0;
-                    });
+                    targetPage.classList.add('active-page');
+                    document.querySelector('.content').scrollTop = 0;
+                    if (targetId === 'devos') initDevOS();
                 });
-            }
+            });
         }
+    }
 
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const target = item.getAttribute('data-target');
-                pages.forEach(p => {
-                    if (p.classList.contains('active-page')) {
-                        p.classList.remove('active-page');
-                        setTimeout(() => { p.style.display = 'none'; }, 50);
-                    }
-                });
-                navItems.forEach(n => n.classList.remove('active'));
-                item.classList.add('active');
-
-                const targetPage = document.getElementById(target);
-                if (targetPage) {
-                    setTimeout(() => {
-                        targetPage.style.display = 'block';
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame(() => {
-                                targetPage.classList.add('active-page');
-                                document.querySelector('.content').scrollTop = 0;
-                            });
-                        });
-                    }, 60);
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const target = item.getAttribute('data-target');
+            pages.forEach(p => {
+                if (p.classList.contains('active-page')) {
+                    p.classList.remove('active-page');
+                    setTimeout(() => { p.style.display = 'none'; }, 50);
                 }
             });
-        });
-
-        // Init
-        pages.forEach(p => {
-            if (!p.classList.contains('active-page')) {
-                p.style.display = 'none';
+            navItems.forEach(n => n.classList.remove('active'));
+            item.classList.add('active');
+            const targetPage = document.getElementById(target);
+            if (targetPage) {
+                setTimeout(() => {
+                    targetPage.style.display = target === 'devos' ? 'flex' : 'block';
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            targetPage.classList.add('active-page');
+                            document.querySelector('.content').scrollTop = 0;
+                            if (target === 'devos') initDevOS();
+                        });
+                    });
+                }, 60);
             }
         });
+    });
+
+    pages.forEach(p => {
+        if (!p.classList.contains('active-page')) p.style.display = 'none';
+    });
+
+    // ═══════════════════════════════════════
+    // DEVOS DATA
+    // ═══════════════════════════════════════
+    const DOS_SKILLS = [
+        { name: 'JavaScript / Node.js', pct: 88, color: '#ffd60a' },
+        { name: 'HTML5 & CSS3', pct: 92, color: '#00b4d8' },
+        { name: 'Python / Automação', pct: 78, color: '#00f5a0' },
+        { name: 'MySQL / SQL', pct: 80, color: '#f72585' },
+        { name: 'Docker / DevOps', pct: 70, color: '#a78bfa' },
+        { name: 'Redes / Infra', pct: 95, color: '#fb923c' },
+    ];
+
+    const DOS_ACTIVITY = [
+        { color: '#00f5a0', text: 'Deploy realizado — DevOS integrado ao portfólio', time: '5min atrás' },
+        { color: '#00b4d8', text: 'Novo commit: "feat: add DevOS panel"', time: '2h atrás' },
+        { color: '#00f5a0', text: 'CRM Pull request #42 aprovado', time: '3h atrás' },
+        { color: '#f72585', text: 'Bug corrigido: autenticação JWT endpoint /api/user', time: '5h atrás' },
+        { color: '#00b4d8', text: 'Nova versão da API REST — v2.3.0', time: 'ontem' },
+    ];
+
+    const DOS_KANBAN = {
+        'Todo': [
+            { title: 'Autenticação OAuth2 no CRM', tags: ['be'], priority: 'High' },
+            { title: 'Landing page responsiva', tags: ['fe'], priority: 'Mid' },
+            { title: 'Pipeline CI/CD com GitHub Actions', tags: ['dv'], priority: 'High' },
+        ],
+        'In Progress': [
+            { title: 'Integração API do GitHub', tags: ['be'], priority: 'High' },
+            { title: 'Dashboard analytics tempo real', tags: ['fe'], priority: 'Mid' },
+        ],
+        'Done': [
+            { title: 'CRM Node.js + MySQL', tags: ['be'], priority: '✓' },
+            { title: 'Portfólio 2026', tags: ['fe'], priority: '✓' },
+            { title: 'DevOS integrado', tags: ['dv'], priority: '✓' },
+        ],
+    };
+
+    const DOS_PROJECTS = [
+        { title: 'CRM Gestão de Clientes', desc: 'Sistema completo Node.js + MySQL + XAMPP. Backend, API REST e frontend.', tags: [['#00f5a0','Node.js'],['#00b4d8','MySQL'],['#fb923c','XAMPP']], stars: 0, lang: 'JavaScript', live: true },
+        { title: 'Portfolio DevOS', desc: 'Sistema operacional fictício como portfólio. HTML puro + Claude AI integrado.', tags: [['#ffd60a','JavaScript'],['#a78bfa','AI'],['#60a5fa','CSS']], stars: 0, lang: 'HTML/CSS', live: true },
+        { title: 'Python Automation Scripts', desc: 'Scripts de automação para monitoramento de infra e processos repetitivos.', tags: [['#00f5a0','Python'],['#f72585','Zabbix']], stars: 0, lang: 'Python', live: false },
+        { title: 'Infra Cisco Lab', desc: 'Laboratório de configuração de roteadores e switches Cisco. Certificação.', tags: [['#00b4d8','Cisco'],['#fb923c','Networking']], stars: 0, lang: 'Packet Tracer', live: false },
+        { title: 'Docker Compose Templates', desc: 'Templates de ambientes de desenvolvimento com Docker Compose.', tags: [['#00b4d8','Docker'],['#a78bfa','DevOps']], stars: 0, lang: 'YAML', live: false },
+        { title: 'Active Directory Setup', desc: 'Script de automação para setup de AD em Windows Server com GPOs.', tags: [['#ffd60a','PowerShell'],['#f72585','Windows']], stars: 0, lang: 'PowerShell', live: false },
+    ];
+
+    const DOS_CMDS = {
+        help: () => [
+            { t:'info', v:'Comandos disponíveis:' },
+            { t:'out', v:'  help       — Mostra esta mensagem' },
+            { t:'out', v:'  whoami     — Sobre Samuel Jacomo' },
+            { t:'out', v:'  skills     — Lista de habilidades' },
+            { t:'out', v:'  projects   — Lista de projetos' },
+            { t:'out', v:'  contact    — Informações de contato' },
+            { t:'out', v:'  clear      — Limpa o terminal' },
+            { t:'out', v:'  date       — Data e hora atual' },
+            { t:'out', v:'  matrix     — 👀' },
+        ],
+        whoami: () => [
+            { t:'success', v:'Samuel Jacomo — Analista de TI & Dev Full Stack' },
+            { t:'out', v:'  → MIT (TI) + Eniac (Manutenção)' },
+            { t:'out', v:'  → Node.js, MySQL, Python, Redes Cisco' },
+            { t:'out', v:'  → Infra N1-N2-N3, CFTV, Active Directory' },
+            { t:'out', v:'  → Localização: Mauá, São Paulo — BR' },
+        ],
+        skills: () => DOS_SKILLS.map(s => ({ t:'out', v:`  ${s.name.padEnd(35)} ${s.pct}%` })),
+        projects: () => DOS_PROJECTS.map(p => ({ t:'out', v:`  ● ${p.title}  [${p.lang}]` })),
+        contact: () => [
+            { t:'info', v:'Contato:' },
+            { t:'out', v:'  whatsapp → wa.me/5511911195124' },
+            { t:'out', v:'  email    → ss2099samu@gmail.com' },
+        ],
+        date: () => [{ t:'success', v: new Date().toLocaleString('pt-BR') }],
+        clear: () => null,
+        matrix: () => { startMatrix(); return [{ t:'success', v: 'Wake up, Neo...' }]; },
+    };
+
+    let dosInited = false;
+
+    function initDevOS() {
+        if (dosInited) return;
+        dosInited = true;
+        dosBuildDashboard();
+        dosBuildKanban();
+        dosBuildProjects();
+        dosAnimateCounters();
+        setInterval(dosUpdateClock, 1000);
+        dosUpdateClock();
+
+        document.getElementById('dos-term-in').addEventListener('keydown', dosTermKeydown);
+        document.getElementById('dos-chat-in').addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); dosSendChat(); }
+        });
+    }
+
+    // ── CLOCK ──
+    function dosUpdateClock() {
+        const el = document.getElementById('dos-clock');
+        if (el) el.textContent = new Date().toLocaleTimeString('pt-BR', { hour12: false });
+    }
+
+    // ── PANEL SWITCH ──
+    function dosSwitch(name, btnEl) {
+        document.querySelectorAll('.dos-panel').forEach(p => p.classList.remove('dos-panel-active'));
+        document.querySelectorAll('.dos-btn').forEach(b => b.classList.remove('dos-active'));
+        document.querySelectorAll('.dos-sidebar-item').forEach(b => b.classList.remove('dos-si-active'));
+
+        const panel = document.getElementById('dos-panel-' + name);
+        if (panel) panel.classList.add('dos-panel-active');
+        if (btnEl) btnEl.classList.add('dos-active');
+
+        document.querySelectorAll('.dos-sidebar-item').forEach(b => {
+            const oc = b.getAttribute('onclick') || '';
+            if (oc.includes("'" + name + "'")) b.classList.add('dos-si-active');
+        });
+
+        if (name === 'terminal') setTimeout(() => document.getElementById('dos-term-in').focus(), 50);
+    }
+
+    // ── DASHBOARD ──
+    function dosBuildDashboard() {
+        const sc = document.getElementById('dos-skills');
+        if (!sc) return;
+        sc.innerHTML = '';
+        DOS_SKILLS.forEach(s => {
+            sc.innerHTML += `<div class="dos-skill-row">
+                <div class="dos-skill-top"><span>${s.name}</span><span class="dos-skill-pct">${s.pct}%</span></div>
+                <div class="dos-skill-bar"><div class="dos-skill-fill" style="width:0;background:${s.color}" data-pct="${s.pct}"></div></div>
+            </div>`;
+        });
+        setTimeout(() => {
+            sc.querySelectorAll('.dos-skill-fill').forEach(el => el.style.width = el.dataset.pct + '%');
+        }, 300);
+
+        const af = document.getElementById('dos-activity');
+        if (af) {
+            af.innerHTML = '';
+            DOS_ACTIVITY.forEach(a => {
+                af.innerHTML += `<div class="dos-feed-item">
+                    <div class="dos-feed-dot" style="background:${a.color}"></div>
+                    <div><div class="dos-feed-text">${a.text}</div><div class="dos-feed-time">${a.time}</div></div>
+                </div>`;
+            });
+        }
+    }
+
+    function dosAnimateCounters() {
+        dosAnimTo('dc-proj', 6, 1000);
+        dosAnimTo('dc-commits', 1347, 1400);
+        dosAnimTo('dc-tasks', 8, 800);
+        dosAnimTo('dc-uptime', 99, 1000, true);
+    }
+
+    function dosAnimTo(id, target, dur, isPct = false) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            const prog = Math.min((ts - start) / dur, 1);
+            const val = Math.floor(prog * target);
+            el.textContent = isPct ? val + '%' : val.toLocaleString();
+            if (prog < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    // ── TERMINAL ──
+    const dosTermHistory = [];
+    let dosHistIdx = -1;
+
+    function dosTermKeydown(e) {
+        if (e.key === 'Enter') {
+            const cmd = e.target.value.trim().toLowerCase();
+            if (!cmd) return;
+            dosTermHistory.unshift(cmd);
+            dosHistIdx = -1;
+            dosAddLine('prompt', cmd);
+            e.target.value = '';
+            if (cmd === 'clear') { document.getElementById('dos-term-out').innerHTML = ''; return; }
+            const fn = DOS_CMDS[cmd];
+            if (fn) {
+                const res = fn();
+                if (res) res.forEach(r => dosAddLine(r.t, r.v));
+            } else {
+                dosAddLine('err', `command not found: ${cmd}. Type 'help'.`);
+            }
+            const out = document.getElementById('dos-term-out');
+            if (out) out.scrollTop = out.scrollHeight;
+        }
+        if (e.key === 'ArrowUp') { dosHistIdx = Math.min(dosHistIdx+1, dosTermHistory.length-1); e.target.value = dosTermHistory[dosHistIdx] || ''; }
+        if (e.key === 'ArrowDown') { dosHistIdx = Math.max(dosHistIdx-1, -1); e.target.value = dosHistIdx >= 0 ? dosTermHistory[dosHistIdx] : ''; }
+    }
+
+    function dosAddLine(type, text) {
+        const out = document.getElementById('dos-term-out');
+        if (!out) return;
+        const p = document.createElement('p');
+        if (type === 'prompt') {
+            p.innerHTML = `<span class="t-prompt">❯ </span><span class="t-cmd">${text}</span>`;
+        } else {
+            const cls = { success:'t-success', err:'t-err', info:'t-info', out:'t-out' }[type] || 't-out';
+            p.innerHTML = `<span class="${cls}">${text}</span>`;
+        }
+        out.appendChild(p);
+    }
+
+    // MATRIX EASTER EGG
+    function startMatrix() {
+        const ov = document.createElement('div');
+        ov.style.cssText = 'position:fixed;inset:0;background:#000;z-index:9000;overflow:hidden;cursor:pointer;';
+        const cv = document.createElement('canvas');
+        cv.style.cssText = 'display:block;';
+        ov.appendChild(cv);
+        const msg = document.createElement('div');
+        msg.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:monospace;font-size:2rem;color:#00f5a0;text-align:center;text-shadow:0 0 20px #00f5a0;pointer-events:none;';
+        msg.innerHTML = 'WAKE UP, NEO<br><span style="font-size:0.9rem;opacity:0.6">Clique para sair</span>';
+        ov.appendChild(msg);
+        document.body.appendChild(ov);
+        ov.addEventListener('click', () => ov.remove());
+        const ctx = cv.getContext('2d');
+        cv.width = window.innerWidth; cv.height = window.innerHeight;
+        const cols = Math.floor(cv.width / 18);
+        const drops = Array(cols).fill(1);
+        const iv = setInterval(() => {
+            ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,cv.width,cv.height);
+            ctx.fillStyle = '#00f5a0'; ctx.font = '14px monospace';
+            drops.forEach((y,i) => {
+                ctx.fillText(String.fromCharCode(0x30A0 + Math.random()*96), i*18, y*18);
+                if (y*18 > cv.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }, 40);
+        ov.addEventListener('click', () => clearInterval(iv), { once: true });
+    }
+
+    // ── KANBAN ──
+    function dosBuildKanban() {
+        const board = document.getElementById('dos-kanban');
+        if (!board) return;
+        board.innerHTML = '';
+        const colors = { 'Todo':'#6b7385', 'In Progress':'#ffd60a', 'Done':'#00f5a0' };
+        Object.entries(DOS_KANBAN).forEach(([col, cards]) => {
+            const el = document.createElement('div');
+            el.className = 'dos-kol';
+            el.dataset.col = col;
+            el.innerHTML = `<div class="dos-kol-header">
+                <span class="dos-kol-title" style="color:${colors[col]}">${col.toUpperCase()}</span>
+                <span class="dos-kol-count">${cards.length}</span>
+            </div>
+            <div class="dos-kcards" id="dkc-${col.replace(' ','_')}" ondragover="event.preventDefault()" ondrop="dosDropCard(event,'${col}')"></div>
+            <div class="dos-kadd" onclick="dosAddCard('${col}')">+ Adicionar</div>`;
+            board.appendChild(el);
+            cards.forEach(c => dosRenderKCard(c, col));
+        });
+    }
+
+    function dosRenderKCard(card, col) {
+        const container = document.getElementById('dkc-' + col.replace(' ', '_'));
+        if (!container) return;
+        const el = document.createElement('div');
+        el.className = 'dos-kcard';
+        el.draggable = true;
+        el.dataset.col = col;
+        const tagsHtml = card.tags.map(t => `<span class="dos-ktag ${t}">${t}</span>`).join('');
+        el.innerHTML = `<div class="dos-kcard-title">${card.title}</div>
+            <div class="dos-kcard-meta">${tagsHtml}<span class="dos-kpri">${card.priority}</span></div>`;
+        el.addEventListener('dragstart', () => { el.classList.add('dragging'); window._dosDrag = el; });
+        el.addEventListener('dragend', () => el.classList.remove('dragging'));
+        container.appendChild(el);
+    }
+
+    function dosDropCard(e, targetCol) {
+        e.preventDefault();
+        const el = window._dosDrag;
+        if (!el || el.dataset.col === targetCol) return;
+        const container = document.getElementById('dkc-' + targetCol.replace(' ', '_'));
+        el.dataset.col = targetCol;
+        container.appendChild(el);
+        document.querySelectorAll('.dos-kol').forEach(col => {
+            const colName = col.dataset.col;
+            const count = document.getElementById('dkc-' + colName.replace(' ','_'))?.childElementCount || 0;
+            const badge = col.querySelector('.dos-kol-count');
+            if (badge) badge.textContent = count;
+        });
+    }
+
+    function dosAddCard(col) {
+        const title = prompt('Nome da tarefa:');
+        if (!title) return;
+        dosRenderKCard({ title, tags: ['fe'], priority: 'Mid' }, col);
+        const container = document.getElementById('dkc-' + col.replace(' ', '_'));
+        const colEl = container?.closest('.dos-kol');
+        if (colEl) colEl.querySelector('.dos-kol-count').textContent = container.childElementCount;
+    }
+
+    // ── PROJECTS ──
+    function dosBuildProjects() {
+        const grid = document.getElementById('dos-proj-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        DOS_PROJECTS.forEach(p => {
+            const tagsHtml = p.tags.map(([c, n]) => `<span class="dos-proj-tag" style="background:${c}18;color:${c};border:1px solid ${c}44">${n}</span>`).join('');
+            grid.innerHTML += `<div class="dos-proj-card">
+                <div class="dos-proj-title">${p.title}</div>
+                <div class="dos-proj-desc">${p.desc}</div>
+                <div class="dos-proj-tags">${tagsHtml}</div>
+                <div class="dos-proj-footer">
+                    <span class="dos-proj-stars">★ ${p.stars || '—'}</span>
+                    <span class="dos-proj-lang">${p.lang}</span>
+                    ${p.live ? '<span class="dos-proj-live">● live</span>' : ''}
+                </div>
+            </div>`;
+        });
+    }
+
+    // ── AI CHAT ──
+    async function dosSendChat() {
+        const input = document.getElementById('dos-chat-in');
+        const btn = document.getElementById('dos-chat-send');
+        const text = input.value.trim();
+        if (!text) return;
+        dosAddMsg('user', text);
+        input.value = '';
+        btn.disabled = true;
+        const typingEl = dosAddTyping();
+        try {
+            const resp = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: 'claude-sonnet-4-20250514',
+                    max_tokens: 1000,
+                    system: `Você é o assistente AI do portfólio de Samuel Jacomo, profissional de TI e desenvolvedor Full Stack de Mauá, São Paulo. Responda de forma concisa, técnica e amigável em português do Brasil. Máximo 3 parágrafos curtos. Sobre Samuel: Analista de TI, formação MIT, Eniac e Fundação Bradesco. Skills: Node.js, MySQL, Python, Docker, JavaScript, HTML/CSS, Redes Cisco, Active Directory, Zabbix, CFTV. Projetos: CRM Node.js+MySQL, Portfolio DevOS, scripts Python de automação. Contato: ss2099samu@gmail.com / WhatsApp: 11 91119-5124.`,
+                    messages: [{ role: 'user', content: text }]
+                })
+            });
+            const data = await resp.json();
+            typingEl.remove();
+            const reply = data.content?.[0]?.text || 'Desculpe, não foi possível processar sua mensagem.';
+            dosAddMsg('ai', reply);
+        } catch {
+            typingEl.remove();
+            dosAddMsg('ai', 'Erro ao conectar com a API. Configure sua API key para usar o chat.');
+        }
+        btn.disabled = false;
+    }
+
+    function dosAddMsg(role, text) {
+        const msgs = document.getElementById('dos-msgs');
+        const time = new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+        const div = document.createElement('div');
+        div.className = `dos-msg dos-${role}`;
+        div.innerHTML = `<div class="dos-msg-av">${role === 'ai' ? 'AI' : 'EU'}</div>
+            <div>
+                <div class="dos-msg-bubble">${text.replace(/\n/g,'<br>')}</div>
+                <span class="dos-msg-time">${role === 'ai' ? 'Samuel AI' : 'Você'} · ${time}</span>
+            </div>`;
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+        return div;
+    }
+
+    function dosAddTyping() {
+        const msgs = document.getElementById('dos-msgs');
+        const div = document.createElement('div');
+        div.className = 'dos-msg dos-ai';
+        div.innerHTML = `<div class="dos-msg-av">AI</div>
+            <div><div class="dos-msg-bubble"><div class="dos-typing">
+                <div class="dos-typing-dot"></div><div class="dos-typing-dot"></div><div class="dos-typing-dot"></div>
+            </div></div></div>`;
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+        return div;
+    }
     </script>
 
 </body>
