@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Samuel Jacomo — TI & Desenvolvimento</title>
+<title>Samuel Jacomo — Salesforce Developer & TI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=DM+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -18,9 +18,9 @@
   --text:     #e8eaed;
   --text2:    #8a8f9a;
   --text3:    #555b66;
-  --accent:   #4f8ef7;
-  --accent-d: rgba(79,142,247,0.12);
-  --accent-b: rgba(79,142,247,0.22);
+  --accent:   #00A1E0;
+  --accent-d: rgba(0,161,224,0.12);
+  --accent-b: rgba(0,161,224,0.22);
   --green:    #3dba78;
   --green-d:  rgba(61,186,120,0.12);
   --amber:    #e9a84c;
@@ -85,8 +85,14 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: url('https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&w=300') center/cover;
-  border: 1px solid var(--border2);
+  background: var(--accent-d);
+  border: 1px solid var(--accent-b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-d);
+  font-size: 1.1rem;
+  color: var(--accent);
   flex-shrink: 0;
 }
 
@@ -127,7 +133,6 @@ body {
 
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-/* NAV */
 .nav-label {
   font-family: var(--font-m);
   font-size: 0.6rem;
@@ -157,21 +162,9 @@ body {
 }
 
 .nav-item:hover { color: var(--text); background: var(--surface); }
+.nav-item.active { color: var(--text); background: var(--surface); border-color: var(--border2); }
 
-.nav-item.active {
-  color: var(--text);
-  background: var(--surface);
-  border-color: var(--border2);
-}
-
-.nav-icon {
-  width: 16px;
-  text-align: center;
-  font-size: 0.78rem;
-  color: inherit;
-  opacity: .7;
-}
-
+.nav-icon { width: 16px; text-align: center; font-size: 0.78rem; color: inherit; opacity: .7; }
 .nav-item.active .nav-icon { opacity: 1; }
 
 .nav-tag {
@@ -193,13 +186,7 @@ body {
   border-top: 1px solid var(--border);
 }
 
-.sys-info {
-  font-family: var(--font-m);
-  font-size: 0.62rem;
-  color: var(--text3);
-  line-height: 1.8;
-}
-
+.sys-info { font-family: var(--font-m); font-size: 0.62rem; color: var(--text3); line-height: 1.8; }
 .sys-info span { color: var(--text2); }
 
 /* ── CONTENT ── */
@@ -210,7 +197,6 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--surface) transparent;
 }
-
 .content::-webkit-scrollbar { width: 3px; }
 .content::-webkit-scrollbar-thumb { background: var(--surface); border-radius: 2px; }
 
@@ -226,10 +212,7 @@ body {
 
 .page.active-page { display: block; opacity: 1; transform: translateY(0); }
 
-.page.active-page > * {
-  animation: rise .4s var(--ease) both;
-}
-
+.page.active-page > * { animation: rise .4s var(--ease) both; }
 .page.active-page > *:nth-child(1){animation-delay:.04s}
 .page.active-page > *:nth-child(2){animation-delay:.08s}
 .page.active-page > *:nth-child(3){animation-delay:.12s}
@@ -254,14 +237,7 @@ body {
   gap: 8px;
 }
 
-.ph-sup::before {
-  content:'';
-  display: inline-block;
-  width: 20px;
-  height: 1px;
-  background: var(--accent);
-  opacity: .5;
-}
+.ph-sup::before { content:''; display:inline-block; width:20px; height:1px; background:var(--accent); opacity:.5; }
 
 .ph-title {
   font-family: var(--font-d);
@@ -272,38 +248,18 @@ body {
   color: var(--text);
 }
 
-.ph-title em {
-  font-style: italic;
-  color: var(--text2);
-}
-
-.ph-body {
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: var(--text2);
-  font-weight: 300;
-  max-width: 480px;
-  line-height: 1.65;
-}
+.ph-title em { font-style: italic; color: var(--text2); }
+.ph-body { margin-top: 12px; font-size: 0.9rem; color: var(--text2); font-weight: 300; max-width: 480px; line-height: 1.65; }
 
 /* CARDS */
-.card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  transition: border-color .2s var(--ease);
-}
-
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: border-color .2s var(--ease); }
 .card:hover { border-color: var(--border2); }
 
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-.grid-4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
 
 .divider { height: 1px; background: var(--border); margin: 28px 0; }
 
-/* PILL TAGS */
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 
 .tag {
@@ -316,12 +272,9 @@ body {
   color: var(--text2);
   transition: all .18s;
 }
-
 .tag:hover { border-color: var(--border2); color: var(--text); }
 
-/* ════════════════════════════
-   HOME
-════════════════════════════ */
+/* ── HOME ── */
 .hero {
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -337,7 +290,7 @@ body {
   position: absolute;
   top: 0; right: 0;
   width: 360px; height: 360px;
-  background: radial-gradient(circle at top right, rgba(79,142,247,.06), transparent 65%);
+  background: radial-gradient(circle at top right, rgba(0,161,224,.08), transparent 65%);
   pointer-events: none;
 }
 
@@ -352,12 +305,7 @@ body {
   align-items: center;
   gap: 10px;
 }
-
-.hero-kicker::before {
-  content: '';
-  width: 24px; height: 1px;
-  background: var(--border2);
-}
+.hero-kicker::before { content:''; width:24px; height:1px; background:var(--border2); }
 
 .hero-heading {
   font-family: var(--font-d);
@@ -367,7 +315,6 @@ body {
   line-height: 1.0;
   margin-bottom: 20px;
 }
-
 .hero-heading em { font-style: italic; color: var(--text2); }
 
 .hero-body {
@@ -378,7 +325,6 @@ body {
   line-height: 1.7;
   margin-bottom: 32px;
 }
-
 .hero-body b { color: var(--text); font-weight: 500; }
 
 .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -398,31 +344,19 @@ body {
   font-family: var(--font-s);
 }
 
-.btn-solid {
-  background: var(--text);
-  color: var(--bg);
-}
+.btn-solid { background: var(--text); color: var(--bg); }
+.btn-solid:hover { background: #fff; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,255,255,.1); }
 
-.btn-solid:hover {
-  background: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(255,255,255,.1);
-}
+.btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--text2); }
+.btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,.22); background: var(--surface); transform: translateY(-1px); }
 
-.btn-ghost {
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--text2);
+.btn-sf {
+  background: var(--accent-d);
+  border: 1px solid var(--accent-b);
+  color: var(--accent);
 }
+.btn-sf:hover { background: rgba(0,161,224,.2); transform: translateY(-1px); }
 
-.btn-ghost:hover {
-  color: var(--text);
-  border-color: rgba(255,255,255,.22);
-  background: var(--surface);
-  transform: translateY(-1px);
-}
-
-/* HOME FEATURE CARDS */
 .feat-card {
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -431,13 +365,7 @@ body {
   transition: all .22s var(--ease);
   cursor: default;
 }
-
-.feat-card:hover {
-  border-color: var(--border2);
-  background: var(--surface);
-  transform: translateY(-2px);
-}
-
+.feat-card:hover { border-color: var(--border2); background: var(--surface); transform: translateY(-2px); }
 .feat-card.clickable { cursor: pointer; }
 
 .feat-icon {
@@ -447,25 +375,32 @@ body {
   font-size: .85rem;
   margin-bottom: 14px;
 }
-
 .feat-icon.blue   { background: var(--accent-d); color: var(--accent); }
 .feat-icon.green  { background: var(--green-d);  color: var(--green); }
 .feat-icon.amber  { background: var(--amber-d);  color: var(--amber); }
 .feat-icon.muted  { background: var(--surface);  color: var(--text2); }
+.feat-icon.sf     { background: var(--accent-d); color: var(--accent); }
 
-.feat-card h3 {
-  font-family: var(--font-s);
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: var(--text);
+.feat-card h3 { font-family: var(--font-s); font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+.feat-card p  { font-size: 0.8rem; color: var(--text2); line-height: 1.55; }
+
+/* SF BADGE */
+.sf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--accent-d);
+  border: 1px solid var(--accent-b);
+  border-radius: 20px;
+  font-family: var(--font-m);
+  font-size: 0.64rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 16px;
 }
 
-.feat-card p { font-size: 0.8rem; color: var(--text2); line-height: 1.55; }
-
-/* ════════════════════════════
-   SOBRE
-════════════════════════════ */
+/* ── SOBRE ── */
 .about-text {
   font-size: 0.93rem;
   color: var(--text2);
@@ -473,7 +408,6 @@ body {
   margin-bottom: 28px;
   font-weight: 300;
 }
-
 .about-text b { color: var(--text); font-weight: 500; }
 
 .hl-list { display: flex; flex-direction: column; gap: 10px; }
@@ -488,24 +422,13 @@ body {
   border-radius: 8px;
   transition: border-color .18s;
 }
-
 .hl-item:hover { border-color: var(--border2); }
 
-.hl-num {
-  font-family: var(--font-m);
-  font-size: 0.62rem;
-  color: var(--text3);
-  margin-top: 2px;
-  flex-shrink: 0;
-  width: 20px;
-}
-
+.hl-num { font-family: var(--font-m); font-size: 0.62rem; color: var(--text3); margin-top: 2px; flex-shrink: 0; width: 20px; }
 .hl-item p { font-size: 0.84rem; color: var(--text2); }
 .hl-item b { color: var(--text); font-weight: 500; }
 
-/* ════════════════════════════
-   EXPERIÊNCIA
-════════════════════════════ */
+/* ── EXPERIÊNCIA ── */
 .exp-item {
   display: grid;
   grid-template-columns: 120px 1fr;
@@ -513,18 +436,11 @@ body {
   padding: 28px 0;
   border-bottom: 1px solid var(--border);
 }
-
 .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
 .exp-item:first-child { padding-top: 0; }
 
 .exp-meta { padding-top: 2px; }
-
-.exp-period {
-  font-family: var(--font-m);
-  font-size: 0.64rem;
-  color: var(--text3);
-  line-height: 1.7;
-}
+.exp-period { font-family: var(--font-m); font-size: 0.64rem; color: var(--text3); line-height: 1.7; }
 
 .exp-status {
   display: inline-flex;
@@ -535,45 +451,16 @@ body {
   color: var(--green);
   margin-top: 6px;
 }
-
 .exp-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: blink 2.5s infinite; }
 
-.exp-role {
-  font-family: var(--font-d);
-  font-size: 1.3rem;
-  font-weight: 300;
-  letter-spacing: -.025em;
-  margin-bottom: 4px;
-  color: var(--text);
-}
-
-.exp-company {
-  font-family: var(--font-m);
-  font-size: 0.7rem;
-  color: var(--accent);
-  margin-bottom: 16px;
-}
+.exp-role { font-family: var(--font-d); font-size: 1.3rem; font-weight: 300; letter-spacing: -.025em; margin-bottom: 4px; color: var(--text); }
+.exp-company { font-family: var(--font-m); font-size: 0.7rem; color: var(--accent); margin-bottom: 16px; }
 
 .exp-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.exp-list li { display: flex; align-items: baseline; gap: 10px; font-size: 0.83rem; color: var(--text2); }
+.exp-list li::before { content: '—'; color: var(--text3); flex-shrink: 0; font-size: .75rem; }
 
-.exp-list li {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  font-size: 0.83rem;
-  color: var(--text2);
-}
-
-.exp-list li::before {
-  content: '—';
-  color: var(--text3);
-  flex-shrink: 0;
-  font-size: .75rem;
-}
-
-/* ════════════════════════════
-   FORMAÇÃO
-════════════════════════════ */
+/* ── FORMAÇÃO ── */
 .edu-card {
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -581,21 +468,12 @@ body {
   padding: 22px;
   transition: all .2s;
 }
-
 .edu-card:hover { border-color: var(--border2); transform: translateY(-2px); }
 
-.edu-inst {
-  font-family: var(--font-d);
-  font-size: 1.05rem;
-  font-weight: 300;
-  letter-spacing: -.02em;
-  margin-bottom: 4px;
-}
-
+.edu-inst { font-family: var(--font-d); font-size: 1.05rem; font-weight: 300; letter-spacing: -.02em; margin-bottom: 4px; }
 .edu-inst.accent { color: var(--accent); }
 
 .edu-degree { font-size: 0.8rem; color: var(--text2); margin-bottom: 8px; }
-
 .edu-period {
   font-family: var(--font-m);
   font-size: 0.65rem;
@@ -610,11 +488,7 @@ body {
 .edu-certs { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
 .edu-cert-label { font-family: var(--font-m); font-size: 0.6rem; color: var(--text3); letter-spacing: .08em; margin-bottom: 6px; }
 
-/* ════════════════════════════
-   SKILLS
-════════════════════════════ */
-.skill-section { margin-bottom: 4px; }
-
+/* ── SKILLS ── */
 .skill-section-title {
   font-family: var(--font-m);
   font-size: 0.62rem;
@@ -628,33 +502,18 @@ body {
   align-items: center;
   gap: 8px;
 }
+.skill-section-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
-.skill-section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.skill-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
-
+.skill-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
 .skill-row:last-child { border-bottom: none; }
 
 .skill-name { font-size: 0.82rem; color: var(--text2); flex: 1; }
-.skill-bar { flex: 2; height: 2px; background: var(--surface); border-radius: 1px; overflow: hidden; }
+.skill-bar  { flex: 2; height: 2px; background: var(--surface); border-radius: 1px; overflow: hidden; }
 .skill-fill { height: 100%; background: var(--accent); border-radius: 1px; transition: width 1.2s var(--ease); }
-.skill-pct { font-family: var(--font-m); font-size: 0.65rem; color: var(--text3); width: 30px; text-align: right; }
+.skill-pct  { font-family: var(--font-m); font-size: 0.65rem; color: var(--text3); width: 30px; text-align: right; }
 
-/* ════════════════════════════
-   FULL STACK
-════════════════════════════ */
-.fs-banner {
+/* ── SALESFORCE ── */
+.sf-banner {
   background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -663,17 +522,16 @@ body {
   position: relative;
   overflow: hidden;
 }
-
-.fs-banner::after {
+.sf-banner::after {
   content: '';
   position: absolute;
   top: 0; right: 0;
   width: 300px; height: 300px;
-  background: radial-gradient(circle at top right, rgba(61,186,120,.05), transparent 65%);
+  background: radial-gradient(circle at top right, rgba(0,161,224,.07), transparent 65%);
   pointer-events: none;
 }
 
-.fs-project-kicker {
+.sf-project-kicker {
   font-family: var(--font-m);
   font-size: 0.65rem;
   letter-spacing: .1em;
@@ -684,33 +542,11 @@ body {
   align-items: center;
   gap: 8px;
 }
+.sf-project-kicker::before { content:''; width:18px; height:1px; background:var(--border2); }
 
-.fs-project-kicker::before { content: ''; width: 18px; height: 1px; background: var(--border2); }
-
-.fs-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: var(--green-d);
-  border: 1px solid rgba(61,186,120,0.2);
-  border-radius: 20px;
-  font-family: var(--font-m);
-  font-size: 0.62rem;
-  color: var(--green);
-  margin-bottom: 16px;
-}
-
-.fs-heading {
-  font-family: var(--font-d);
-  font-size: 1.8rem;
-  font-weight: 300;
-  letter-spacing: -.03em;
-  margin-bottom: 10px;
-}
-
-.fs-body { font-size: 0.84rem; color: var(--text2); max-width: 520px; line-height: 1.65; margin-bottom: 22px; }
-.fs-body b { color: var(--text); font-weight: 500; }
+.sf-heading { font-family: var(--font-d); font-size: 1.8rem; font-weight: 300; letter-spacing: -.03em; margin-bottom: 10px; }
+.sf-body { font-size: 0.84rem; color: var(--text2); max-width: 520px; line-height: 1.65; margin-bottom: 22px; }
+.sf-body b { color: var(--text); font-weight: 500; }
 
 .tech-pills { display: flex; flex-wrap: wrap; gap: 7px; }
 
@@ -725,79 +561,27 @@ body {
   border: 1px solid;
   transition: all .18s;
 }
-
 .tp:hover { transform: translateY(-1px); }
+.tp-sf    { background: rgba(0,161,224,.08); border-color: rgba(0,161,224,.22); color: #00A1E0; }
 .tp-node  { background: rgba(61,186,120,.08); border-color: rgba(61,186,120,.22); color: #3dba78; }
-.tp-mysql { background: rgba(79,142,247,.08); border-color: rgba(79,142,247,.22); color: #4f8ef7; }
-.tp-xamp  { background: rgba(233,168,76,.08); border-color: rgba(233,168,76,.22); color: #e9a84c; }
+.tp-mysql { background: rgba(79,142,247,.08); border-color: rgba(79,142,247,.22); color: #6faaf7; }
 .tp-rest  { background: rgba(138,143,154,.1); border-color: rgba(138,143,154,.2); color: #8a8f9a; }
 .tp-js    { background: rgba(233,168,76,.08); border-color: rgba(233,168,76,.2); color: #e9a84c; }
-.tp-html  { background: rgba(224,92,92,.08); border-color: rgba(224,92,92,.2); color: #e05c5c; }
-.tp-css   { background: rgba(79,142,247,.08); border-color: rgba(79,142,247,.2); color: #7aaef9; }
-.tp-git   { background: rgba(224,92,92,.08); border-color: rgba(224,92,92,.2); color: #e07070; }
+.tp-totvs { background: rgba(0,161,224,.08); border-color: rgba(0,161,224,.2); color: #00A1E0; }
+.tp-ad    { background: rgba(79,142,247,.08); border-color: rgba(79,142,247,.2); color: #7aaef9; }
 
-/* Arch diagram */
-.arch {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 14px;
-}
-
-.arch-title {
-  font-family: var(--font-m);
-  font-size: 0.62rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 22px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.arch-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-.arch-flow { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; }
-
-.arch-node {
-  text-align: center;
-  padding: 16px 20px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  min-width: 88px;
-  transition: border-color .18s;
-}
-
-.arch-node:hover { border-color: var(--border2); }
-
-.arch-node-icon {
-  width: 32px; height: 32px;
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .85rem;
-  margin: 0 auto 8px;
-}
-
-.arch-node-label { font-family: var(--font-m); font-size: 0.65rem; color: var(--text); font-weight: 500; }
-.arch-node-sub { font-size: 0.62rem; color: var(--text3); margin-top: 2px; }
-.arch-arrow { color: var(--text3); font-size: .85rem; padding: 0 10px; flex-shrink: 0; }
-
-.fs-skill-card {
+.sf-skill-card {
   background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
   transition: all .2s;
 }
+.sf-skill-card:hover { border-color: var(--border2); transform: translateY(-2px); }
 
-.fs-skill-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.sf-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
 
-.fs-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-
-.fs-card-icon {
+.sf-card-icon {
   width: 34px; height: 34px;
   border-radius: 7px;
   display: flex; align-items: center; justify-content: center;
@@ -805,60 +589,50 @@ body {
   flex-shrink: 0;
 }
 
-.fs-card-title { font-size: 0.82rem; font-weight: 600; color: var(--text); }
-.fs-card-sub   { font-size: 0.7rem; color: var(--text3); margin-top: 1px; font-family: var(--font-m); }
+.sf-card-title { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+.sf-card-sub   { font-size: 0.7rem; color: var(--text3); margin-top: 1px; font-family: var(--font-m); }
 
-.fs-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.sf-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.sf-tag { font-family: var(--font-m); font-size: 0.68rem; padding: 3px 8px; border-radius: 4px; border: 1px solid; }
 
-.fs-tag {
-  font-family: var(--font-m);
-  font-size: 0.68rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  border: 1px solid;
+/* Roadmap */
+.roadmap { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
+
+.rm-item {
+  display: flex;
+  gap: 16px;
+  position: relative;
 }
 
-/* ════════════════════════════
-   CONTATO
-════════════════════════════ */
-.contact-card {
+.rm-left {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 28px;
-  text-decoration: none;
-  color: inherit;
-  transition: all .22s var(--ease);
+  align-items: center;
+  flex-shrink: 0;
+  width: 32px;
 }
 
-.contact-card:hover {
-  border-color: var(--border2);
-  background: var(--surface);
-  transform: translateY(-3px);
+.rm-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid;
+  margin-top: 4px;
 }
 
-.contact-icon-wrap {
-  width: 48px; height: 48px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  margin-bottom: 18px;
-  border: 1px solid var(--border);
-}
+.rm-dot.done    { background: var(--green); border-color: var(--green); }
+.rm-dot.active  { background: var(--accent); border-color: var(--accent); animation: blink 2s infinite; }
+.rm-dot.pending { background: transparent; border-color: var(--text3); }
 
-.contact-icon-wrap.wa  { color: #3dba78; background: var(--green-d); border-color: rgba(61,186,120,.18); }
-.contact-icon-wrap.em  { color: var(--accent); background: var(--accent-d); border-color: var(--accent-b); }
+.rm-line { width: 1px; flex: 1; background: var(--border); margin: 4px 0; min-height: 24px; }
+.rm-item:last-child .rm-line { display: none; }
 
-.contact-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
-.contact-val   { font-family: var(--font-m); font-size: 0.72rem; color: var(--text3); }
-.contact-hint  { font-size: 0.78rem; color: var(--text2); margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px; width: 100%; }
+.rm-content { padding-bottom: 20px; flex: 1; }
+.rm-title { font-size: 0.84rem; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.rm-sub   { font-size: 0.75rem; color: var(--text2); }
+.rm-cert  { font-family: var(--font-m); font-size: 0.62rem; color: var(--accent); margin-top: 4px; }
 
-/* ════════════════════════════
-   DEVOS — SISTEMA REFINADO
-════════════════════════════ */
+/* ── DEVOS ── */
 #devos {
   display: none;
   flex-direction: column;
@@ -866,7 +640,6 @@ body {
   min-height: 100vh;
   background: var(--bg);
 }
-
 #devos.active-page { display: flex !important; }
 
 .dos-topbar {
@@ -880,14 +653,7 @@ body {
   flex-shrink: 0;
 }
 
-.dos-logo {
-  font-family: var(--font-m);
-  font-size: 0.7rem;
-  color: var(--text);
-  font-weight: 500;
-  letter-spacing: .03em;
-  margin-right: 4px;
-}
+.dos-logo { font-family: var(--font-m); font-size: 0.7rem; color: var(--text); font-weight: 500; letter-spacing: .03em; margin-right: 4px; }
 
 .dos-nav-btns { display: flex; gap: 2px; flex: 1; }
 
@@ -903,14 +669,8 @@ body {
   transition: all .15s;
   letter-spacing: .03em;
 }
-
 .dos-nb:hover { color: var(--text2); background: var(--surface); }
-
-.dos-nb.dos-active {
-  color: var(--text);
-  background: var(--surface);
-  border-color: var(--border2);
-}
+.dos-nb.dos-active { color: var(--text); background: var(--surface); border-color: var(--border2); }
 
 .dos-topbar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
 
@@ -929,21 +689,9 @@ body {
 
 .dos-online { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: blink 2.5s infinite; }
 
-.dos-exit {
-  padding: 3px 10px;
-  font-family: var(--font-m);
-  font-size: 0.6rem;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  color: var(--text3);
-  cursor: pointer;
-  transition: all .15s;
-}
-
+.dos-exit { padding: 3px 10px; font-family: var(--font-m); font-size: 0.6rem; background: transparent; border: 1px solid var(--border); border-radius: 5px; color: var(--text3); cursor: pointer; transition: all .15s; }
 .dos-exit:hover { color: var(--text); border-color: var(--border2); }
 
-/* DevOS body */
 .dos-body { flex: 1; display: flex; overflow: hidden; }
 
 .dos-sidebar {
@@ -957,16 +705,7 @@ body {
 }
 
 .dos-si-section { margin-bottom: 16px; }
-
-.dos-si-label {
-  font-family: var(--font-m);
-  font-size: 0.55rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  padding: 0 6px;
-  margin-bottom: 4px;
-}
+.dos-si-label { font-family: var(--font-m); font-size: 0.55rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); padding: 0 6px; margin-bottom: 4px; }
 
 .dos-si-item {
   display: flex;
@@ -981,61 +720,28 @@ body {
   transition: all .15s;
   border: 1px solid transparent;
 }
-
 .dos-si-item:hover { color: var(--text2); background: var(--surface); }
-
-.dos-si-item.active {
-  color: var(--text);
-  background: var(--surface);
-  border-color: var(--border);
-}
+.dos-si-item.active { color: var(--text); background: var(--surface); border-color: var(--border); }
 
 .dos-si-icon { width: 12px; text-align: center; }
 
-.dos-si-badge {
-  margin-left: auto;
-  font-size: 0.52rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 1px 5px;
-  border-radius: 3px;
-  color: var(--text3);
-}
+.dos-si-badge { margin-left: auto; font-size: 0.52rem; background: var(--surface); border: 1px solid var(--border); padding: 1px 5px; border-radius: 3px; color: var(--text3); }
 
-.dos-si-footer {
-  margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-  font-family: var(--font-m);
-  font-size: 0.55rem;
-  color: var(--text3);
-  line-height: 1.9;
-}
-
+.dos-si-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); font-family: var(--font-m); font-size: 0.55rem; color: var(--text3); line-height: 1.9; }
 .dos-si-footer .on { color: var(--green); }
 
-/* DevOS content */
 .dos-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-
 .dos-panel { flex: 1; overflow: hidden; display: none; }
 .dos-panel.active { display: flex; flex-direction: column; }
 
-.dos-panel-inner {
-  flex: 1;
-  overflow-y: auto;
-  padding: 18px 20px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--surface) transparent;
-}
-
+.dos-panel-inner { flex: 1; overflow-y: auto; padding: 18px 20px; scrollbar-width: thin; scrollbar-color: var(--surface) transparent; }
 .dos-panel-inner::-webkit-scrollbar { width: 3px; }
 .dos-panel-inner::-webkit-scrollbar-thumb { background: var(--surface); }
 
 .dos-ph { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
 .dos-ph-title { font-size: 0.88rem; font-weight: 600; color: var(--text); }
-.dos-ph-sub { font-family: var(--font-m); font-size: 0.6rem; color: var(--text3); margin-top: 2px; }
+.dos-ph-sub   { font-family: var(--font-m); font-size: 0.6rem; color: var(--text3); margin-top: 2px; }
 
-/* Dashboard */
 .dos-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
 
 .dos-stat {
@@ -1045,37 +751,20 @@ body {
   padding: 12px 14px;
   border-top: 2px solid;
 }
-
 .dos-stat.c0 { border-top-color: var(--green); }
 .dos-stat.c1 { border-top-color: var(--accent); }
 .dos-stat.c2 { border-top-color: var(--amber); }
 .dos-stat.c3 { border-top-color: var(--red); }
 
 .dos-stat-label { font-family: var(--font-m); font-size: 0.55rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
-.dos-stat-val { font-family: var(--font-d); font-size: 1.6rem; font-weight: 300; letter-spacing: -.04em; color: var(--text); }
+.dos-stat-val   { font-family: var(--font-d); font-size: 1.6rem; font-weight: 300; letter-spacing: -.04em; color: var(--text); }
 .dos-stat-delta { font-family: var(--font-m); font-size: 0.55rem; color: var(--text3); margin-top: 3px; }
 
 .dos-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-.dos-section {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px;
-}
+.dos-section { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.dos-sec-title { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 
-.dos-sec-title {
-  font-family: var(--font-m);
-  font-size: 0.58rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-/* Skill bars (dashboard) */
 .ds-skill { margin-bottom: 10px; }
 .ds-skill:last-child { margin-bottom: 0; }
 .ds-skill-top { display: flex; justify-content: space-between; font-family: var(--font-m); font-size: 0.6rem; color: var(--text2); margin-bottom: 4px; }
@@ -1083,7 +772,6 @@ body {
 .ds-skill-bar { height: 2px; background: var(--bg3); border-radius: 1px; overflow: hidden; }
 .ds-skill-fill { height: 100%; border-radius: 1px; transition: width 1.3s var(--ease); }
 
-/* Activity feed */
 .ds-feed-item { display: flex; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
 .ds-feed-item:last-child { border-bottom: none; }
 .ds-feed-dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
@@ -1091,41 +779,15 @@ body {
 .ds-feed-time { font-family: var(--font-m); font-size: 0.55rem; color: var(--text3); }
 
 /* Terminal */
-.term-wrap {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
+.term-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; flex: 1; }
 
-.term-bar {
-  background: var(--surface);
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
+.term-bar { background: var(--surface); padding: 8px 12px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
 
 .tbar-dot { width: 9px; height: 9px; border-radius: 50%; }
 .tbar-dot.r { background: #ff5f57; } .tbar-dot.y { background: #ffbd2e; } .tbar-dot.g { background: #28ca41; }
 .tbar-title { font-family: var(--font-m); font-size: 0.6rem; color: var(--text3); margin-left: 4px; }
 
-.term-out {
-  flex: 1;
-  padding: 12px 14px;
-  overflow-y: auto;
-  font-family: var(--font-m);
-  font-size: 0.68rem;
-  line-height: 1.85;
-  scrollbar-width: thin;
-  scrollbar-color: var(--surface) transparent;
-}
-
+.term-out { flex: 1; padding: 12px 14px; overflow-y: auto; font-family: var(--font-m); font-size: 0.68rem; line-height: 1.85; scrollbar-width: thin; scrollbar-color: var(--surface) transparent; }
 .term-out::-webkit-scrollbar { width: 2px; }
 .term-out::-webkit-scrollbar-thumb { background: var(--surface); }
 
@@ -1136,49 +798,17 @@ body {
 .t-err    { color: var(--red); }
 .t-info   { color: var(--amber); }
 
-.term-in-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border-top: 1px solid var(--border);
-  background: var(--bg);
-  flex-shrink: 0;
-}
-
+.term-in-row { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-top: 1px solid var(--border); background: var(--bg); flex-shrink: 0; }
 .term-prompt-sym { color: var(--accent); font-family: var(--font-m); font-size: 0.68rem; }
 
-.term-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-family: var(--font-m);
-  font-size: 0.68rem;
-  caret-color: var(--accent);
-}
+.term-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: var(--font-m); font-size: 0.68rem; caret-color: var(--accent); }
 
 /* Kanban */
 .kanban-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: calc(100% - 60px); }
 
-.kb-col {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-}
+.kb-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; }
 
-.kb-col-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
+.kb-col-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 
 .kb-col-name { font-family: var(--font-m); font-size: 0.62rem; font-weight: 500; }
 .kb-col-name.todo { color: var(--text3); }
@@ -1188,145 +818,50 @@ body {
 
 .kb-cards { flex: 1; display: flex; flex-direction: column; gap: 6px; min-height: 30px; }
 
-.kb-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 9px 11px;
-  cursor: grab;
-  transition: all .15s;
-}
-
+.kb-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 9px 11px; cursor: grab; transition: all .15s; }
 .kb-card:hover { border-color: var(--border2); transform: translateY(-1px); }
 .kb-card.dragging { opacity: 0.25; }
 
 .kb-card-title { font-family: var(--font-m); font-size: 0.6rem; color: var(--text); line-height: 1.5; margin-bottom: 6px; }
-
 .kb-card-meta { display: flex; align-items: center; gap: 4px; }
 
 .kb-tag { font-family: var(--font-m); font-size: 0.52rem; padding: 1px 5px; border-radius: 3px; border: 1px solid; }
-.kb-tag.fe { background: rgba(79,142,247,.07); border-color: rgba(79,142,247,.2); color: var(--accent); }
+.kb-tag.fe { background: rgba(0,161,224,.07); border-color: rgba(0,161,224,.2); color: var(--accent); }
 .kb-tag.be { background: var(--green-d); border-color: rgba(61,186,120,.2); color: var(--green); }
-.kb-tag.dv { background: var(--amber-d); border-color: rgba(233,168,76,.2); color: var(--amber); }
+.kb-tag.sf { background: rgba(0,161,224,.07); border-color: rgba(0,161,224,.2); color: var(--accent); }
 
 .kb-pri { margin-left: auto; font-family: var(--font-m); font-size: 0.52rem; color: var(--text3); }
 
-.kb-add {
-  margin-top: 6px;
-  padding: 5px;
-  border: 1px dashed var(--border);
-  border-radius: 5px;
-  font-family: var(--font-m);
-  font-size: 0.58rem;
-  color: var(--text3);
-  text-align: center;
-  cursor: pointer;
-  transition: all .15s;
-}
-
+.kb-add { margin-top: 6px; padding: 5px; border: 1px dashed var(--border); border-radius: 5px; font-family: var(--font-m); font-size: 0.58rem; color: var(--text3); text-align: center; cursor: pointer; transition: all .15s; }
 .kb-add:hover { border-color: var(--accent); color: var(--accent); }
-
-/* AI Chat */
-.chat-wrap { display: flex; flex-direction: column; height: 100%; }
-
-.chat-head { padding: 14px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
-
-.chat-msgs { flex: 1; overflow-y: auto; padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: var(--surface) transparent; }
-.chat-msgs::-webkit-scrollbar { width: 2px; }
-.chat-msgs::-webkit-scrollbar-thumb { background: var(--surface); }
-
-.chat-msg { display: flex; gap: 10px; max-width: 80%; align-items: flex-start; }
-.chat-msg.user { flex-direction: row-reverse; align-self: flex-end; }
-
-.chat-av {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-m);
-  font-size: 0.55rem;
-  flex-shrink: 0;
-  border: 1px solid var(--border);
-}
-
-.chat-msg.ai   .chat-av { background: var(--surface); color: var(--text2); }
-.chat-msg.user .chat-av { background: var(--accent-d); color: var(--accent); border-color: var(--accent-b); }
-
-.chat-bubble {
-  padding: 9px 13px;
-  border-radius: 8px;
-  font-family: var(--font-m);
-  font-size: 0.62rem;
-  line-height: 1.65;
-  border: 1px solid var(--border);
-}
-
-.chat-msg.ai   .chat-bubble { background: var(--surface); color: var(--text2); }
-.chat-msg.user .chat-bubble { background: var(--accent-d); border-color: var(--accent-b); color: var(--text); }
-
-.chat-time { font-family: var(--font-m); font-size: 0.52rem; color: var(--text3); margin-top: 3px; display: block; }
-
-.chat-input-area { padding: 12px 18px; border-top: 1px solid var(--border); display: flex; gap: 8px; flex-shrink: 0; }
-
-.chat-in {
-  flex: 1;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 8px 11px;
-  color: var(--text);
-  font-family: var(--font-m);
-  font-size: 0.62rem;
-  outline: none;
-  resize: none;
-  transition: border-color .15s;
-}
-
-.chat-in:focus { border-color: var(--border2); }
-
-.chat-send {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-family: var(--font-m);
-  font-size: 0.62rem;
-  cursor: pointer;
-  transition: all .15s;
-}
-
-.chat-send:hover { color: var(--text); border-color: rgba(255,255,255,.2); background: var(--bg3); }
-.chat-send:disabled { opacity: .35; cursor: not-allowed; }
-
-.typing-dots { display: flex; gap: 4px; padding: 8px 12px; }
-.typing-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text3); animation: td 1.2s infinite; }
-.typing-dot:nth-child(2) { animation-delay: .2s; }
-.typing-dot:nth-child(3) { animation-delay: .4s; }
-@keyframes td { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
 
 /* Projects panel */
 .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
 
-.proj-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px;
-  cursor: pointer;
-  transition: all .15s;
-}
-
+.proj-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; cursor: pointer; transition: all .15s; }
 .proj-card:hover { border-color: var(--border2); transform: translateY(-2px); }
 
 .proj-title { font-size: 0.78rem; font-weight: 600; color: var(--text); margin-bottom: 5px; }
-.proj-desc { font-family: var(--font-m); font-size: 0.58rem; color: var(--text3); line-height: 1.5; margin-bottom: 10px; }
-
-.proj-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 10px; }
-.proj-tag { font-family: var(--font-m); font-size: 0.52rem; padding: 2px 6px; border-radius: 3px; border: 1px solid; }
+.proj-desc  { font-family: var(--font-m); font-size: 0.58rem; color: var(--text3); line-height: 1.5; margin-bottom: 10px; }
+.proj-tags  { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 10px; }
+.proj-tag   { font-family: var(--font-m); font-size: 0.52rem; padding: 2px 6px; border-radius: 3px; border: 1px solid; }
 
 .proj-foot { display: flex; align-items: center; justify-content: space-between; }
 .proj-lang { font-family: var(--font-m); font-size: 0.55rem; color: var(--text3); }
 .proj-live { font-family: var(--font-m); font-size: 0.55rem; color: var(--green); border: 1px solid rgba(61,186,120,.2); padding: 1px 6px; border-radius: 3px; }
+
+/* ── CONTATO ── */
+.contact-card { display: flex; flex-direction: column; align-items: flex-start; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 28px; text-decoration: none; color: inherit; transition: all .22s var(--ease); }
+.contact-card:hover { border-color: var(--border2); background: var(--surface); transform: translateY(-3px); }
+
+.contact-icon-wrap { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 18px; border: 1px solid var(--border); }
+.contact-icon-wrap.wa  { color: #3dba78; background: var(--green-d); border-color: rgba(61,186,120,.18); }
+.contact-icon-wrap.em  { color: var(--accent); background: var(--accent-d); border-color: var(--accent-b); }
+.contact-icon-wrap.li  { color: var(--accent); background: var(--accent-d); border-color: var(--accent-b); }
+
+.contact-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+.contact-val   { font-family: var(--font-m); font-size: 0.72rem; color: var(--text3); }
+.contact-hint  { font-size: 0.78rem; color: var(--text2); margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px; width: 100%; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
@@ -1358,10 +893,10 @@ body {
   <div class="sidebar-inner">
     <div class="profile">
       <div class="avatar-area">
-        <div class="avatar"></div>
+        <div class="avatar">SJ</div>
         <div class="avatar-info">
           <h3>Samuel Jacomo</h3>
-          <p>TI &amp; Desenvolvimento</p>
+          <p>Salesforce Developer</p>
         </div>
       </div>
       <div class="avail-badge"><div class="avail-dot"></div> Disponível</div>
@@ -1374,14 +909,14 @@ body {
       <li class="nav-item" data-target="experiencia"><span class="nav-icon"><i class="fas fa-briefcase"></i></span> Experiência</li>
       <li class="nav-item" data-target="formacao"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span> Formação</li>
       <li class="nav-item" data-target="skills"><span class="nav-icon"><i class="fas fa-microchip"></i></span> Skills</li>
-      <li class="nav-item" data-target="fullstack"><span class="nav-icon"><i class="fas fa-layer-group"></i></span> Full Stack <span class="nav-tag">Novo</span></li>
+      <li class="nav-item" data-target="salesforce"><span class="nav-icon"><i class="fas fa-cloud"></i></span> Salesforce <span class="nav-tag">New</span></li>
       <li class="nav-item" data-target="devos"><span class="nav-icon"><i class="fas fa-terminal"></i></span> DevOS <span class="nav-tag green">OS</span></li>
       <li class="nav-item" data-target="contato"><span class="nav-icon"><i class="fas fa-at"></i></span> Contato</li>
     </ul>
 
     <div class="sidebar-bottom">
       <div class="sys-info">
-        <div>status <span>online</span></div>
+        <div>foco <span>Salesforce Dev</span></div>
         <div>local <span>Guarulhos, SP — BR</span></div>
         <div>© 2026 Samuel Jacomo</div>
       </div>
@@ -1396,42 +931,43 @@ body {
   <section id="home" class="page active-page">
     <div class="hero">
       <div class="hero-kicker">Portfólio 2026</div>
-      <h1 class="hero-heading">Analise &amp;<br><em>Desenvolvimento</em></h1>
+      <h1 class="hero-heading">Salesforce <br><em>Developer</em></h1>
       <p class="hero-body">
-        Unindo o rigor técnico do <b>MIT</b> com suporte crítico de TI na prática.
-        Resolvo desde falhas de hardware até automações em Python — sempre com visão de ponta a ponta.
+        Profissional de TI em transição para <b>desenvolvimento Salesforce com foco em integrações e APIs</b>.
+        Base sólida em infraestrutura, redes e ERP Totvs — um diferencial raro no ecossistema Salesforce.
       </p>
       <div class="hero-actions">
         <a href="#" class="btn btn-solid" onclick="goTo('contato');return false;"><i class="fas fa-at"></i> Entrar em contato</a>
-        <a href="#" class="btn btn-ghost" onclick="goTo('devos');return false;"><i class="fas fa-terminal"></i> Abrir DevOS</a>
+        <a href="#" class="btn btn-sf" onclick="goTo('salesforce');return false;"><i class="fas fa-cloud"></i> Ver trilha Salesforce</a>
+        <a href="#" class="btn btn-ghost" onclick="goTo('devos');return false;"><i class="fas fa-terminal"></i> DevOS</a>
       </div>
     </div>
 
     <div class="grid-3">
       <div class="feat-card">
+        <div class="feat-icon blue"><i class="fas fa-plug"></i></div>
+        <h3>Integrações & APIs</h3>
+        <p>REST API, SOAP API, Bulk API. Conectar Salesforce com ERPs, sistemas legados e plataformas externas.</p>
+      </div>
+      <div class="feat-card">
         <div class="feat-icon blue"><i class="fas fa-server"></i></div>
         <h3>Infraestrutura</h3>
-        <p>Servidores, redes físicas e Active Directory. Do cabeamento ao domínio corporativo.</p>
+        <p>Redes, Active Directory, servidores Linux/Windows. Entendo o que acontece antes e depois da API.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon muted"><i class="fas fa-code"></i></div>
+        <div class="feat-icon green"><i class="fas fa-code"></i></div>
         <h3>Desenvolvimento</h3>
-        <p>Automação Python, web com JS/HTML/CSS e soluções orientadas a problema real.</p>
+        <p>Node.js, JavaScript e MySQL. CRM personalizado do zero, incluindo backend e integração via API REST.</p>
+      </div>
+      <div class="feat-card clickable" onclick="goTo('salesforce')">
+        <div class="feat-icon sf"><i class="fas fa-cloud"></i></div>
+        <h3>Salesforce Trailhead</h3>
+        <p>Em formação ativa na plataforma. Emblemas AgentBlazer AI conquistados. Trilha: ADM-201 → PD1 → Integration Architect.</p>
       </div>
       <div class="feat-card">
-        <div class="feat-icon green"><i class="fas fa-shield-halved"></i></div>
-        <h3>Segurança</h3>
-        <p>Backup, CFTV, monitoramento com Zabbix e proteção de ativos críticos.</p>
-      </div>
-      <div class="feat-card clickable" onclick="goTo('fullstack')">
-        <div class="feat-icon amber"><i class="fas fa-layer-group"></i></div>
-        <h3>Full Stack</h3>
-        <p>CRM com Node.js + MySQL. Do banco de dados à interface, passando pela API REST.</p>
-      </div>
-      <div class="feat-card clickable" onclick="goTo('devos')">
-        <div class="feat-icon muted"><i class="fas fa-terminal"></i></div>
-        <h3>DevOS</h3>
-        <p>Sistema interativo com terminal, kanban, AI chat e dashboard ao vivo.</p>
+        <div class="feat-icon amber"><i class="fas fa-database"></i></div>
+        <h3>ERP Totvs</h3>
+        <p>Conhecimento interno do Totvs (Distribuição e Varejo) — diferencial único para integrações Salesforce + Totvs.</p>
       </div>
     </div>
   </section>
@@ -1444,17 +980,20 @@ body {
     </div>
     <div class="card" style="margin-bottom:14px;">
       <p class="about-text">
-        Sou <b>Samuel Jacomo</b>, profissional de TI com experiência sólida em <b>infraestrutura física</b> e <b>desenvolvimento de software</b>.
-        Atuo na interseção entre hardware e código — diagnosticando, automatizando e construindo soluções que funcionam de verdade,
-        com comprometimento com resultado e aprendizado contínuo.
+        Sou <b>Samuel Jacomo</b>, profissional de TI com mais de 2 anos de experiência em infraestrutura, suporte técnico
+        e administração de sistemas — em transição para <b>desenvolvimento Salesforce com foco em integrações e APIs</b>.
+        <br><br>
+        Minha combinação de <b>background em infraestrutura</b> (redes, Active Directory, Linux) com habilidades em
+        <b>desenvolvimento</b> (Node.js, JavaScript, MySQL) me posiciona de forma única: entendo o que acontece
+        antes e depois de uma integração, não só o código do meio.
       </p>
     </div>
     <div class="hl-list">
-      <div class="hl-item"><span class="hl-num">01</span><p><b>Desenvolvimento Web:</b> JavaScript ES6+, CSS avançado e HTML semântico. Interfaces funcionais e otimizadas.</p></div>
-      <div class="hl-item"><span class="hl-num">02</span><p><b>Infra &amp; Hardware:</b> Servidores Windows/Linux, Active Directory, roteadores Cisco e redes estruturadas.</p></div>
-      <div class="hl-item"><span class="hl-num">03</span><p><b>Automação:</b> Python para processos repetitivos, scripts de monitoramento e integrações de sistemas.</p></div>
-      <div class="hl-item"><span class="hl-num">04</span><p><b>Full Stack:</b> Node.js + MySQL para aplicações completas — incluindo o CRM desenvolvido com XAMPP.</p></div>
-      <div class="hl-item"><span class="hl-num">05</span><p><b>Especialidades:</b> DVR/CFTV, PDV, Coletores de Dados e suporte técnico N1-N2-N3.</p></div>
+      <div class="hl-item"><span class="hl-num">01</span><p><b>Salesforce & Integrações:</b> Trailhead ativo, emblemas AgentBlazer AI, trilha de certificações em andamento (ADM-201, PD1, Integration Architecture).</p></div>
+      <div class="hl-item"><span class="hl-num">02</span><p><b>ERP Totvs:</b> Suporte e administração nos módulos de Distribuição e Varejo. Diferencial raro para projetos de integração Salesforce + Totvs no Brasil.</p></div>
+      <div class="hl-item"><span class="hl-num">03</span><p><b>Infraestrutura & Redes:</b> Servidores Windows/Linux, Active Directory, roteadores, switches e monitoramento com Zabbix.</p></div>
+      <div class="hl-item"><span class="hl-num">04</span><p><b>Desenvolvimento:</b> Node.js, JavaScript ES6+, MySQL. CRM personalizado desenvolvido do zero com API REST integrada.</p></div>
+      <div class="hl-item"><span class="hl-num">05</span><p><b>Objetivo:</b> Atuar como Salesforce Developer especializado em integrações em empresas de logística, operações ou tecnologia em São Paulo.</p></div>
     </div>
   </section>
 
@@ -1467,32 +1006,38 @@ body {
     <div class="card">
       <div class="exp-item">
         <div class="exp-meta">
-          <div class="exp-period">Atual</div>
+          <div class="exp-period">Nov 2023<br>Atual</div>
           <div class="exp-status"><div class="exp-dot"></div> Em andamento</div>
         </div>
         <div>
-          <div class="exp-role">Analista de TI</div>
-          <div class="exp-company">Serviços Prestados — Diversas Categorias</div>
+          <div class="exp-role">Assistente de TI</div>
+          <div class="exp-company">Fenix Foods Distribuidora · Guarulhos, SP</div>
           <ul class="exp-list">
-            <li>Gerenciamento completo de chamados N1, N2 e N3.</li>
-            <li>Administração de Servidores e Active Directory.</li>
-            <li>Configuração e manutenção de Coletores de Dados para Logística.</li>
-            <li>Gestão de CFTV, DVR e segurança patrimonial digital.</li>
-            <li>Monitoramento de infraestrutura com Zabbix.</li>
+            <li>Manutenção preventiva e corretiva de servidores e estações de trabalho</li>
+            <li>Administração de usuários e permissões via Active Directory</li>
+            <li>Configuração de redes: cabeamento estruturado, switches e roteadores</li>
+            <li>Suporte a PDV e coletores de dados para rotinas de estoque e logística</li>
+            <li>Monitoramento de infraestrutura com Zabbix e gestão de DVRs</li>
+            <li>Instalação e configuração de SO (Windows, Linux, macOS)</li>
+            <li>Suporte técnico ao ERP Totvs — módulos Distribuição e Varejo</li>
+            <li>Implementação de rotinas de backup, antivírus e segurança da informação</li>
           </ul>
         </div>
       </div>
       <div class="exp-item">
         <div class="exp-meta">
-          <div class="exp-period">2021<br>Presente</div>
+          <div class="exp-period">Jan 2022<br>Atual</div>
+          <div class="exp-status"><div class="exp-dot"></div> Em andamento</div>
         </div>
         <div>
-          <div class="exp-role">Consultor Técnico</div>
-          <div class="exp-company">Autônomo — Pessoa Física</div>
+          <div class="exp-role">Desenvolvedor & Consultor de TI</div>
+          <div class="exp-company">Autônomo · Freelancer</div>
           <ul class="exp-list">
-            <li>Manutenção de hardware avançado e montagem de setups.</li>
-            <li>Infraestrutura de redes domésticas e corporativas.</li>
-            <li>Suporte técnico especializado para pequenas e médias empresas.</li>
+            <li>Desenvolvimento de sistemas CRM personalizados com Node.js, JavaScript e MySQL</li>
+            <li>Consultoria e suporte técnico em ERP ISA e Totvs</li>
+            <li>Montagem e administração de servidores; configuração de ambientes Linux e macOS</li>
+            <li>Modelagem e manutenção de banco de dados</li>
+            <li>Suporte técnico especializado para pequenas e médias empresas</li>
           </ul>
         </div>
       </div>
@@ -1505,31 +1050,79 @@ body {
       <p class="ph-sup">Educação</p>
       <h2 class="ph-title">Formação &amp; <em>Certificações</em></h2>
     </div>
-    <div class="grid-2">
-      <div class="edu-card" style="border-color:rgba(79,142,247,.2)">
-        <div class="edu-inst accent">MIT</div>
-        <div style="font-size:.72rem;color:var(--text3);margin-bottom:6px;">Massachusetts Institute of Technology</div>
-        <div class="edu-degree">Tecnologia da Informação</div>
-        <span class="edu-period">2021 – 2022</span>
+    <div class="grid-2" style="margin-bottom:16px;">
+      <div class="edu-card" style="border-color:rgba(0,161,224,.2)">
+        <div class="edu-inst accent">Unifatecie</div>
+        <div class="edu-degree">Análise e Desenvolvimento de Sistemas</div>
+        <span class="edu-period">Em andamento</span>
         <div class="edu-certs">
-          <div class="edu-cert-label">Certificações recentes</div>
-          <div class="tags"><span class="tag">Gestão de Projetos · 2025</span><span class="tag">Circuitos Integrados · 2025</span></div>
+          <div class="edu-cert-label">Status</div>
+          <div style="font-size:.72rem;color:var(--green)">● Cursando atualmente</div>
         </div>
       </div>
       <div class="edu-card">
         <div class="edu-inst">Centro Universitário Eniac</div>
-        <div class="edu-degree">Manutenção e Suporte em Informática</div>
-        <span class="edu-period">2023 – 2028</span>
+        <div class="edu-degree">Sistemas de Informação</div>
+        <span class="edu-period">2 anos cursados · Interrompido</span>
+        <div class="edu-certs">
+          <div class="edu-cert-label">Observação</div>
+          <div style="font-size:.72rem;color:var(--text3)">Base sólida em TI e infraestrutura</div>
+        </div>
+      </div>
+      <div class="edu-card" style="border-color:rgba(0,161,224,.2)">
+        <div class="edu-inst accent">Salesforce Trailhead</div>
+        <div class="edu-degree">Trilha Salesforce Developer</div>
+        <span class="edu-period">2025 – em andamento</span>
+        <div class="edu-certs">
+          <div class="edu-cert-label">Conquistas</div>
+          <div class="tags">
+            <span class="tag" style="color:var(--accent);border-color:var(--accent-b)">AgentBlazer AI ✓</span>
+            <span class="tag" style="color:var(--accent);border-color:var(--accent-b)">AgentBlazer AI II ✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ph-sup" style="margin-bottom:12px;">Certificações técnicas</div>
+    <div class="grid-2">
+      <div class="edu-card">
+        <div class="edu-inst">Cisco</div>
+        <div class="edu-degree">Active Directory Manager</div>
+        <span class="edu-period">2025</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-inst">Cisco</div>
+        <div class="edu-degree">Zabbix — Monitoramento de Redes</div>
+        <span class="edu-period">2025</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-inst">Cisco</div>
+        <div class="edu-degree">Reparo de Hardware Avançado</div>
+        <span class="edu-period">2024</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-inst">Cisco</div>
+        <div class="edu-degree">Redes e Servidores</div>
+        <span class="edu-period">2024</span>
       </div>
       <div class="edu-card">
         <div class="edu-inst">Fundação Bradesco</div>
-        <div class="edu-degree">Técnico Integrado em TI</div>
-        <span class="edu-period">Concluído em 2024</span>
+        <div class="edu-degree">Recuperação de Dados</div>
+        <span class="edu-period">2024</span>
       </div>
       <div class="edu-card">
-        <div class="edu-inst">Udemy</div>
-        <div class="edu-degree">Redes Cisco &amp; Infraestrutura</div>
-        <span class="edu-period">Certificação Profissional</span>
+        <div class="edu-inst">Fundação Bradesco</div>
+        <div class="edu-degree">HTML, CSS e JavaScript</div>
+        <span class="edu-period">2024</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-inst">Fundação Bradesco</div>
+        <div class="edu-degree">Lógica de Programação</div>
+        <span class="edu-period">2022</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-inst">Alura</div>
+        <div class="edu-degree">HTML, CSS e JavaScript</div>
+        <span class="edu-period">2022</span>
       </div>
     </div>
   </section>
@@ -1541,123 +1134,140 @@ body {
       <h2 class="ph-title">Competências <em>Técnicas</em></h2>
     </div>
     <div class="card">
-      <div class="skill-section-title">Infraestrutura &amp; Redes</div>
+      <div class="skill-section-title">Salesforce & Integrações</div>
+      <div id="sk-sf"></div>
+      <div style="margin-top:22px;"></div>
+      <div class="skill-section-title">Infraestrutura & Redes</div>
       <div id="sk-infra"></div>
       <div style="margin-top:22px;"></div>
-      <div class="skill-section-title">Desenvolvimento &amp; DevOps</div>
+      <div class="skill-section-title">Desenvolvimento & Banco de Dados</div>
       <div id="sk-dev"></div>
-      <div style="margin-top:22px;"></div>
-      <div class="skill-section-title">Segurança &amp; Monitoramento</div>
-      <div id="sk-sec"></div>
     </div>
   </section>
 
-  <!-- FULL STACK -->
-  <section id="fullstack" class="page">
+  <!-- SALESFORCE -->
+  <section id="salesforce" class="page">
     <div class="ph">
-      <p class="ph-sup">Em desenvolvimento</p>
-      <h2 class="ph-title">Full <em>Stack</em></h2>
-      <p class="ph-body">Projetos e tecnologias de desenvolvimento completo — do banco ao browser.</p>
+      <p class="ph-sup">Foco principal</p>
+      <h2 class="ph-title">Salesforce <em>Developer</em></h2>
+      <p class="ph-body">Trilha de desenvolvimento focada em integrações e APIs — o caminho mais demandado no ecossistema Salesforce brasileiro.</p>
     </div>
 
-    <div class="fs-banner">
-      <div class="fs-project-kicker">Projeto real</div>
-      <div class="fs-status"><div class="avail-dot"></div> Concluído</div>
-      <div class="fs-heading">CRM — Gestão de Clientes</div>
-      <p class="fs-body">Sistema completo desenvolvido do zero com <b>Node.js</b> no backend, <b>MySQL</b> como banco de dados e ambiente local via <b>XAMPP</b>. Frontend, API REST e banco integrados.</p>
+    <div class="sf-banner">
+      <div class="sf-project-kicker">Diferencial competitivo</div>
+      <div class="sf-badge"><i class="fas fa-star"></i> Integração Salesforce + Totvs</div>
+      <div class="sf-heading">O nicho mais escasso do mercado</div>
+      <p class="sf-body">Conheço o ERP <b>Totvs por dentro</b> (módulos Distribuição e Varejo) e estou em formação ativa em Salesforce. Essa combinação é extremamente rara — e muito procurada por empresas brasileiras que precisam integrar os dois sistemas.</p>
       <div class="tech-pills">
+        <span class="tp tp-sf"><i class="fas fa-cloud"></i> Salesforce</span>
+        <span class="tp tp-rest"><i class="fas fa-plug"></i> REST API</span>
+        <span class="tp tp-rest"><i class="fas fa-exchange-alt"></i> SOAP API</span>
+        <span class="tp tp-totvs"><i class="fas fa-database"></i> Totvs</span>
         <span class="tp tp-node"><i class="fab fa-node-js"></i> Node.js</span>
         <span class="tp tp-mysql"><i class="fas fa-database"></i> MySQL</span>
-        <span class="tp tp-xamp"><i class="fas fa-server"></i> XAMPP</span>
-        <span class="tp tp-rest"><i class="fas fa-plug"></i> REST API</span>
-        <span class="tp tp-js"><i class="fab fa-js"></i> JavaScript</span>
-        <span class="tp tp-html"><i class="fab fa-html5"></i> HTML5</span>
-        <span class="tp tp-css"><i class="fab fa-css3-alt"></i> CSS3</span>
-        <span class="tp tp-git"><i class="fab fa-git-alt"></i> Git</span>
+        <span class="tp tp-ad"><i class="fas fa-server"></i> Active Directory</span>
       </div>
     </div>
 
-    <div class="arch" style="margin-bottom:14px;">
-      <div class="arch-title">Arquitetura do sistema</div>
-      <div class="arch-flow">
-        <div class="arch-node">
-          <div class="arch-node-icon" style="background:rgba(233,168,76,.1);color:var(--amber);"><i class="fas fa-display"></i></div>
-          <div class="arch-node-label" style="color:var(--amber)">Frontend</div>
-          <div class="arch-node-sub">HTML / CSS / JS</div>
+    <!-- Roadmap -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="skill-section-title">Roadmap de certificações</div>
+      <div class="roadmap">
+        <div class="rm-item">
+          <div class="rm-left">
+            <div class="rm-dot done"></div>
+            <div class="rm-line"></div>
+          </div>
+          <div class="rm-content">
+            <div class="rm-title">AgentBlazer AI (I e II)</div>
+            <div class="rm-sub">Emblemas conquistados no Trailhead — IA aplicada ao Salesforce</div>
+            <div class="rm-cert">✓ Concluído · Trailhead</div>
+          </div>
         </div>
-        <div class="arch-arrow">→</div>
-        <div class="arch-node">
-          <div class="arch-node-icon" style="background:var(--green-d);color:var(--green);"><i class="fab fa-node-js"></i></div>
-          <div class="arch-node-label" style="color:var(--green)">Backend</div>
-          <div class="arch-node-sub">Node.js / Express</div>
+        <div class="rm-item">
+          <div class="rm-left">
+            <div class="rm-dot active"></div>
+            <div class="rm-line"></div>
+          </div>
+          <div class="rm-content">
+            <div class="rm-title">Salesforce Administrator (ADM-201)</div>
+            <div class="rm-sub">Base obrigatória — objetos, flows, segurança, relatórios</div>
+            <div class="rm-cert">→ Em andamento · Meta: 2026</div>
+          </div>
         </div>
-        <div class="arch-arrow">→</div>
-        <div class="arch-node">
-          <div class="arch-node-icon" style="background:var(--accent-d);color:var(--accent);"><i class="fas fa-database"></i></div>
-          <div class="arch-node-label" style="color:var(--accent)">Banco</div>
-          <div class="arch-node-sub">MySQL</div>
+        <div class="rm-item">
+          <div class="rm-left">
+            <div class="rm-dot pending"></div>
+            <div class="rm-line"></div>
+          </div>
+          <div class="rm-content">
+            <div class="rm-title">Platform Developer I (PD1)</div>
+            <div class="rm-sub">Apex, SOQL, triggers, testes unitários, LWC básico</div>
+            <div class="rm-cert">◦ Próximo passo</div>
+          </div>
         </div>
-        <div class="arch-arrow">↔</div>
-        <div class="arch-node">
-          <div class="arch-node-icon" style="background:var(--amber-d);color:var(--amber);"><i class="fas fa-server"></i></div>
-          <div class="arch-node-label" style="color:var(--amber)">Servidor</div>
-          <div class="arch-node-sub">XAMPP / Apache</div>
+        <div class="rm-item">
+          <div class="rm-left">
+            <div class="rm-dot pending"></div>
+          </div>
+          <div class="rm-content">
+            <div class="rm-title">Integration Architecture Designer</div>
+            <div class="rm-sub">REST, SOAP, Bulk API, padrões de integração enterprise</div>
+            <div class="rm-cert">◦ Objetivo final — especialização</div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="grid-2">
-      <div class="fs-skill-card">
-        <div class="fs-card-head">
-          <div class="fs-card-icon" style="background:var(--green-d);color:var(--green);"><i class="fab fa-node-js"></i></div>
-          <div><div class="fs-card-title">Backend — Node.js</div><div class="fs-card-sub">Servidor, lógica e APIs</div></div>
+      <div class="sf-skill-card">
+        <div class="sf-card-head">
+          <div class="sf-card-icon" style="background:var(--accent-d);color:var(--accent);"><i class="fas fa-cloud"></i></div>
+          <div><div class="sf-card-title">Salesforce Platform</div><div class="sf-card-sub">Em formação ativa</div></div>
         </div>
-        <div class="fs-tags">
-          <span class="fs-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">Node.js</span>
-          <span class="fs-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">Express.js</span>
-          <span class="fs-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">REST API</span>
-          <span class="fs-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">Middlewares</span>
-          <span class="fs-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">npm</span>
-        </div>
-      </div>
-      <div class="fs-skill-card">
-        <div class="fs-card-head">
-          <div class="fs-card-icon" style="background:var(--accent-d);color:var(--accent);"><i class="fas fa-database"></i></div>
-          <div><div class="fs-card-title">Banco de Dados — MySQL</div><div class="fs-card-sub">Modelagem e consultas SQL</div></div>
-        </div>
-        <div class="fs-tags">
-          <span class="fs-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">MySQL</span>
-          <span class="fs-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">SQL Queries</span>
-          <span class="fs-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">CRUD</span>
-          <span class="fs-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">phpMyAdmin</span>
-          <span class="fs-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">XAMPP</span>
+        <div class="sf-tags">
+          <span class="sf-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">Trailhead</span>
+          <span class="sf-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">Flows</span>
+          <span class="sf-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">Objects & Fields</span>
+          <span class="sf-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">AgentBlazer AI</span>
+          <span class="sf-tag" style="background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)">Agentforce</span>
         </div>
       </div>
-      <div class="fs-skill-card">
-        <div class="fs-card-head">
-          <div class="fs-card-icon" style="background:var(--amber-d);color:var(--amber);"><i class="fas fa-code"></i></div>
-          <div><div class="fs-card-title">Frontend — Web</div><div class="fs-card-sub">Interface e experiência do usuário</div></div>
+      <div class="sf-skill-card">
+        <div class="sf-card-head">
+          <div class="sf-card-icon" style="background:var(--green-d);color:var(--green);"><i class="fas fa-plug"></i></div>
+          <div><div class="sf-card-title">APIs & Integrações</div><div class="sf-card-sub">Foco da especialização</div></div>
         </div>
-        <div class="fs-tags">
-          <span class="fs-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">HTML5</span>
-          <span class="fs-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">CSS3</span>
-          <span class="fs-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">JavaScript ES6+</span>
-          <span class="fs-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">Fetch API</span>
-          <span class="fs-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">DOM</span>
+        <div class="sf-tags">
+          <span class="sf-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">REST API</span>
+          <span class="sf-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">SOAP API</span>
+          <span class="sf-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">Bulk API</span>
+          <span class="sf-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">Node.js</span>
+          <span class="sf-tag" style="background:var(--green-d);border-color:rgba(61,186,120,.2);color:var(--green)">JSON/XML</span>
         </div>
       </div>
-      <div class="fs-skill-card">
-        <div class="fs-card-head">
-          <div class="fs-card-icon" style="background:var(--surface);color:var(--text2);"><i class="fas fa-terminal"></i></div>
-          <div><div class="fs-card-title">Ambiente &amp; Ferramentas</div><div class="fs-card-sub">Infraestrutura de desenvolvimento</div></div>
+      <div class="sf-skill-card">
+        <div class="sf-card-head">
+          <div class="sf-card-icon" style="background:var(--amber-d);color:var(--amber);"><i class="fas fa-database"></i></div>
+          <div><div class="sf-card-title">ERP Totvs</div><div class="sf-card-sub">Diferencial de mercado</div></div>
         </div>
-        <div class="fs-tags">
-          <span class="fs-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">XAMPP</span>
-          <span class="fs-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">Apache</span>
-          <span class="fs-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">Git</span>
-          <span class="fs-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">VS Code</span>
-          <span class="fs-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">Postman</span>
-          <span class="fs-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">Linux</span>
+        <div class="sf-tags">
+          <span class="sf-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">Distribuição</span>
+          <span class="sf-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">Varejo</span>
+          <span class="sf-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">Suporte N2/N3</span>
+          <span class="sf-tag" style="background:var(--amber-d);border-color:rgba(233,168,76,.2);color:var(--amber)">Integração</span>
+        </div>
+      </div>
+      <div class="sf-skill-card">
+        <div class="sf-card-head">
+          <div class="sf-card-icon" style="background:var(--surface);color:var(--text2);"><i class="fas fa-server"></i></div>
+          <div><div class="sf-card-title">Infraestrutura</div><div class="sf-card-sub">Base técnica sólida</div></div>
+        </div>
+        <div class="sf-tags">
+          <span class="sf-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">Active Directory</span>
+          <span class="sf-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">Linux</span>
+          <span class="sf-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">Redes TCP/IP</span>
+          <span class="sf-tag" style="background:var(--surface);border-color:var(--border2);color:var(--text2)">Zabbix</span>
         </div>
       </div>
     </div>
@@ -1671,7 +1281,6 @@ body {
         <button class="dos-nb dos-active" onclick="dosSwitch('dashboard',this)">Dashboard</button>
         <button class="dos-nb" onclick="dosSwitch('terminal',this)">Terminal</button>
         <button class="dos-nb" onclick="dosSwitch('kanban',this)">Kanban</button>
-        <button class="dos-nb" onclick="dosSwitch('ai',this)">AI Chat</button>
         <button class="dos-nb" onclick="dosSwitch('projects',this)">Projetos</button>
       </div>
       <div class="dos-topbar-right">
@@ -1682,26 +1291,23 @@ body {
     </div>
 
     <div class="dos-body">
-      <!-- DevOS sidebar -->
       <div class="dos-sidebar">
         <div class="dos-si-section">
           <div class="dos-si-label">Workspace</div>
           <div class="dos-si-item active" onclick="dosSwitch('dashboard',null)"><span class="dos-si-icon">◈</span> Overview</div>
-          <div class="dos-si-item" onclick="dosSwitch('projects',null)"><span class="dos-si-icon">◻</span> Projetos <span class="dos-si-badge">6</span></div>
+          <div class="dos-si-item" onclick="dosSwitch('projects',null)"><span class="dos-si-icon">◻</span> Projetos <span class="dos-si-badge">4</span></div>
           <div class="dos-si-item" onclick="dosSwitch('kanban',null)"><span class="dos-si-icon">◧</span> Kanban</div>
         </div>
         <div class="dos-si-section">
           <div class="dos-si-label">Tools</div>
           <div class="dos-si-item" onclick="dosSwitch('terminal',null)"><span class="dos-si-icon">$</span> Terminal</div>
-          <div class="dos-si-item" onclick="dosSwitch('ai',null)"><span class="dos-si-icon">◉</span> AI Chat <span class="dos-si-badge">AI</span></div>
         </div>
         <div class="dos-si-footer">
-          <div class="on">● Online &amp; Disponível</div>
-          <div>Node.js · MySQL · Python</div>
+          <div class="on">● Online & Disponível</div>
+          <div>Salesforce · Node.js · MySQL</div>
         </div>
       </div>
 
-      <!-- Panels -->
       <div class="dos-content">
 
         <!-- DASHBOARD -->
@@ -1714,10 +1320,10 @@ body {
               </div>
             </div>
             <div class="dos-stats">
-              <div class="dos-stat c0"><div class="dos-stat-label">Projetos</div><div class="dos-stat-val" id="dc-proj">0</div><div class="dos-stat-delta">↑ 2 este mês</div></div>
-              <div class="dos-stat c1"><div class="dos-stat-label">Commits</div><div class="dos-stat-val" id="dc-commits">0</div><div class="dos-stat-delta">↑ 47 esta semana</div></div>
-              <div class="dos-stat c2"><div class="dos-stat-label">Tasks</div><div class="dos-stat-val" id="dc-tasks">0</div><div class="dos-stat-delta">3 em progresso</div></div>
-              <div class="dos-stat c3"><div class="dos-stat-label">Uptime</div><div class="dos-stat-val" id="dc-uptime">0%</div><div class="dos-stat-delta">Último deploy: hoje</div></div>
+              <div class="dos-stat c0"><div class="dos-stat-label">Trailhead Pts</div><div class="dos-stat-val" id="dc-proj">0</div><div class="dos-stat-delta">↑ crescendo</div></div>
+              <div class="dos-stat c1"><div class="dos-stat-label">Badges SF</div><div class="dos-stat-val" id="dc-commits">0</div><div class="dos-stat-delta">AgentBlazer I e II</div></div>
+              <div class="dos-stat c2"><div class="dos-stat-label">Projetos</div><div class="dos-stat-val" id="dc-tasks">0</div><div class="dos-stat-delta">ativos</div></div>
+              <div class="dos-stat c3"><div class="dos-stat-label">Exp. TI</div><div class="dos-stat-val" id="dc-uptime">0</div><div class="dos-stat-delta">anos</div></div>
             </div>
             <div class="dos-two">
               <div class="dos-section">
@@ -1766,41 +1372,18 @@ body {
           </div>
         </div>
 
-        <!-- AI CHAT -->
-        <div class="dos-panel" id="dos-panel-ai">
-          <div class="chat-wrap">
-            <div class="chat-head">
-              <div class="dos-ph-title">AI Assistant</div>
-              <div class="dos-ph-sub">Powered by Claude · Pergunte sobre o portfólio, skills ou projetos.</div>
-            </div>
-            <div class="chat-msgs" id="dos-msgs">
-              <div class="chat-msg ai">
-                <div class="chat-av">AI</div>
-                <div>
-                  <div class="chat-bubble">Olá! Sou o assistente do portfólio de Samuel Jacomo. Posso falar sobre projetos, skills técnicas ou experiência profissional. Como posso ajudar?</div>
-                  <span class="chat-time">Sistema · agora</span>
-                </div>
-              </div>
-            </div>
-            <div class="chat-input-area">
-              <textarea class="chat-in" id="dos-chat-in" rows="1" placeholder="Pergunte algo sobre o portfólio..."></textarea>
-              <button class="chat-send" id="dos-chat-send" onclick="dosSendChat()">Enviar ↗</button>
-            </div>
-          </div>
-        </div>
-
         <!-- PROJECTS -->
         <div class="dos-panel" id="dos-panel-projects">
           <div class="dos-panel-inner">
             <div class="dos-ph">
-              <div><div class="dos-ph-title">Projects</div><div class="dos-ph-sub">Todos os projetos do portfólio.</div></div>
+              <div><div class="dos-ph-title">Projects</div><div class="dos-ph-sub">Projetos do portfólio.</div></div>
             </div>
             <div class="proj-grid" id="dos-proj-grid"></div>
           </div>
         </div>
 
-      </div><!-- /.dos-content -->
-    </div><!-- /.dos-body -->
+      </div>
+    </div>
   </section>
 
   <!-- CONTATO -->
@@ -1808,9 +1391,9 @@ body {
     <div class="ph">
       <p class="ph-sup">Conecte-se</p>
       <h2 class="ph-title">Fale <em>Comigo</em></h2>
-      <p class="ph-body">Canais diretos para conversa. Respondo rápido.</p>
+      <p class="ph-body">Aberto a oportunidades CLT ou PJ em Salesforce Developer — Guarulhos, SP. Presencial, híbrido ou remoto.</p>
     </div>
-    <div class="grid-2">
+    <div class="grid-2" style="max-width:640px;">
       <a href="https://wa.me/5511911195124" target="_blank" class="contact-card">
         <div class="contact-icon-wrap wa"><i class="fab fa-whatsapp"></i></div>
         <div class="contact-title">WhatsApp</div>
@@ -1823,24 +1406,25 @@ body {
         <div class="contact-val">ss2099samu@gmail.com</div>
         <div class="contact-hint">Para propostas e projetos</div>
       </a>
+      <a href="https://www.linkedin.com/in/samuel-jacomo-b4417a261/" target="_blank" class="contact-card">
+        <div class="contact-icon-wrap li"><i class="fab fa-linkedin-in"></i></div>
+        <div class="contact-title">LinkedIn</div>
+        <div class="contact-val">samuel-jacomo-b4417a261</div>
+        <div class="contact-hint">Perfil profissional e Trailhead badges</div>
+      </a>
     </div>
   </section>
 
 </main>
 
 <script>
-// ═══════════════════════════
 // NAVIGATION
-// ═══════════════════════════
 const navItems = document.querySelectorAll('.nav-item');
 const pages    = document.querySelectorAll('.page');
 
 function goTo(id) {
   navItems.forEach(n => n.classList.remove('active'));
-  pages.forEach(p => {
-    p.classList.remove('active-page');
-    p.style.display = 'none';
-  });
+  pages.forEach(p => { p.classList.remove('active-page'); p.style.display = 'none'; });
   const nav  = document.querySelector(`[data-target="${id}"]`);
   const page = document.getElementById(id);
   if (nav)  nav.classList.add('active');
@@ -1876,28 +1460,24 @@ navItems.forEach(item => {
 
 pages.forEach(p => { if (!p.classList.contains('active-page')) p.style.display = 'none'; });
 
-// ═══════════════════════════
 // SKILLS
-// ═══════════════════════════
 const SKILLS = {
+  sf: [
+    { name: 'Salesforce Platform', pct: 45, color: 'var(--accent)' },
+    { name: 'REST API / Integrações', pct: 60, color: 'var(--accent)' },
+    { name: 'Flows & Automações',    pct: 40, color: 'var(--accent)' },
+    { name: 'ERP Totvs',             pct: 85, color: 'var(--amber)' },
+  ],
   infra: [
-    { name: 'Redes &amp; Infraestrutura', pct: 95 },
-    { name: 'Active Directory',          pct: 88 },
-    { name: 'CFTV / DVR',                pct: 90 },
-    { name: 'Zabbix',                    pct: 82 },
-    { name: 'Suporte N1-N2-N3',          pct: 95 },
+    { name: 'Redes & Infraestrutura', pct: 90, color: 'var(--green)' },
+    { name: 'Active Directory',       pct: 88, color: 'var(--green)' },
+    { name: 'Zabbix',                 pct: 82, color: 'var(--green)' },
+    { name: 'Suporte N1-N2-N3',       pct: 92, color: 'var(--green)' },
   ],
   dev: [
-    { name: 'JavaScript / Node.js', pct: 88 },
-    { name: 'HTML5 &amp; CSS3',     pct: 92 },
-    { name: 'Python / Automação',   pct: 78 },
-    { name: 'MySQL / SQL',          pct: 80 },
-    { name: 'Docker / DevOps',      pct: 68 },
-  ],
-  sec: [
-    { name: 'Backup &amp; Recovery', pct: 90 },
-    { name: 'Análise de Logs',        pct: 80 },
-    { name: 'Firewall',               pct: 75 },
+    { name: 'JavaScript / Node.js', pct: 78, color: 'var(--amber)' },
+    { name: 'MySQL / SQL',          pct: 75, color: 'var(--accent)' },
+    { name: 'HTML5 & CSS3',         pct: 82, color: 'var(--accent)' },
   ]
 };
 
@@ -1905,9 +1485,9 @@ let skillsBuilt = false;
 function initSkills() {
   if (skillsBuilt) return;
   skillsBuilt = true;
+  buildSkillSection('sk-sf',    SKILLS.sf);
   buildSkillSection('sk-infra', SKILLS.infra);
   buildSkillSection('sk-dev',   SKILLS.dev);
-  buildSkillSection('sk-sec',   SKILLS.sec);
 }
 
 function buildSkillSection(id, rows) {
@@ -1916,7 +1496,7 @@ function buildSkillSection(id, rows) {
   el.innerHTML = rows.map(s => `
     <div class="skill-row">
       <div class="skill-name">${s.name}</div>
-      <div class="skill-bar"><div class="skill-fill" style="width:0" data-pct="${s.pct}"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:0;background:${s.color}" data-pct="${s.pct}"></div></div>
       <div class="skill-pct">${s.pct}%</div>
     </div>`).join('');
   setTimeout(() => {
@@ -1924,50 +1504,46 @@ function buildSkillSection(id, rows) {
   }, 200);
 }
 
-// ═══════════════════════════
 // DEVOS DATA
-// ═══════════════════════════
 const DOS_SKILLS = [
-  { name: 'JavaScript / Node.js', pct: 88, color: 'var(--amber)' },
-  { name: 'HTML5 &amp; CSS3',     pct: 92, color: 'var(--accent)' },
-  { name: 'Python / Automação',   pct: 78, color: 'var(--green)' },
-  { name: 'MySQL / SQL',          pct: 80, color: 'var(--red)' },
-  { name: 'Docker / DevOps',      pct: 68, color: 'var(--text2)' },
-  { name: 'Redes / Infra',        pct: 95, color: 'var(--accent)' },
+  { name: 'Salesforce Platform', pct: 45, color: 'var(--accent)' },
+  { name: 'REST API',            pct: 60, color: 'var(--accent)' },
+  { name: 'Redes / Infra',       pct: 90, color: 'var(--green)' },
+  { name: 'Node.js / JS',        pct: 78, color: 'var(--amber)' },
+  { name: 'ERP Totvs',           pct: 85, color: 'var(--amber)' },
+  { name: 'MySQL / SQL',         pct: 75, color: 'var(--accent)' },
 ];
 
 const DOS_ACTIVITY = [
-  { color: 'var(--green)', text: 'Deploy realizado — DevOS integrado ao portfólio', time: '5min atrás' },
-  { color: 'var(--accent)', text: 'Novo commit: "feat: add DevOS panel"', time: '2h atrás' },
-  { color: 'var(--green)', text: 'CRM Pull request #42 aprovado', time: '3h atrás' },
-  { color: 'var(--red)', text: 'Bug corrigido: autenticação JWT /api/user', time: '5h atrás' },
-  { color: 'var(--accent)', text: 'Nova versão da API REST — v2.3.0', time: 'ontem' },
+  { color: 'var(--accent)', text: 'Emblema AgentBlazer AI II conquistado no Trailhead', time: 'recente' },
+  { color: 'var(--green)',  text: 'Post LinkedIn: transição para Salesforce Developer', time: '2 dias atrás' },
+  { color: 'var(--accent)', text: 'Emblema AgentBlazer AI I conquistado', time: '1 semana atrás' },
+  { color: 'var(--amber)',  text: 'CRM Node.js + MySQL — projeto concluído', time: 'Jan 2026' },
+  { color: 'var(--green)',  text: 'Certificação Active Directory Manager · Cisco', time: '2025' },
 ];
 
 const DOS_KANBAN = {
   'Todo': [
-    { title: 'Autenticação OAuth2 no CRM', tags: ['be'], priority: 'High' },
-    { title: 'Landing page responsiva', tags: ['fe'], priority: 'Mid' },
-    { title: 'Pipeline CI/CD com GitHub Actions', tags: ['dv'], priority: 'High' },
+    { title: 'ADM-201 — Salesforce Administrator', tags: ['sf'], priority: 'High' },
+    { title: 'Apex Basics no Trailhead', tags: ['sf'], priority: 'High' },
+    { title: 'Projeto: SF + API externa', tags: ['be'], priority: 'Mid' },
   ],
   'In Progress': [
-    { title: 'Integração API do GitHub', tags: ['be'], priority: 'High' },
-    { title: 'Dashboard analytics tempo real', tags: ['fe'], priority: 'Mid' },
+    { title: 'Trailhead — módulos de integração', tags: ['sf'], priority: 'High' },
+    { title: 'Developer Edition Org — prática', tags: ['sf'], priority: 'Mid' },
   ],
   'Done': [
+    { title: 'AgentBlazer AI I & II', tags: ['sf'], priority: '✓' },
     { title: 'CRM Node.js + MySQL', tags: ['be'], priority: '✓' },
     { title: 'Portfólio 2026', tags: ['fe'], priority: '✓' },
-    { title: 'DevOS integrado', tags: ['dv'], priority: '✓' },
   ],
 };
 
 const DOS_PROJECTS = [
-  { title: 'CRM Gestão de Clientes', desc: 'Sistema completo Node.js + MySQL + XAMPP. Backend, API REST e frontend.', tags: [['var(--green)','Node.js'],['var(--accent)','MySQL'],['var(--amber)','XAMPP']], lang: 'JavaScript', live: true },
-  { title: 'Portfolio DevOS', desc: 'Sistema operacional fictício como portfólio. HTML + Claude AI integrado.', tags: [['var(--amber)','JavaScript'],['var(--accent)','CSS']], lang: 'HTML/CSS', live: true },
-  { title: 'Python Automation', desc: 'Scripts de automação para monitoramento de infra e processos repetitivos.', tags: [['var(--green)','Python']], lang: 'Python', live: false },
-  { title: 'Infra Cisco Lab', desc: 'Laboratório de configuração de roteadores e switches Cisco.', tags: [['var(--accent)','Cisco']], lang: 'Packet Tracer', live: false },
-  { title: 'Docker Templates', desc: 'Templates de ambientes de desenvolvimento com Docker Compose.', tags: [['var(--accent)','Docker']], lang: 'YAML', live: false },
-  { title: 'Active Directory Setup', desc: 'Script de automação para setup de AD em Windows Server com GPOs.', tags: [['var(--amber)','PowerShell']], lang: 'PowerShell', live: false },
+  { title: 'CRM Gestão de Clientes', desc: 'Sistema completo Node.js + MySQL. Backend, API REST e frontend integrados.', tags: [['var(--green)','Node.js'],['var(--accent)','MySQL']], lang: 'JavaScript', live: true },
+  { title: 'Portfólio DevOS', desc: 'Terminal interativo, kanban e dashboard — este portfólio.', tags: [['var(--amber)','JavaScript'],['var(--accent)','CSS']], lang: 'HTML/CSS', live: true },
+  { title: 'Salesforce Org Dev', desc: 'Ambiente de prática com flows, objetos e primeiros Apex triggers.', tags: [['var(--accent)','Salesforce']], lang: 'Apex / SOQL', live: false },
+  { title: 'TechNexus — Sistema de Suporte', desc: 'Gestão de incidentes técnicos com arquitetura serverless.', tags: [['var(--amber)','JavaScript'],['var(--green)','Node.js']], lang: 'JavaScript', live: false },
 ];
 
 const DOS_CMDS = {
@@ -1976,6 +1552,7 @@ const DOS_CMDS = {
     { t:'out',  v:'  help       — Mostra esta mensagem' },
     { t:'out',  v:'  whoami     — Sobre Samuel Jacomo' },
     { t:'out',  v:'  skills     — Lista de habilidades' },
+    { t:'out',  v:'  salesforce — Trilha Salesforce' },
     { t:'out',  v:'  projects   — Lista de projetos' },
     { t:'out',  v:'  contact    — Informações de contato' },
     { t:'out',  v:'  clear      — Limpa o terminal' },
@@ -1983,18 +1560,26 @@ const DOS_CMDS = {
     { t:'out',  v:'  matrix     — 👀' },
   ],
   whoami: () => [
-    { t:'ok',  v:'Samuel Jacomo — Analista de TI &amp; Dev Full Stack' },
-    { t:'out', v:'  → MIT (TI) + Eniac (Manutenção)' },
-    { t:'out', v:'  → Node.js, MySQL, Python, Redes Cisco' },
-    { t:'out', v:'  → Infra N1-N2-N3, CFTV, Active Directory' },
-    { t:'out', v:'  → Mauá, São Paulo — BR' },
+    { t:'ok',  v:'Samuel Jacomo — Salesforce Developer em formação' },
+    { t:'out', v:'  → Foco: Integrações & APIs Salesforce' },
+    { t:'out', v:'  → Base: Infraestrutura, Redes, ERP Totvs, Node.js' },
+    { t:'out', v:'  → Trilha: ADM-201 → PD1 → Integration Architect' },
+    { t:'out', v:'  → Guarulhos, São Paulo — BR' },
   ],
-  skills:   () => DOS_SKILLS.map(s => ({ t:'out', v:`  ${s.name.replace(/&amp;/g,'&').padEnd(30)} ${s.pct}%` })),
+  salesforce: () => [
+    { t:'info', v:'Trilha Salesforce:' },
+    { t:'ok',   v:'  [✓] AgentBlazer AI I & II — concluído' },
+    { t:'info', v:'  [→] ADM-201 — em andamento' },
+    { t:'out',  v:'  [◦] Platform Developer I (PD1)' },
+    { t:'out',  v:'  [◦] Integration Architecture Designer' },
+  ],
+  skills:   () => DOS_SKILLS.map(s => ({ t:'out', v:`  ${s.name.padEnd(28)} ${s.pct}%` })),
   projects: () => DOS_PROJECTS.map(p => ({ t:'out', v:`  ● ${p.title}  [${p.lang}]` })),
   contact: () => [
     { t:'info', v:'Contato:' },
     { t:'out',  v:'  whatsapp → wa.me/5511911195124' },
     { t:'out',  v:'  email    → ss2099samu@gmail.com' },
+    { t:'out',  v:'  linkedin → linkedin.com/in/samuel-jacomo-b4417a261' },
   ],
   date:  () => [{ t:'ok', v: new Date().toLocaleString('pt-BR') }],
   clear: () => null,
@@ -2013,9 +1598,6 @@ function initDevOS() {
   setInterval(dosUpdateClock, 1000);
   dosUpdateClock();
   document.getElementById('dos-term-in').addEventListener('keydown', dosTermKey);
-  document.getElementById('dos-chat-in').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); dosSendChat(); }
-  });
 }
 
 function dosUpdateClock() {
@@ -2056,21 +1638,20 @@ function dosBuildDashboard() {
 }
 
 function dosAnimCounters() {
-  animTo('dc-proj',    6,    1000);
-  animTo('dc-commits', 1347, 1400);
-  animTo('dc-tasks',   8,    800);
-  animTo('dc-uptime',  99,   1000, true);
+  animTo('dc-proj',    12500, 1200);
+  animTo('dc-commits', 2,     800);
+  animTo('dc-tasks',   4,     600);
+  animTo('dc-uptime',  4,     700);
 }
 
-function animTo(id, target, dur, isPct=false) {
+function animTo(id, target, dur) {
   const el = document.getElementById(id);
   if (!el) return;
   let start = null;
   function step(ts) {
     if (!start) start = ts;
     const prog = Math.min((ts - start) / dur, 1);
-    const val  = Math.floor(prog * target);
-    el.textContent = isPct ? val + '%' : val.toLocaleString();
+    el.textContent = Math.floor(prog * target).toLocaleString('pt-BR');
     if (prog < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
@@ -2112,7 +1693,7 @@ function dosAddLine(type, text) {
   out.appendChild(p);
 }
 
-// MATRIX EASTER EGG
+// MATRIX
 function startMatrix() {
   const ov = document.createElement('div');
   ov.style.cssText = 'position:fixed;inset:0;background:#000;z-index:9000;overflow:hidden;cursor:pointer;';
@@ -2120,7 +1701,7 @@ function startMatrix() {
   cv.style.display = 'block';
   ov.appendChild(cv);
   const msg = document.createElement('div');
-  msg.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:monospace;font-size:2rem;color:#4f8ef7;text-align:center;text-shadow:0 0 20px #4f8ef7;pointer-events:none;';
+  msg.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:monospace;font-size:2rem;color:#00A1E0;text-align:center;text-shadow:0 0 20px #00A1E0;pointer-events:none;';
   msg.innerHTML = 'WAKE UP, NEO<br><span style="font-size:.9rem;opacity:.5">Clique para sair</span>';
   ov.appendChild(msg);
   document.body.appendChild(ov);
@@ -2130,7 +1711,7 @@ function startMatrix() {
   const drops = Array(cols).fill(1);
   const iv = setInterval(() => {
     ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,cv.width,cv.height);
-    ctx.fillStyle = '#4f8ef7'; ctx.font = '14px monospace';
+    ctx.fillStyle = '#00A1E0'; ctx.font = '14px monospace';
     drops.forEach((y,i) => {
       ctx.fillText(String.fromCharCode(0x30A0 + Math.random()*96), i*18, y*18);
       if (y*18 > cv.height && Math.random() > 0.975) drops[i] = 0;
@@ -2194,13 +1775,12 @@ function dosDropCard(e, targetCol) {
 function dosAddCard(col) {
   const title = prompt('Nome da tarefa:');
   if (!title) return;
-  dosRenderKCard({ title, tags: ['fe'], priority: 'Mid' }, col);
+  dosRenderKCard({ title, tags: ['sf'], priority: 'Mid' }, col);
   const c    = document.getElementById('kbc-' + col.replace(' ','_'));
   const colEl = c?.closest('.kb-col');
   if (colEl) colEl.querySelector('.kb-col-count').textContent = c.childElementCount;
 }
 
-// PROJECTS
 function dosBuildProjects() {
   const grid = document.getElementById('dos-proj-grid');
   if (!grid) return;
@@ -2214,66 +1794,6 @@ function dosBuildProjects() {
         ${p.live ? '<span class="proj-live">● live</span>' : ''}
       </div>
     </div>`).join('');
-}
-
-// AI CHAT
-async function dosSendChat() {
-  const input = document.getElementById('dos-chat-in');
-  const btn   = document.getElementById('dos-chat-send');
-  const text  = input.value.trim();
-  if (!text) return;
-  dosAddMsg('user', text);
-  input.value = '';
-  btn.disabled = true;
-  const typEl = dosAddTyping();
-  try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: `Você é o assistente AI do portfólio de Samuel Jacomo, profissional de TI e desenvolvedor Full Stack de Mauá, São Paulo. Responda de forma concisa, técnica e profissional em português do Brasil. Máximo 3 parágrafos curtos. Sobre Samuel: Analista de TI, formação MIT, Eniac e Fundação Bradesco. Skills: Node.js, MySQL, Python, Docker, JavaScript, HTML/CSS, Redes Cisco, Active Directory, Zabbix, CFTV. Projetos: CRM Node.js+MySQL, Portfolio DevOS, scripts Python de automação. Contato: ss2099samu@gmail.com / WhatsApp: 11 91119-5124.`,
-        messages: [{ role: 'user', content: text }]
-      })
-    });
-    const data  = await resp.json();
-    typEl.remove();
-    const reply = data.content?.[0]?.text || 'Não foi possível processar a mensagem.';
-    dosAddMsg('ai', reply);
-  } catch {
-    typEl.remove();
-    dosAddMsg('ai', 'Erro ao conectar com a API. Verifique a configuração da API key.');
-  }
-  btn.disabled = false;
-}
-
-function dosAddMsg(role, text) {
-  const msgs = document.getElementById('dos-msgs');
-  const time = new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
-  const div  = document.createElement('div');
-  div.className = `chat-msg ${role}`;
-  div.innerHTML = `<div class="chat-av">${role==='ai'?'AI':'EU'}</div>
-    <div>
-      <div class="chat-bubble">${text.replace(/\n/g,'<br>')}</div>
-      <span class="chat-time">${role==='ai'?'Samuel AI':'Você'} · ${time}</span>
-    </div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-  return div;
-}
-
-function dosAddTyping() {
-  const msgs = document.getElementById('dos-msgs');
-  const div  = document.createElement('div');
-  div.className = 'chat-msg ai';
-  div.innerHTML = `<div class="chat-av">AI</div>
-    <div><div class="chat-bubble"><div class="typing-dots">
-      <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
-    </div></div></div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-  return div;
 }
 </script>
 </body>
