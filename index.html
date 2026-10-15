@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Jacomo — Salesforce Developer & TI</title>
+<meta name="description" content="Samuel Jacomo — profissional de TI em transição para desenvolvimento Salesforce com foco em integrações e APIs. Infraestrutura, ERP Totvs, Node.js e MySQL. Guarulhos, SP.">
+<meta name="author" content="Samuel Jacomo">
+<meta name="theme-color" content="#0c0d0f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Samuel Jacomo — Salesforce Developer & TI">
+<meta property="og:description" content="Integrações Salesforce + ERP Totvs, com base sólida em infraestrutura. Guarulhos, SP.">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c0d0f'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='28' fill='%2300A1E0'%3ESJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=DM+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg:#0c0d0f; --bg2:#111316; --bg3:#16181c; --surface:#1a1d22;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
+  --text:#e8eaed; --text2:#9aa0ab; --text3:#6b717c;
+  --accent:#00A1E0; --accent-d:rgba(0,161,224,0.12); --accent-b:rgba(0,161,224,0.22);
+  --green:#3dba78; --green-d:rgba(61,186,120,0.12); --green-b:rgba(61,186,120,0.2);
+  --amber:#e9a84c; --amber-d:rgba(233,168,76,0.1); --amber-b:rgba(233,168,76,0.2);
+  --red:#e05c5c;
+  --sidebar:260px; --radius:10px;
+  --font-d:'Fraunces',Georgia,serif; --font-s:'Geist',system-ui,sans-serif; --font-m:'DM Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-s);font-size:14px;line-height:1.6;height:100vh;height:100dvh;display:flex;overflow:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--accent);color:#000;padding:8px 14px;border-radius:6px;font-weight:600;text-decoration:none}
+.skip:focus{top:12px}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:50}
+.sidebar-inner{display:flex;flex-direction:column;height:100%;padding:28px 18px;overflow-y:auto;scrollbar-width:none}
+.profile{padding-bottom:24px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.avatar-area{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--accent-d);border:1px solid var(--accent-b);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.1rem;color:var(--accent);flex-shrink:0}
+.avatar-info h3{font-size:.88rem;font-weight:600;letter-spacing:-.01em}
+.avatar-info p{font-size:.72rem;color:var(--text2);margin-top:1px}
+.avail-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:var(--green-d);border:1px solid var(--green-b);border-radius:20px;font-size:.68rem;color:var(--green);font-weight:500}
+.avail-dot,.exp-dot,.dos-online{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-label{font-family:var(--font-m);font-size:.6rem;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;padding:0 8px;margin:4px 0 6px}
+.nav{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:var(--text2);font-size:.83rem;text-decoration:none;transition:all .2s var(--ease);border:1px solid transparent}
+.nav-item:hover{color:var(--text);background:var(--surface)}
+.nav-item.active{color:var(--text);background:var(--surface);border-color:var(--border2)}
+.nav-icon{width:16px;text-align:center;font-size:.78rem;opacity:.7}
+.nav-item.active .nav-icon{opacity:1;color:var(--accent)}
+.nav-tag{margin-left:auto;font-family:var(--font-m);font-size:.58rem;padding:2px 6px;border-radius:4px;background:var(--accent-d);color:var(--accent);border:1px solid var(--accent-b)}
+.nav-tag.green{background:var(--green-d);color:var(--green);border-color:var(--green-b)}
+.sidebar-cv{margin-top:14px;width:100%;justify-content:center}
+.sidebar-bottom{margin-top:auto;padding-top:20px;border-top:1px solid var(--border)}
+.sys-info{font-family:var(--font-m);font-size:.62rem;color:var(--text3);line-height:1.8}
+.sys-info span{color:var(--text2)}
+
+/* ── CONTENT ── */
+.content{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--surface) transparent}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-thumb{background:var(--surface);border-radius:2px}
+.page{display:none;padding:44px 52px 64px;max-width:1080px}
+.page.active-page{display:block}
+.page.active-page>*{animation:rise .4s var(--ease) both}
+.page.active-page>*:nth-child(2){animation-delay:.05s}
+.page.active-page>*:nth-child(3){animation-delay:.1s}
+.page.active-page>*:nth-child(4){animation-delay:.15s}
+.page.active-page>*:nth-child(5){animation-delay:.2s}
+.page.active-page>*:nth-child(n+6){animation-delay:.25s}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.ph{margin-bottom:32px}
+.ph-sup{font-family:var(--font-m);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ph-sup::before{content:'';width:20px;height:1px;background:var(--accent);opacity:.5}
+.ph-title{font-family:var(--font-d);font-size:2.8rem;font-weight:300;letter-spacing:-.04em;line-height:1.05}
+.ph-title em{font-style:italic;color:var(--text2)}
+.ph-body{margin-top:12px;font-size:.9rem;color:var(--text2);font-weight:300;max-width:520px;line-height:1.65}
+.section-label{font-family:var(--font-m);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.section-label a{color:var(--accent);text-decoration:none;letter-spacing:.04em;text-transform:none;order:2}
+
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color .2s var(--ease)}
+.card:hover{border-color:var(--border2)}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--font-m);font-size:.68rem;padding:3px 9px;background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--text2)}
+.tag.sf{color:var(--accent);border-color:var(--accent-b);background:var(--accent-d)}
+.tag.gr{color:var(--green);border-color:var(--green-b);background:var(--green-d)}
+.tag.am{color:var(--amber);border-color:var(--amber-b);background:var(--amber-d)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:8px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s var(--ease);text-decoration:none;border:1px solid transparent;font-family:var(--font-s);background:none}
+.btn-solid{background:var(--text);color:var(--bg)}
+.btn-solid:hover{background:#fff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,255,255,.1)}
+.btn-ghost{border-color:var(--border2);color:var(--text2)}
+.btn-ghost:hover{color:var(--text);border-color:rgba(255,255,255,.22);background:var(--surface);transform:translateY(-1px)}
+.btn-sf{background:var(--accent-d);border-color:var(--accent-b);color:var(--accent)}
+.btn-sf:hover{background:rgba(0,161,224,.2);transform:translateY(-1px)}
+.btn-sm{padding:6px 12px;font-size:.74rem}
+
+/* ── HOME ── */
+.hero{border:1px solid var(--border);border-radius:12px;padding:52px 48px;margin-bottom:12px;background:var(--bg2);position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:0;right:0;width:420px;height:420px;background:radial-gradient(circle at top right,rgba(0,161,224,.1),transparent 65%);pointer-events:none}
+.hero-kicker{font-family:var(--font-m);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.hero-kicker::before{content:'';width:24px;height:1px;background:var(--border2)}
+.hero-heading{font-family:var(--font-d);font-size:3.6rem;font-weight:300;letter-spacing:-.05em;line-height:1;margin-bottom:20px}
+.hero-heading em{font-style:italic;color:var(--text2)}
+.hero-body{font-size:.95rem;color:var(--text2);font-weight:300;max-width:500px;line-height:1.7;margin-bottom:30px}
+.hero-body b{color:var(--text);font-weight:500}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg2);margin-bottom:12px;overflow:hidden}
+.stat{padding:18px 22px;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-val{font-family:var(--font-d);font-size:1.9rem;font-weight:300;letter-spacing:-.04em;line-height:1.1}
+.stat-val small{font-size:1rem;color:var(--text3)}
+.stat-label{font-family:var(--font-m);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:4px}
+
+.feat-card{display:block;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:all .22s var(--ease);text-decoration:none;color:inherit}
+.feat-card:hover{border-color:var(--border2);background:var(--surface);transform:translateY(-2px)}
+.feat-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;margin-bottom:14px}
+.feat-icon.blue{background:var(--accent-d);color:var(--accent)}
+.feat-icon.green{background:var(--green-d);color:var(--green)}
+.feat-icon.amber{background:var(--amber-d);color:var(--amber)}
+.feat-card h3{font-size:.86rem;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.feat-card h3 .fa-arrow-right{font-size:.65rem;color:var(--text3);margin-left:auto;transition:transform .2s}
+.feat-card:hover h3 .fa-arrow-right{transform:translateX(3px);color:var(--accent)}
+.feat-card p{font-size:.8rem;color:var(--text2);line-height:1.55}
+
+/* ── SOBRE ── */
+.about-text{font-size:.93rem;color:var(--text2);line-height:1.78;font-weight:300}
+.about-text b{color:var(--text);font-weight:500}
+.about-text p+p{margin-top:14px}
+.hl-list{display:flex;flex-direction:column;gap:10px}
+.hl-item{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;transition:border-color .18s}
+.hl-item:hover{border-color:var(--border2)}
+.hl-num{font-family:var(--font-m);font-size:.62rem;color:var(--text3);margin-top:3px;flex-shrink:0;width:20px}
+.hl-item p{font-size:.84rem;color:var(--text2)}
+.hl-item b{color:var(--text);font-weight:500}
+
+/* ── EXPERIÊNCIA ── */
+.exp-item{display:grid;grid-template-columns:130px 1fr;gap:32px;padding:28px 0;border-bottom:1px solid var(--border)}
+.exp-item:last-child{border-bottom:none;padding-bottom:0}
+.exp-item:first-child{padding-top:0}
+.exp-period{font-family:var(--font-m);font-size:.66rem;color:var(--text3);line-height:1.7}
+.exp-dur{font-family:var(--font-m);font-size:.6rem;color:var(--text2);margin-top:4px}
+.exp-status{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-m);font-size:.6rem;color:var(--green);margin-top:6px}
+.exp-role{font-family:var(--font-d);font-size:1.3rem;font-weight:300;letter-spacing:-.025em;margin-bottom:4px}
+.exp-company{font-family:var(--font-m);font-size:.7rem;color:var(--accent);margin-bottom:16px}
+.exp-group{font-family:var(--font-m);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin:14px 0 8px}
+.exp-group:first-of-type{margin-top:0}
+.exp-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.exp-list li{display:flex;align-items:baseline;gap:10px;font-size:.83rem;color:var(--text2)}
+.exp-list li::before{content:'—';color:var(--text3);flex-shrink:0;font-size:.75rem}
+.exp-item .tags{margin-top:16px}
+
+/* ── PROJETOS ── */
+.proj-case{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:26px;display:flex;flex-direction:column;transition:all .2s var(--ease)}
+.proj-case:hover{border-color:var(--border2);transform:translateY(-2px)}
+.proj-case.featured{border-color:var(--accent-b)}
+.pc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.pc-title{font-family:var(--font-d);font-size:1.25rem;font-weight:300;letter-spacing:-.02em;line-height:1.2}
+.pc-status{font-family:var(--font-m);font-size:.58rem;padding:2px 8px;border-radius:4px;border:1px solid;white-space:nowrap;flex-shrink:0}
+.pc-status.done{color:var(--green);border-color:var(--green-b);background:var(--green-d)}
+.pc-status.wip{color:var(--amber);border-color:var(--amber-b);background:var(--amber-d)}
+.pc-sum{font-size:.84rem;color:var(--text2);margin-bottom:16px}
+.pc-dl{display:grid;grid-template-columns:78px 1fr;gap:6px 12px;font-size:.8rem;margin-bottom:16px}
+.pc-dl dt{font-family:var(--font-m);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding-top:3px}
+.pc-dl dd{color:var(--text2)}
+.pc-foot{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border)}
+.pc-links{display:flex;gap:6px}
+.pc-nolink{font-family:var(--font-m);font-size:.6rem;color:var(--text3)}
+
+/* ── FORMAÇÃO ── */
+.edu-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:all .2s}
+.edu-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.edu-card.hl{border-color:var(--accent-b)}
+.edu-inst{font-family:var(--font-d);font-size:1.05rem;font-weight:300;letter-spacing:-.02em;margin-bottom:4px}
+.edu-card.hl .edu-inst{color:var(--accent)}
+.edu-degree{font-size:.8rem;color:var(--text2);margin-bottom:10px}
+.edu-period{font-family:var(--font-m);font-size:.65rem;color:var(--text3);background:var(--surface);border:1px solid var(--border);padding:2px 8px;border-radius:4px;display:inline-block}
+.edu-extra{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.74rem;color:var(--text3)}
+.edu-extra .on{color:var(--green)}
+.cert-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 24px}
+.cert-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.cert-ico{width:30px;height:30px;border-radius:7px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--text2);flex-shrink:0}
+.cert-name{font-size:.82rem;color:var(--text)}
+.cert-org{font-family:var(--font-m);font-size:.62rem;color:var(--text3)}
+.cert-year{margin-left:auto;font-family:var(--font-m);font-size:.64rem;color:var(--text3)}
+
+/* ── SKILLS ── */
+.skill-legend{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--font-m);font-size:.62rem;color:var(--text3);margin-bottom:18px}
+.skill-legend span{display:inline-flex;align-items:center;gap:6px}
+.skill-block+.skill-block{margin-top:26px}
+.skill-row{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid var(--border)}
+.skill-row:last-child{border-bottom:none}
+.skill-name{font-size:.84rem;color:var(--text);flex:1;min-width:0}
+.skill-note{display:block;font-size:.72rem;color:var(--text3);margin-top:1px}
+.meter{display:flex;gap:3px;flex-shrink:0}
+.meter i{width:22px;height:5px;border-radius:2px;background:var(--surface);transition:background .4s var(--ease)}
+.skill-lvl{font-family:var(--font-m);font-size:.62rem;color:var(--text2);width:92px;text-align:right;flex-shrink:0}
+
+/* ── SALESFORCE ── */
+.sf-banner{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:36px 40px;margin-bottom:12px;position:relative;overflow:hidden}
+.sf-banner::after{content:'';position:absolute;top:0;right:0;width:300px;height:300px;background:radial-gradient(circle at top right,rgba(0,161,224,.08),transparent 65%);pointer-events:none}
+.sf-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--accent-d);border:1px solid var(--accent-b);border-radius:20px;font-family:var(--font-m);font-size:.64rem;color:var(--accent);font-weight:500;margin-bottom:16px}
+.sf-heading{font-family:var(--font-d);font-size:1.8rem;font-weight:300;letter-spacing:-.03em;margin-bottom:10px}
+.sf-body{font-size:.86rem;color:var(--text2);max-width:560px;line-height:1.65;margin-bottom:22px}
+.sf-body b{color:var(--text);font-weight:500}
+.flow{display:flex;align-items:stretch;gap:0;margin:4px 0 24px;flex-wrap:wrap}
+.flow-node{flex:1;min-width:120px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.flow-node b{display:block;font-size:.8rem;font-weight:600}
+.flow-node span{font-family:var(--font-m);font-size:.6rem;color:var(--text3)}
+.flow-node.sf{border-color:var(--accent-b)} .flow-node.sf b{color:var(--accent)}
+.flow-node.tv{border-color:var(--amber-b)} .flow-node.tv b{color:var(--amber)}
+.flow-arrow{display:flex;align-items:center;padding:0 8px;color:var(--text3);font-size:.7rem}
+.tech-pills{display:flex;flex-wrap:wrap;gap:7px}
+.tp{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;font-family:var(--font-m);font-size:.72rem;border:1px solid}
+.tp-sf{background:rgba(0,161,224,.08);border-color:var(--accent-b);color:var(--accent)}
+.tp-node{background:rgba(61,186,120,.08);border-color:var(--green-b);color:var(--green)}
+.tp-mysql,.tp-ad{background:rgba(79,142,247,.08);border-color:rgba(79,142,247,.22);color:#7aaef9}
+.tp-rest{background:rgba(138,143,154,.1);border-color:rgba(138,143,154,.2);color:var(--text2)}
+.tp-totvs{background:var(--amber-d);border-color:var(--amber-b);color:var(--amber)}
+.roadmap{display:flex;flex-direction:column;margin-top:4px}
+.rm-item{display:flex;gap:16px}
+.rm-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:24px}
+.rm-dot{width:10px;height:10px;border-radius:50%;border:2px solid;margin-top:5px}
+.rm-dot.done{background:var(--green);border-color:var(--green)}
+.rm-dot.active{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-d)}
+.rm-dot.pending{border-color:var(--text3)}
+.rm-line{width:1px;flex:1;background:var(--border);margin:4px 0;min-height:24px}
+.rm-content{padding-bottom:20px;flex:1}
+.rm-item:last-child .rm-content{padding-bottom:0}
+.rm-title{font-size:.86rem;font-weight:500}
+.rm-sub{font-size:.76rem;color:var(--text2)}
+.rm-cert{font-family:var(--font-m);font-size:.62rem;color:var(--accent);margin-top:4px}
+.rm-cert.ok{color:var(--green)} .rm-cert.mute{color:var(--text3)}
+.sf-skill-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all .2s}
+.sf-skill-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.sf-card-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sf-card-icon{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+.sf-card-title{font-size:.84rem;font-weight:600}
+.sf-card-sub{font-size:.68rem;color:var(--text3);margin-top:1px;font-family:var(--font-m)}
+
+/* ── DEVOS ── */
+#devos{padding:0;max-width:none;height:100%;flex-direction:column}
+#devos.active-page{display:flex}
+#devos.active-page>*{animation:none}
+.dos-topbar{height:42px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0}
+.dos-logo{font-family:var(--font-m);font-size:.72rem;font-weight:500;letter-spacing:.03em;margin-right:4px}
+.dos-nav-btns{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}
+.dos-nb{padding:4px 12px;font-family:var(--font-m);font-size:.64rem;background:transparent;border:1px solid transparent;border-radius:5px;color:var(--text3);cursor:pointer;transition:all .15s;white-space:nowrap}
+.dos-nb:hover{color:var(--text2);background:var(--surface)}
+.dos-nb[aria-selected="true"]{color:var(--text);background:var(--surface);border-color:var(--border2)}
+.dos-topbar-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.dos-stat-pill{display:flex;align-items:center;gap:5px;font-family:var(--font-m);font-size:.6rem;color:var(--text3);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2px 8px}
+.dos-exit{padding:4px 10px;font-family:var(--font-m);font-size:.62rem;border:1px solid var(--border);border-radius:5px;color:var(--text3);cursor:pointer;transition:all .15s;text-decoration:none}
+.dos-exit:hover{color:var(--text);border-color:var(--border2)}
+.dos-body{flex:1;display:flex;min-height:0}
+.dos-content{flex:1;min-width:0;display:flex;flex-direction:column}
+.dos-panel{flex:1;min-height:0;display:none}
+.dos-panel.active{display:flex;flex-direction:column}
+.dos-panel-inner{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column}
+.dos-ph{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.dos-ph-title{font-size:.9rem;font-weight:600}
+.dos-ph-sub{font-family:var(--font-m);font-size:.62rem;color:var(--text3);margin-top:2px}
+.dos-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.dos-stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;border-top:2px solid}
+.dos-stat.c0{border-top-color:var(--green)} .dos-stat.c1{border-top-color:var(--accent)} .dos-stat.c2{border-top-color:var(--amber)} .dos-stat.c3{border-top-color:var(--red)}
+.dos-stat-label{font-family:var(--font-m);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.dos-stat-val{font-family:var(--font-d);font-size:1.6rem;font-weight:300;letter-spacing:-.04em}
+.dos-stat-delta{font-family:var(--font-m);font-size:.56rem;color:var(--text3);margin-top:3px}
+.dos-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dos-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+.dos-sec-title{font-family:var(--font-m);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.dos-section .skill-row{padding:7px 0}
+.dos-section .skill-name{font-family:var(--font-m);font-size:.66rem;color:var(--text2)}
+.dos-section .meter i{width:14px;height:4px;background:var(--bg3)}
+.dos-section .skill-lvl{width:80px;font-size:.58rem;color:var(--text3)}
+.ds-feed-item{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.ds-feed-item:last-child{border-bottom:none}
+.ds-feed-dot{width:5px;height:5px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.ds-feed-text{font-family:var(--font-m);font-size:.64rem;color:var(--text2);line-height:1.5}
+.ds-feed-time{font-family:var(--font-m);font-size:.56rem;color:var(--text3)}
+
+.term-wrap{background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:320px}
+.term-bar{background:var(--surface);padding:8px 12px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border)}
+.tbar-dot{width:9px;height:9px;border-radius:50%}
+.tbar-dot.r{background:#ff5f57}.tbar-dot.y{background:#ffbd2e}.tbar-dot.g{background:#28ca41}
+.tbar-title{font-family:var(--font-m);font-size:.6rem;color:var(--text3);margin-left:4px}
+.term-out{flex:1;padding:12px 14px;overflow-y:auto;font-family:var(--font-m);font-size:.72rem;line-height:1.85;white-space:pre-wrap;word-break:break-word}
+.t-prompt{color:var(--accent)} .t-cmd{color:var(--text)} .t-out{color:var(--text2)} .t-ok{color:var(--green)} .t-err{color:var(--red)} .t-info{color:var(--amber)}
+.term-in-row{display:flex;align-items:center;gap:8px;padding:9px 14px;border-top:1px solid var(--border)}
+.term-prompt-sym{color:var(--accent);font-family:var(--font-m);font-size:.72rem}
+.term-input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-family:var(--font-m);font-size:.72rem;caret-color:var(--accent)}
+.term-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.term-chip{font-family:var(--font-m);font-size:.62rem;padding:3px 9px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer}
+.term-chip:hover{border-color:var(--accent-b);color:var(--accent)}
+
+.kanban-board{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:1;align-items:start}
+.kb-col{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;transition:border-color .15s}
+.kb-col.over{border-color:var(--accent)}
+.kb-col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.kb-col-name{font-family:var(--font-m);font-size:.62rem;font-weight:500}
+.kb-col-name.todo{color:var(--text2)} .kb-col-name.prog{color:var(--amber)} .kb-col-name.done{color:var(--green)}
+.kb-col-count{font-family:var(--font-m);font-size:.56rem;color:var(--text3);background:var(--bg2);border:1px solid var(--border);padding:1px 5px;border-radius:3px}
+.kb-cards{display:flex;flex-direction:column;gap:6px;min-height:40px}
+.kb-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:9px 11px;cursor:grab;transition:all .15s}
+.kb-card:hover{border-color:var(--border2)}
+.kb-card.dragging{opacity:.3}
+.kb-card-title{font-family:var(--font-m);font-size:.64rem;line-height:1.5;margin-bottom:6px}
+.kb-card-meta{display:flex;align-items:center;gap:4px}
+.kb-tag{font-family:var(--font-m);font-size:.54rem;padding:1px 5px;border-radius:3px;border:1px solid}
+.kb-tag.fe,.kb-tag.sf{background:rgba(0,161,224,.07);border-color:var(--accent-b);color:var(--accent)}
+.kb-tag.be{background:var(--green-d);border-color:var(--green-b);color:var(--green)}
+.kb-pri{margin-left:auto;font-family:var(--font-m);font-size:.54rem;color:var(--text3)}
+.kb-move{border:1px solid var(--border);background:transparent;border-radius:4px;color:var(--text3);font-size:.55rem;width:20px;height:18px;cursor:pointer;margin-left:6px}
+.kb-move:hover{color:var(--accent);border-color:var(--accent-b)}
+.kb-add{margin-top:8px;display:flex;gap:4px}
+.kb-add input{flex:1;min-width:0;background:var(--bg2);border:1px dashed var(--border2);border-radius:5px;padding:5px 8px;font-family:var(--font-m);font-size:.6rem;color:var(--text);outline:none}
+.kb-add input:focus{border-color:var(--accent);border-style:solid}
+.kb-add button{border:1px solid var(--border2);background:transparent;border-radius:5px;color:var(--text3);padding:0 9px;cursor:pointer;font-size:.7rem}
+.kb-add button:hover{color:var(--accent);border-color:var(--accent-b)}
+
+/* ── CONTATO ── */
+.contact-card{display:flex;flex-direction:column;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:26px;text-decoration:none;color:inherit;transition:all .22s var(--ease);position:relative}
+.contact-card:hover{border-color:var(--border2);background:var(--surface);transform:translateY(-3px)}
+.contact-icon-wrap{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:18px;border:1px solid}
+.contact-icon-wrap.wa{color:var(--green);background:var(--green-d);border-color:var(--green-b)}
+.contact-icon-wrap.em,.contact-icon-wrap.li{color:var(--accent);background:var(--accent-d);border-color:var(--accent-b)}
+.contact-title{font-size:.95rem;font-weight:600;margin-bottom:4px}
+.contact-val{font-family:var(--font-m);font-size:.72rem;color:var(--text2);word-break:break-all}
+.contact-hint{font-size:.78rem;color:var(--text3);margin-top:14px;border-top:1px solid var(--border);padding-top:12px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.copy-btn{border:1px solid var(--border2);background:var(--bg3);border-radius:5px;padding:3px 9px;font-family:var(--font-m);font-size:.62rem;color:var(--text2);cursor:pointer;position:relative;z-index:2}
+.copy-btn:hover{color:var(--accent);border-color:var(--accent-b)}
+.contact-cta{margin-top:12px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:20px 24px;border:1px dashed var(--border2);border-radius:12px}
+.contact-cta p{flex:1;min-width:220px;font-size:.84rem;color:var(--text2)}
+.contact-cta b{color:var(--text);font-weight:500}
+
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:9px 16px;border-radius:8px;font-size:.78rem;opacity:0;pointer-events:none;transition:all .25s var(--ease);z-index:9999}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1024px){
+  .page{padding:36px 32px 56px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--border)}
+}
+@media (max-width:768px){
+  body{flex-direction:column}
+  .sidebar{width:100%;border-right:none;border-bottom:1px solid var(--border)}
+  .sidebar-inner{padding:10px 12px}
+  .profile,.nav-label,.sidebar-bottom,.sidebar-cv,.nav-tag{display:none}
+  .nav{flex-direction:row;overflow-x:auto;scrollbar-width:none;margin:0}
+  .nav::-webkit-scrollbar{display:none}
+  .nav-item{white-space:nowrap;padding:7px 10px}
+  .page{padding:26px 16px 48px}
+  .hero{padding:30px 22px}
+  .hero-heading{font-size:2.5rem}
+  .ph-title{font-size:2rem}
+  .sf-banner{padding:26px 22px}
+  .exp-item{grid-template-columns:1fr;gap:6px}
+  .dos-stats{grid-template-columns:repeat(2,1fr)}
+  .dos-two,.kanban-board{grid-template-columns:1fr}
+  .dos-topbar-right .dos-stat-pill{display:none}
+  .flow{flex-direction:column}
+  .flow-arrow{padding:4px 0;justify-content:center;transform:rotate(90deg)}
+  .skill-lvl{width:auto}
+  .meter i{width:14px}
+  .pc-dl{grid-template-columns:1fr;gap:2px}
+  .pc-dl dd{margin-bottom:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+/* ── PRINT / CV ── */
+@media print{
+  @page{margin:14mm}
+  :root{--bg:#fff;--bg2:#fff;--bg3:#fff;--surface:#f4f5f7;--text:#111;--text2:#333;--text3:#666;--border:#ddd;--border2:#ccc}
+  body{display:block;height:auto;overflow:visible;background:#fff;font-size:11px}
+  .sidebar,#devos,.hero-actions,.toast,.skip,.copy-btn,.contact-cta,.pc-links,.section-label a,.feat-card h3 .fa-arrow-right{display:none!important}
+  .content{overflow:visible}
+  .page{display:block!important;padding:0 0 14px;max-width:none;break-inside:auto}
+  .page>*{animation:none!important}
+  .page+.page{border-top:1px solid #ddd;padding-top:14px}
+  #home .grid-3{display:none}
+  .hero{border:none;padding:0;margin-bottom:10px}
+  .hero::after,.sf-banner::after{display:none}
+  .hero-heading{font-size:28px}
+  .ph{margin-bottom:12px}.ph-title{font-size:20px}
+  .edu-card,.proj-case,.sf-skill-card,.hl-item,.stats,.contact-card,.exp-item,.skill-row,.rm-item,.cert-row{break-inside:avoid;box-shadow:none}
+  .ph,.section-label{break-after:avoid}
+  .print-head{display:flex!important;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #111;padding-bottom:8px;margin-bottom:14px}
+  .print-head h1{font-family:var(--font-d);font-weight:400;font-size:26px;letter-spacing:-.03em}
+  .print-head div{font-family:var(--font-m);font-size:9px;color:#444;text-align:right;line-height:1.6}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .stat{border-bottom:none!important;border-right:1px solid var(--border)!important}
+  .hero-kicker{display:none}
+  .contact-card{padding:12px}
+  *{color-adjust:exact;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" aria-label="Navegação principal">
+  <div class="sidebar-inner">
+    <div class="profile">
+      <div class="avatar-area">
+        <div class="avatar" aria-hidden="true">SJ</div>
+        <div class="avatar-info">
+          <h3>Samuel Jacomo</h3>
+          <p>Salesforce Developer · Integrações</p>
+        </div>
+      </div>
+      <div class="avail-badge"><span class="avail-dot"></span> Disponível para oportunidades</div>
+    </div>
+
+    <p class="nav-label">Menu</p>
+    <ul class="nav">
+      <li><a class="nav-item" href="#home"><span class="nav-icon"><i class="fas fa-house"></i></span> Início</a></li>
+      <li><a class="nav-item" href="#sobre"><span class="nav-icon"><i class="fas fa-user"></i></span> Sobre</a></li>
+      <li><a class="nav-item" href="#experiencia"><span class="nav-icon"><i class="fas fa-briefcase"></i></span> Experiência</a></li>
+      <li><a class="nav-item" href="#projetos"><span class="nav-icon"><i class="fas fa-layer-group"></i></span> Projetos</a></li>
+      <li><a class="nav-item" href="#salesforce"><span class="nav-icon"><i class="fas fa-cloud"></i></span> Salesforce <span class="nav-tag">Foco</span></a></li>
+      <li><a class="nav-item" href="#skills"><span class="nav-icon"><i class="fas fa-microchip"></i></span> Skills</a></li>
+      <li><a class="nav-item" href="#formacao"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span> Formação</a></li>
+      <li><a class="nav-item" href="#devos"><span class="nav-icon"><i class="fas fa-terminal"></i></span> DevOS <span class="nav-tag green">Extra</span></a></li>
+      <li><a class="nav-item" href="#contato"><span class="nav-icon"><i class="fas fa-at"></i></span> Contato</a></li>
+    </ul>
+    <button class="btn btn-ghost btn-sm sidebar-cv" onclick="printCV()"><i class="fas fa-file-arrow-down"></i> Baixar CV (PDF)</button>
+
+    <div class="sidebar-bottom">
+      <div class="sys-info">
+        <div>foco <span>Salesforce · Integrações</span></div>
+        <div>local <span>Guarulhos, SP — BR</span></div>
+        <div>© <span id="year">2026</span> Samuel Jacomo</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<main class="content" id="main" tabindex="-1">
+  <header class="print-head" style="display:none">
+    <h1>Samuel Jacomo</h1>
+    <div>Salesforce Developer · Integrações<br>ss2099samu@gmail.com · +55 11 91119-5124<br>linkedin.com/in/samuel-jacomo-b4417a261 · Guarulhos, SP</div>
+  </header>
+
+  <!-- HOME -->
+  <section id="home" class="page" aria-labelledby="t-home">
+    <div class="hero">
+      <div class="hero-kicker">Portfólio · Guarulhos, SP</div>
+      <h1 class="hero-heading" id="t-home">Salesforce <br><em>Developer</em></h1>
+      <p class="hero-body">
+        Profissional de TI em transição para <b>desenvolvimento Salesforce com foco em integrações e APIs</b>.
+        Base sólida em infraestrutura, redes e <b>ERP Totvs</b> — entendo o que acontece antes e depois da API, não só o código do meio.
+      </p>
+      <div class="hero-actions">
+        <a href="#contato" class="btn btn-solid"><i class="fas fa-at"></i> Entrar em contato</a>
+        <a href="#projetos" class="btn btn-sf"><i class="fas fa-layer-group"></i> Ver projetos</a>
+        <button class="btn btn-ghost" onclick="printCV()"><i class="fas fa-file-arrow-down"></i> Baixar CV</button>
+      </div>
+    </div>
+
+    <div class="stats" aria-label="Resumo">
+      <div class="stat"><div class="stat-val"><span class="js-years">4</span><small>+</small></div><div class="stat-label">anos em TI</div></div>
+      <div class="stat"><div class="stat-val">2</div><div class="stat-label">emblemas Agentblazer</div></div>
+      <div class="stat"><div class="stat-val">8</div><div class="stat-label">cursos técnicos</div></div>
+      <div class="stat"><div class="stat-val">4</div><div class="stat-label">projetos no portfólio</div></div>
+    </div>
+
+    <div class="grid-3">
+      <a class="feat-card" href="#salesforce">
+        <div class="feat-icon blue"><i class="fas fa-plug"></i></div>
+        <h3>Integrações & APIs <i class="fas fa-arrow-right"></i></h3>
+        <p>REST, SOAP e Bulk API. Conectar Salesforce a ERPs, sistemas legados e plataformas externas.</p>
+      </a>
+      <a class="feat-card" href="#salesforce">
+        <div class="feat-icon amber"><i class="fas fa-database"></i></div>
+        <h3>ERP Totvs <i class="fas fa-arrow-right"></i></h3>
+        <p>Suporte aos módulos Distribuição e Varejo — diferencial raro para integrações Salesforce + Totvs.</p>
+      </a>
+      <a class="feat-card" href="#projetos">
+        <div class="feat-icon green"><i class="fas fa-code"></i></div>
+        <h3>Desenvolvimento <i class="fas fa-arrow-right"></i></h3>
+        <p>Node.js, JavaScript e MySQL. CRM personalizado do zero, com backend e API REST.</p>
+      </a>
+      <a class="feat-card" href="#experiencia">
+        <div class="feat-icon blue"><i class="fas fa-server"></i></div>
+        <h3>Infraestrutura <i class="fas fa-arrow-right"></i></h3>
+        <p>Redes, Active Directory, servidores Linux/Windows e monitoramento com Zabbix.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="page" aria-labelledby="t-sobre">
+    <div class="ph">
+      <p class="ph-sup">Quem sou</p>
+      <h2 class="ph-title" id="t-sobre">Perfil <em>Profissional</em></h2>
+    </div>
+    <div class="card about-text" style="margin-bottom:14px;">
+      <p>Sou <b>Samuel Jacomo</b>, profissional de TI com <b><span class="js-years">4</span>+ anos de experiência</b> em infraestrutura, suporte técnico,
+      administração de sistemas e desenvolvimento — hoje em transição para <b>desenvolvimento Salesforce com foco em integrações e APIs</b>.</p>
+      <p>A combinação de <b>infraestrutura</b> (redes, Active Directory, Linux) com <b>desenvolvimento</b> (Node.js, JavaScript, MySQL)
+      e vivência no <b>ERP Totvs</b> me dá uma visão de ponta a ponta: sei onde o dado nasce, por onde ele trafega e o que quebra quando uma integração falha.</p>
+    </div>
+    <div class="hl-list">
+      <div class="hl-item"><span class="hl-num">01</span><p><b>Salesforce & Integrações:</b> Trailhead ativo, emblemas Agentblazer conquistados, trilha de certificações em andamento (Administrator → Platform Developer → Integration Architect).</p></div>
+      <div class="hl-item"><span class="hl-num">02</span><p><b>ERP Totvs:</b> Suporte e administração nos módulos de Distribuição e Varejo — diferencial para projetos de integração Salesforce + Totvs no Brasil.</p></div>
+      <div class="hl-item"><span class="hl-num">03</span><p><b>Infraestrutura & Redes:</b> Servidores Windows/Linux, Active Directory, roteadores, switches e monitoramento com Zabbix.</p></div>
+      <div class="hl-item"><span class="hl-num">04</span><p><b>Desenvolvimento:</b> Node.js, JavaScript ES6+, MySQL. CRM personalizado desenvolvido do zero com API REST.</p></div>
+      <div class="hl-item"><span class="hl-num">05</span><p><b>Objetivo:</b> Atuar como Salesforce Developer especializado em integrações, em empresas de logística, operações ou tecnologia em São Paulo.</p></div>
+    </div>
+  </section>
+
+  <!-- EXPERIÊNCIA -->
+  <section id="experiencia" class="page" aria-labelledby="t-exp">
+    <div class="ph">
+      <p class="ph-sup">Carreira</p>
+      <h2 class="ph-title" id="t-exp"><em>Experiência</em> Profissional</h2>
+    </div>
+    <div class="card">
+      <article class="exp-item">
+        <div>
+          <div class="exp-period">Nov 2023 — Atual</div>
+          <div class="exp-dur js-dur" data-from="2023-11"></div>
+          <div class="exp-status"><span class="exp-dot"></span> Em andamento</div>
+        </div>
+        <div>
+          <h3 class="exp-role">Assistente de TI</h3>
+          <div class="exp-company">Fenix Foods Distribuidora · Guarulhos, SP</div>
+          <div class="exp-group">Sistemas & ERP</div>
+          <ul class="exp-list">
+            <li>Suporte técnico ao ERP Totvs — módulos Distribuição e Varejo</li>
+            <li>Suporte a PDV e coletores de dados para rotinas de estoque e logística</li>
+            <li>Administração de usuários e permissões via Active Directory</li>
+          </ul>
+          <div class="exp-group">Infraestrutura & Segurança</div>
+          <ul class="exp-list">
+            <li>Manutenção preventiva e corretiva de servidores e estações de trabalho</li>
+            <li>Configuração de redes: cabeamento estruturado, switches e roteadores</li>
+            <li>Monitoramento de infraestrutura com Zabbix e gestão de DVRs</li>
+            <li>Instalação e configuração de SO (Windows, Linux, macOS)</li>
+            <li>Rotinas de backup, antivírus e segurança da informação</li>
+          </ul>
+          <div class="tags"><span class="tag am">Totvs</span><span class="tag">Active Directory</span><span class="tag">Zabbix</span><span class="tag">Redes</span><span class="tag">Linux</span></div>
+        </div>
+      </article>
+      <article class="exp-item">
+        <div>
+          <div class="exp-period">Jan 2022 — Atual</div>
+          <div class="exp-dur js-dur" data-from="2022-01"></div>
+          <div class="exp-status"><span class="exp-dot"></span> Em andamento</div>
+        </div>
+        <div>
+          <h3 class="exp-role">Desenvolvedor & Consultor de TI</h3>
+          <div class="exp-company">Autônomo · Freelancer</div>
+          <ul class="exp-list">
+            <li>Desenvolvimento de sistemas CRM personalizados com Node.js, JavaScript e MySQL</li>
+            <li>Consultoria e suporte técnico em ERP ISA e Totvs</li>
+            <li>Modelagem e manutenção de banco de dados</li>
+            <li>Montagem e administração de servidores; ambientes Linux e macOS</li>
+            <li>Suporte técnico especializado para pequenas e médias empresas</li>
+          </ul>
+          <div class="tags"><span class="tag gr">Node.js</span><span class="tag gr">JavaScript</span><span class="tag sf">MySQL</span><span class="tag">API REST</span><span class="tag am">ERP ISA</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos" class="page" aria-labelledby="t-proj">
+    <div class="ph">
+      <p class="ph-sup">Trabalho prático</p>
+      <h2 class="ph-title" id="t-proj">Projetos <em>&amp; Cases</em></h2>
+      <p class="ph-body">O que construí, o problema que resolvia e a stack usada.</p>
+    </div>
+    <div class="grid-2" id="proj-cases" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr))"></div>
+  </section>
+
+  <!-- SALESFORCE -->
+  <section id="salesforce" class="page" aria-labelledby="t-sf">
+    <div class="ph">
+      <p class="ph-sup">Foco principal</p>
+      <h2 class="ph-title" id="t-sf">Salesforce <em>Developer</em></h2>
+      <p class="ph-body">Trilha focada em integrações e APIs — um dos caminhos mais demandados no ecossistema Salesforce brasileiro.</p>
+    </div>
+
+    <div class="sf-banner">
+      <div class="sf-badge"><i class="fas fa-star"></i> Integração Salesforce + Totvs</div>
+      <div class="sf-heading">Um perfil difícil de encontrar</div>
+      <p class="sf-body">Conheço o ERP <b>Totvs por dentro</b> (Distribuição e Varejo) e estou em formação ativa em Salesforce. Empresas brasileiras que precisam conectar CRM e ERP precisam de alguém que entenda <b>os dois lados</b> — e a rede no meio.</p>
+      <div class="flow" aria-label="Fluxo de integração">
+        <div class="flow-node sf"><b>Salesforce</b><span>Accounts · Orders · Flows</span></div>
+        <div class="flow-arrow"><i class="fas fa-arrows-left-right"></i></div>
+        <div class="flow-node"><b>Middleware / API</b><span>REST · SOAP · Node.js</span></div>
+        <div class="flow-arrow"><i class="fas fa-arrows-left-right"></i></div>
+        <div class="flow-node tv"><b>ERP Totvs</b><span>Clientes · Pedidos · Estoque</span></div>
+      </div>
+      <div class="tech-pills">
+        <span class="tp tp-sf"><i class="fas fa-cloud"></i> Salesforce</span>
+        <span class="tp tp-rest"><i class="fas fa-plug"></i> REST API</span>
+        <span class="tp tp-rest"><i class="fas fa-exchange-alt"></i> SOAP API</span>
+        <span class="tp tp-totvs"><i class="fas fa-database"></i> Totvs</span>
+        <span class="tp tp-node"><i class="fab fa-node-js"></i> Node.js</span>
+        <span class="tp tp-mysql"><i class="fas fa-database"></i> MySQL</span>
+        <span class="tp tp-ad"><i class="fas fa-server"></i> Active Directory</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px;">
+      <div class="section-label" style="margin-top:0">Roadmap de certificações</div>
+      <div class="roadmap">
+        <div class="rm-item">
+          <div class="rm-left"><div class="rm-dot done"></div><div class="rm-line"></div></div>
+          <div class="rm-content">
+            <div class="rm-title">Agentblazer (I e II)</div>
+            <div class="rm-sub">Emblemas no Trailhead — IA e Agentforce aplicados ao Salesforce</div>
+            <div class="rm-cert ok">✓ Concluído · Trailhead</div>
+          </div>
+        </div>
+        <div class="rm-item">
+          <div class="rm-left"><div class="rm-dot active"></div><div class="rm-line"></div></div>
+          <div class="rm-content">
+            <div class="rm-title">Salesforce Administrator (ADM-201)</div>
+            <div class="rm-sub">Base — objetos, flows, segurança, relatórios</div>
+            <div class="rm-cert">→ Em andamento</div>
+          </div>
+        </div>
+        <div class="rm-item">
+          <div class="rm-left"><div class="rm-dot pending"></div><div class="rm-line"></div></div>
+          <div class="rm-content">
+            <div class="rm-title">Platform Developer I (PD1)</div>
+            <div class="rm-sub">Apex, SOQL, triggers, testes unitários, LWC</div>
+            <div class="rm-cert mute">◦ Próximo passo</div>
+          </div>
+        </div>
+        <div class="rm-item">
+          <div class="rm-left"><div class="rm-dot pending"></div></div>
+          <div class="rm-content">
+            <div class="rm-title">Platform Integration Architect</div>
+            <div class="rm-sub">REST, SOAP, Bulk API, padrões de integração enterprise</div>
+            <div class="rm-cert mute">◦ Objetivo — especialização</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="sf-skill-card">
+        <div class="sf-card-head">
+          <div class="sf-card-icon" style="background:var(--accent-d);color:var(--accent);"><i class="fas fa-cloud"></i></div>
+          <div><div class="sf-card-title">Salesforce Platform</div><div class="sf-card-sub">Em formação ativa</div></div>
+        </div>
+        <div class="tags"><span class="tag sf">Trailhead</span><span class="tag sf">Flows</span><span class="tag sf">Objects & Fields</span><span class="tag sf">Agentforce</span></div>
+      </div>
+      <div class="sf-skill-card">
+        <div class="sf-card-head">
+          <div class="sf-card-icon" style="background:var(--green-d);color:var(--green);"><i class="fas fa-plug"></i></div>
+          <div><div class="sf-card-title">APIs & Integrações</div><div class="sf-card-sub">Foco da especialização</div></div>
+        </div>
+        <div class="tags"><span class="tag gr">REST API</span><span class="tag gr">SOAP API</span><span class="tag gr">Bulk API</span><span class="tag gr">Node.js</span><span class="tag gr">JSON/XML</span></div>
+      </div>
+      <div class="sf-skill-card">
+        <div class="sf-card-head">
+          <div class="sf-card-icon" style="background:var(--amber-d);color:var(--amber);"><i class="fas fa-database"></i></div>
+          <div><div class="sf-card-title">ERP Totvs</div><div class="sf-card-sub">Diferencial de mercado</div></div>
+        </div>
+        <div class="tags"><span class="tag am">Distribuição</span><span class="tag am">Varejo</span><span class="tag am">Suporte N2/N3</span></div>
+      </div>
+      <div class="sf-skill-card">
+        <div class="sf-card-head">
+          <div class="sf-card-icon" style="background:var(--surface);color:var(--text2);"><i class="fas fa-server"></i></div>
+          <div><div class="sf-card-title">Infraestrutura</div><div class="sf-card-sub">Base técnica sólida</div></div>
+        </div>
+        <div class="tags"><span class="tag">Active Directory</span><span class="tag">Linux</span><span class="tag">Redes TCP/IP</span><span class="tag">Zabbix</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="page" aria-labelledby="t-sk">
+    <div class="ph">
+      <p class="ph-sup">Hard Skills</p>
+      <h2 class="ph-title" id="t-sk">Competências <em>Técnicas</em></h2>
+      <p class="ph-body">Autoavaliação honesta por nível — do que já uso no dia a dia ao que estou aprendendo agora.</p>
+    </div>
+    <div class="card">
+      <div class="skill-legend" id="skill-legend"></div>
+      <div class="skill-block"><div class="section-label" style="margin-top:0">Salesforce & Integrações</div><div id="sk-sf"></div></div>
+      <div class="skill-block"><div class="section-label" style="margin-top:0">Infraestrutura & Redes</div><div id="sk-infra"></div></div>
+      <div class="skill-block"><div class="section-label" style="margin-top:0">Desenvolvimento & Banco de Dados</div><div id="sk-dev"></div></div>
+    </div>
+  </section>
+
+  <!-- FORMAÇÃO -->
+  <section id="formacao" class="page" aria-labelledby="t-edu">
+    <div class="ph">
+      <p class="ph-sup">Educação</p>
+      <h2 class="ph-title" id="t-edu">Formação &amp; <em>Certificações</em></h2>
+    </div>
+    <div class="grid-3">
+      <div class="edu-card hl">
+        <div class="edu-inst">Unifatecie</div>
+        <div class="edu-degree">Análise e Desenvolvimento de Sistemas</div>
+        <span class="edu-period">Em andamento</span>
+        <div class="edu-extra"><span class="on">●</span> Cursando atualmente</div>
+      </div>
+      <div class="edu-card hl">
+        <div class="edu-inst">Salesforce Trailhead</div>
+        <div class="edu-degree">Trilha Salesforce Developer</div>
+        <span class="edu-period">2025 — em andamento</span>
+        <div class="edu-extra"><div class="tags"><span class="tag sf">Agentblazer I ✓</span><span class="tag sf">Agentblazer II ✓</span></div></div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-inst">Centro Universitário Eniac</div>
+        <div class="edu-degree">Sistemas de Informação</div>
+        <span class="edu-period">2 anos cursados</span>
+        <div class="edu-extra">Base em TI e infraestrutura</div>
+      </div>
+    </div>
+    <div class="section-label">Cursos e certificações técnicas</div>
+    <div class="card" style="padding:6px 24px 10px;">
+      <div class="cert-list" id="cert-list"></div>
+    </div>
+  </section>
+
+  <!-- DEVOS -->
+  <section id="devos" class="page" aria-label="DevOS — área interativa">
+    <div class="dos-topbar">
+      <div class="dos-logo">DevOS</div>
+      <div class="dos-nav-btns" role="tablist">
+        <button class="dos-nb" role="tab" data-panel="dashboard" aria-selected="true">Dashboard</button>
+        <button class="dos-nb" role="tab" data-panel="terminal" aria-selected="false">Terminal</button>
+        <button class="dos-nb" role="tab" data-panel="kanban" aria-selected="false">Kanban</button>
+      </div>
+      <div class="dos-topbar-right">
+        <div class="dos-stat-pill"><span class="dos-online"></span> online</div>
+        <div class="dos-stat-pill" id="dos-clock">--:--:--</div>
+        <a class="dos-exit" href="#home">← Sair</a>
+      </div>
+    </div>
+
+    <div class="dos-body">
+      <div class="dos-content">
+        <div class="dos-panel active" id="dos-panel-dashboard" role="tabpanel">
+          <div class="dos-panel-inner">
+            <div class="dos-ph"><div class="dos-ph-title">System Overview</div><div class="dos-ph-sub">samuel@devos:~$ status --all</div></div>
+            <div class="dos-stats">
+              <div class="dos-stat c0"><div class="dos-stat-label">Trailhead Pts</div><div class="dos-stat-val" data-count="12500">0</div><div class="dos-stat-delta">↑ crescendo</div></div>
+              <div class="dos-stat c1"><div class="dos-stat-label">Emblemas SF</div><div class="dos-stat-val" data-count="2">0</div><div class="dos-stat-delta">Agentblazer I e II</div></div>
+              <div class="dos-stat c2"><div class="dos-stat-label">Projetos</div><div class="dos-stat-val" data-count="4">0</div><div class="dos-stat-delta">no portfólio</div></div>
+              <div class="dos-stat c3"><div class="dos-stat-label">Exp. TI</div><div class="dos-stat-val" data-count="4" id="dos-years">0</div><div class="dos-stat-delta">anos</div></div>
+            </div>
+            <div class="dos-two">
+              <div class="dos-section"><div class="dos-sec-title">Habilidades técnicas</div><div id="dos-skills"></div></div>
+              <div class="dos-section"><div class="dos-sec-title">Marcos recentes</div><div id="dos-activity"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dos-panel" id="dos-panel-terminal" role="tabpanel">
+          <div class="dos-panel-inner">
+            <div class="term-chips" id="term-chips"></div>
+            <div class="term-wrap">
+              <div class="term-bar"><span class="tbar-dot r"></span><span class="tbar-dot y"></span><span class="tbar-dot g"></span><span class="tbar-title">samuel@portfolio: ~</span></div>
+              <div class="term-out" id="dos-term-out" aria-live="polite"></div>
+              <div class="term-in-row">
+                <span class="term-prompt-sym">❯</span>
+                <label for="dos-term-in" class="sr-only">Comando do terminal</label>
+                <input class="term-input" id="dos-term-in" placeholder="digite 'help' — Tab completa, ↑↓ histórico" autocomplete="off" spellcheck="false" autocapitalize="off">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dos-panel" id="dos-panel-kanban" role="tabpanel">
+          <div class="dos-panel-inner">
+            <div class="dos-ph"><div class="dos-ph-title">Kanban — estudos e entregas</div><div class="dos-ph-sub">Arraste os cards ou use → para avançar.</div></div>
+            <div class="kanban-board" id="dos-kanban"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="page" aria-labelledby="t-ct">
+    <div class="ph">
+      <p class="ph-sup">Conecte-se</p>
+      <h2 class="ph-title" id="t-ct">Fale <em>Comigo</em></h2>
+      <p class="ph-body">Aberto a oportunidades CLT ou PJ como Salesforce Developer — presencial ou híbrido na Grande São Paulo, ou remoto.</p>
+    </div>
+    <div class="grid-3">
+      <a href="https://wa.me/5511911195124" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-icon-wrap wa"><i class="fab fa-whatsapp"></i></div>
+        <div class="contact-title">WhatsApp</div>
+        <div class="contact-val">+55 11 91119-5124</div>
+        <div class="contact-hint">Abrir conversa <i class="fas fa-arrow-up-right-from-square"></i></div>
+      </a>
+      <a href="mailto:ss2099samu@gmail.com?subject=Oportunidade%20-%20Salesforce%20Developer" class="contact-card">
+        <div class="contact-icon-wrap em"><i class="fas fa-envelope"></i></div>
+        <div class="contact-title">E-mail</div>
+        <div class="contact-val">ss2099samu@gmail.com</div>
+        <div class="contact-hint">Propostas e projetos <button class="copy-btn" data-copy="ss2099samu@gmail.com"><i class="far fa-copy"></i> copiar</button></div>
+      </a>
+      <a href="https://www.linkedin.com/in/samuel-jacomo-b4417a261/" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-icon-wrap li"><i class="fab fa-linkedin-in"></i></div>
+        <div class="contact-title">LinkedIn</div>
+        <div class="contact-val">samuel-jacomo-b4417a261</div>
+        <div class="contact-hint">Perfil e emblemas Trailhead <i class="fas fa-arrow-up-right-from-square"></i></div>
+      </a>
+    </div>
+    <div class="contact-cta">
+      <p><b>Prefere um resumo em papel?</b> Gere o currículo em PDF direto desta página — já formatado para impressão.</p>
+      <button class="btn btn-solid btn-sm" onclick="printCV()"><i class="fas fa-file-arrow-down"></i> Baixar CV (PDF)</button>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ============ DADOS — edite aqui ============ */
+const CAREER_START = new Date(2022, 0, 1); // Jan 2022
+
+const LEVELS = ['Em formação', 'Intermediário', 'Proficiente', 'Avançado'];
+
+const SKILLS = {
+  sf: [
+    { name:'Salesforce Platform',    lvl:1, note:'Objetos, campos, Trailhead' },
+    { name:'REST API / Integrações', lvl:2, note:'Consumo e criação de APIs REST em Node.js' },
+    { name:'Flows & Automações',     lvl:1, note:'Prática em Developer Org' },
+    { name:'ERP Totvs',              lvl:4, note:'Distribuição e Varejo — suporte N2/N3' },
+  ],
+  infra: [
+    { name:'Suporte N1–N3',          lvl:4 },
+    { name:'Redes & Infraestrutura', lvl:4, note:'Cabeamento, switches, roteadores' },
+    { name:'Active Directory',       lvl:4, note:'Usuários, grupos, permissões' },
+    { name:'Zabbix',                 lvl:3, note:'Monitoramento de servidores e rede' },
+  ],
+  dev: [
+    { name:'HTML5 & CSS3',           lvl:3 },
+    { name:'JavaScript / Node.js',   lvl:3, note:'Backend do CRM, APIs REST' },
+    { name:'MySQL / SQL',            lvl:3, note:'Modelagem e manutenção' },
+  ],
+};
+
+/* Preencha repo/demo com os links reais (GitHub, vídeo, deploy) — os botões aparecem sozinhos. */
+const PROJECTS = [
+  { title:'CRM de Gestão de Clientes', status:'done', featured:true,
+    sum:'Sistema CRM completo desenvolvido do zero para clientes freelance.',
+    ctx:'Pequenas empresas controlando clientes e vendas em planilhas.',
+    sol:'Backend Node.js com API REST, banco MySQL modelado do zero e frontend integrado.',
+    stack:[['gr','Node.js'],['sf','MySQL'],['','API REST'],['am','JavaScript']],
+    repo:'', demo:'' },
+  { title:'Salesforce Developer Org', status:'wip',
+    sum:'Ambiente de prática para a trilha Administrator → Developer.',
+    ctx:'Consolidar na prática o conteúdo do Trailhead.',
+    sol:'Objetos customizados, flows e primeiros triggers Apex.',
+    stack:[['sf','Salesforce'],['sf','Flows'],['sf','Apex / SOQL']],
+    repo:'', demo:'' },
+  { title:'TechNexus — Sistema de Suporte', status:'wip',
+    sum:'Gestão de incidentes técnicos.',
+    ctx:'Chamados de TI sem rastreio nem histórico.',
+    sol:'Registro, priorização e acompanhamento de incidentes com arquitetura serverless.',
+    stack:[['gr','Node.js'],['am','JavaScript']],
+    repo:'', demo:'' },
+  { title:'Portfólio DevOS', status:'done',
+    sum:'Este site — portfólio com terminal interativo, kanban e dashboard.',
+    ctx:'Apresentar o perfil de forma navegável e memorável.',
+    sol:'HTML, CSS e JavaScript puros, sem frameworks; responsivo e imprimível como CV.',
+    stack:[['am','JavaScript'],['sf','CSS'],['','HTML']],
+    repo:'', demo:'' },
+];
+
+const CERTS = [
+  { name:'Active Directory Manager',        org:'Cisco',             year:2025, ico:'fa-users-gear' },
+  { name:'Zabbix — Monitoramento de Redes', org:'Cisco',             year:2025, ico:'fa-chart-line' },
+  { name:'Reparo de Hardware Avançado',     org:'Cisco',             year:2024, ico:'fa-microchip' },
+  { name:'Redes e Servidores',              org:'Cisco',             year:2024, ico:'fa-network-wired' },
+  { name:'Recuperação de Dados',            org:'Fundação Bradesco', year:2024, ico:'fa-hard-drive' },
+  { name:'HTML, CSS e JavaScript',          org:'Fundação Bradesco', year:2024, ico:'fa-code' },
+  { name:'Lógica de Programação',           org:'Fundação Bradesco', year:2022, ico:'fa-diagram-project' },
+  { name:'HTML, CSS e JavaScript',          org:'Alura',             year:2022, ico:'fa-code' },
+];
+
+const MILESTONES = [
+  { color:'var(--accent)', text:'Emblema Agentblazer II conquistado', src:'Trailhead' },
+  { color:'var(--accent)', text:'Emblema Agentblazer I conquistado',  src:'Trailhead' },
+  { color:'var(--amber)',  text:'CRM Node.js + MySQL — concluído',    src:'Projeto' },
+  { color:'var(--green)',  text:'Active Directory Manager',           src:'Cisco · 2025' },
+  { color:'var(--green)',  text:'Zabbix — Monitoramento de Redes',    src:'Cisco · 2025' },
+];
+
+const KANBAN = {
+  'Todo': [
+    { title:'Certificação Salesforce Administrator', tags:['sf'], priority:'Alta' },
+    { title:'Apex Basics no Trailhead',              tags:['sf'], priority:'Alta' },
+    { title:'Projeto: Salesforce ↔ API externa',     tags:['be'], priority:'Média' },
+  ],
+  'In Progress': [
+    { title:'Trailhead — módulos de integração', tags:['sf'], priority:'Alta' },
+    { title:'Developer Org — prática',            tags:['sf'], priority:'Média' },
+  ],
+  'Done': [
+    { title:'Agentblazer I & II',  tags:['sf'], priority:'✓' },
+    { title:'CRM Node.js + MySQL', tags:['be'], priority:'✓' },
+    { title:'Portfólio',           tags:['fe'], priority:'✓' },
+  ],
+};
+
+/* ============ UTIL ============ */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function monthsSince(d) { const n = new Date(); return (n.getFullYear()-d.getFullYear())*12 + n.getMonth()-d.getMonth(); }
+function fmtDur(m) {
+  const y = Math.floor(m/12), mo = m%12;
+  return [y && `${y} ano${y>1?'s':''}`, mo && `${mo} ${mo>1?'meses':'mês'}`].filter(Boolean).join(' e ') || 'menos de 1 mês';
+}
+const YEARS = Math.floor(monthsSince(CAREER_START)/12);
+
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function printCV() {
+  initSkills(); // garante que skills estejam renderadas
+  window.print();
+}
+
+/* ============ ROUTER (hash) ============ */
+const PAGES = $$('.page').map(p => p.id);
+function route() {
+  const id = PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home';
+  $$('.page').forEach(p => p.classList.toggle('active-page', p.id === id));
+  $$('.nav-item').forEach(n => {
+    const on = n.getAttribute('href') === '#' + id;
+    n.classList.toggle('active', on);
+    on ? n.setAttribute('aria-current','page') : n.removeAttribute('aria-current');
+    if (on && innerWidth <= 768) n.scrollIntoView({ inline:'center', block:'nearest' });
+  });
+  $('.content').scrollTop = 0;
+  const title = $('#' + id + ' h1, #' + id + ' h2');
+  document.title = (id === 'home' ? '' : (title ? title.textContent.trim() + ' — ' : '')) + 'Samuel Jacomo · Salesforce Developer';
+  if (id === 'skills') initSkills();
+  if (id === 'devos')  initDevOS();
+}
+addEventListener('hashchange', route);
+
+/* ============ RENDER ============ */
+function meter(lvl) { return `<span class="meter" aria-hidden="true">${[1,2,3,4].map(i => `<i style="${i<=lvl?'background:'+lvlColor(lvl):''}"></i>`).join('')}</span>`; }
+function lvlColor(l) { return ['var(--text3)','var(--accent)','var(--accent)','var(--green)','var(--green)'][l]; }
+function skillRow(s) {
+  return `<div class="skill-row">
+    <div class="skill-name">${esc(s.name)}${s.note ? `<span class="skill-note">${esc(s.note)}</span>` : ''}</div>
+    ${meter(s.lvl)}<div class="skill-lvl">${LEVELS[s.lvl-1]}</div></div>`;
+}
+let skillsBuilt = false;
+function initSkills() {
+  if (skillsBuilt) return; skillsBuilt = true;
+  $('#skill-legend').innerHTML = LEVELS.map((l,i) => `<span>${meter(i+1)} ${l}</span>`).join('');
+  $('#sk-sf').innerHTML    = SKILLS.sf.map(skillRow).join('');
+  $('#sk-infra').innerHTML = SKILLS.infra.map(skillRow).join('');
+  $('#sk-dev').innerHTML   = SKILLS.dev.map(skillRow).join('');
+}
+
+function renderProjects() {
+  $('#proj-cases').innerHTML = PROJECTS.map(p => `
+    <article class="proj-case${p.featured?' featured':''}">
+      <div class="pc-head">
+        <h3 class="pc-title">${esc(p.title)}</h3>
+        <span class="pc-status ${p.status}">${p.status==='done'?'● concluído':'◐ em andamento'}</span>
+      </div>
+      <p class="pc-sum">${esc(p.sum)}</p>
+      <dl class="pc-dl"><dt>Problema</dt><dd>${esc(p.ctx)}</dd><dt>Solução</dt><dd>${esc(p.sol)}</dd></dl>
+      <div class="pc-foot">
+        <div class="tags">${p.stack.map(([c,n]) => `<span class="tag ${c}">${esc(n)}</span>`).join('')}</div>
+        <div class="pc-links">
+          ${p.repo ? `<a class="btn btn-ghost btn-sm" href="${esc(p.repo)}" target="_blank" rel="noopener"><i class="fab fa-github"></i> Código</a>` : ''}
+          ${p.demo ? `<a class="btn btn-sf btn-sm" href="${esc(p.demo)}" target="_blank" rel="noopener"><i class="fas fa-play"></i> Demo</a>` : ''}
+          ${!p.repo && !p.demo ? '<span class="pc-nolink">demo sob solicitação</span>' : ''}
+        </div>
+      </div>
+    </article>`).join('');
+}
+
+function renderCerts() {
+  $('#cert-list').innerHTML = CERTS.map(c => `
+    <div class="cert-row">
+      <div class="cert-ico"><i class="fas ${c.ico}"></i></div>
+      <div><div class="cert-name">${esc(c.name)}</div><div class="cert-org">${esc(c.org)}</div></div>
+      <div class="cert-year">${c.year}</div>
+    </div>`).join('');
+}
+
+/* ============ DEVOS ============ */
+let dosInited = false;
+function initDevOS() {
+  if (dosInited) return; dosInited = true;
+  const all = [...SKILLS.sf, ...SKILLS.infra, ...SKILLS.dev].filter(s => s.name !== 'HTML5 & CSS3' && s.name !== 'Suporte N1–N3');
+  $('#dos-skills').innerHTML = all.map(s => skillRow({ name:s.name, lvl:s.lvl })).join('');
+  $('#dos-activity').innerHTML = MILESTONES.map(a => `
+    <div class="ds-feed-item"><span class="ds-feed-dot" style="background:${a.color}"></span>
+      <div><div class="ds-feed-text">${esc(a.text)}</div><div class="ds-feed-time">${esc(a.src)}</div></div></div>`).join('');
+  $('#dos-years').dataset.count = YEARS;
+  $$('.dos-stat-val[data-count]').forEach(el => animTo(el, +el.dataset.count, 900));
+  buildKanban();
+  buildTerminal();
+  const tick = () => { $('#dos-clock').textContent = new Date().toLocaleTimeString('pt-BR', { hour12:false }); };
+  tick(); setInterval(tick, 1000);
+  $$('.dos-nb').forEach(b => b.addEventListener('click', () => dosSwitch(b.dataset.panel)));
+}
+
+function dosSwitch(name) {
+  $$('.dos-panel').forEach(p => p.classList.toggle('active', p.id === 'dos-panel-' + name));
+  $$('.dos-nb').forEach(b => b.setAttribute('aria-selected', b.dataset.panel === name));
+  if (name === 'terminal') setTimeout(() => $('#dos-term-in').focus(), 30);
+}
+
+function animTo(el, target, dur) {
+  if (reduceMotion) { el.textContent = target.toLocaleString('pt-BR'); return; }
+  let start;
+  const step = ts => {
+    start ??= ts;
+    const p = Math.min((ts-start)/dur, 1), e = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.round(e*target).toLocaleString('pt-BR');
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+/* ---- Terminal ---- */
+const CMDS = {
+  help: () => [['info','Comandos disponíveis:'],
+    ...[['whoami','sobre mim'],['skills','habilidades por nível'],['salesforce','trilha de certificações'],['projects','projetos'],
+        ['contact','contato'],['goto <página>','navega (sobre, projetos, contato...)'],['cv','gera o currículo em PDF'],
+        ['date','data e hora'],['clear','limpa o terminal'],['matrix','👀']]
+      .map(([c,d]) => ['out', `  ${c.padEnd(15)} ${d}`])],
+  whoami: () => [['ok','Samuel Jacomo — Salesforce Developer em formação'],
+    ['out','  → Foco: integrações & APIs Salesforce'],
+    ['out','  → Base: infraestrutura, redes, ERP Totvs, Node.js'],
+    ['out',`  → ${YEARS}+ anos em TI · Guarulhos, SP`]],
+  salesforce: () => [['info','Trilha Salesforce:'],['ok','  [✓] Agentblazer I & II'],['info','  [→] Salesforce Administrator'],
+    ['out','  [◦] Platform Developer I'],['out','  [◦] Platform Integration Architect']],
+  skills: () => [...SKILLS.sf, ...SKILLS.infra, ...SKILLS.dev].map(s => ['out', `  ${s.name.padEnd(24)} ${'■'.repeat(s.lvl)}${'□'.repeat(4-s.lvl)}  ${LEVELS[s.lvl-1]}`]),
+  projects: () => PROJECTS.map(p => ['out', `  ${p.status==='done'?'●':'◐'} ${p.title}`]).concat([['info',"  → 'goto projetos' para detalhes"]]),
+  contact: () => [['info','Contato:'],['out','  whatsapp → wa.me/5511911195124'],['out','  email    → ss2099samu@gmail.com'],['out','  linkedin → linkedin.com/in/samuel-jacomo-b4417a261']],
+  date: () => [['ok', new Date().toLocaleString('pt-BR')]],
+  cv: () => { setTimeout(printCV, 300); return [['ok','Abrindo impressão do currículo...']]; },
+  goto: (arg) => {
+    const map = { inicio:'home', início:'home', home:'home', sobre:'sobre', experiencia:'experiencia', experiência:'experiencia', projetos:'projetos', salesforce:'salesforce', skills:'skills', formacao:'formacao', formação:'formacao', contato:'contato' };
+    const id = map[arg];
+    if (!id) return [['err', `uso: goto <${Object.keys(map).filter(k=>/^[a-z]+$/.test(k)).join('|')}>`]];
+    setTimeout(() => location.hash = id, 250); return [['ok', `→ ${id}`]];
+  },
+  matrix: () => { startMatrix(); return [['ok','Wake up, Neo...']]; },
+};
+const hist = []; let hIdx = -1;
+
+function termLine(type, text) {
+  const out = $('#dos-term-out'), p = document.createElement('div');
+  p.innerHTML = type === 'prompt'
+    ? `<span class="t-prompt">❯ </span><span class="t-cmd">${esc(text)}</span>`
+    : `<span class="t-${type}">${esc(text)}</span>`;
+  out.appendChild(p); out.scrollTop = out.scrollHeight;
+}
+function runCmd(raw) {
+  const [cmd, ...rest] = raw.trim().toLowerCase().split(/\s+/);
+  if (!cmd) return;
+  hist.unshift(raw); hIdx = -1;
+  termLine('prompt', raw);
+  if (cmd === 'clear') { $('#dos-term-out').innerHTML = ''; return; }
+  const fn = CMDS[cmd];
+  if (fn) (fn(rest.join(' ')) || []).forEach(([t,v]) => termLine(t, v));
+  else {
+    const sug = Object.keys(CMDS).concat('clear').find(k => k.startsWith(cmd[0]));
+    termLine('err', `comando não encontrado: ${cmd}` + (sug ? ` — você quis dizer '${sug}'?` : ". Digite 'help'."));
+  }
+}
+function buildTerminal() {
+  termLine('ok', 'DevOS Terminal v3.0 — Samuel Jacomo');
+  termLine('out', "Digite 'help' ou clique em um comando abaixo.\n");
+  $('#term-chips').innerHTML = ['help','whoami','skills','salesforce','projects','contact','matrix']
+    .map(c => `<button class="term-chip" data-cmd="${c}">${c}</button>`).join('');
+  $('#term-chips').addEventListener('click', e => { const c = e.target.dataset.cmd; if (c) { runCmd(c); $('#dos-term-in').focus(); } });
+  $('#dos-term-in').addEventListener('keydown', e => {
+    const inp = e.target;
+    if (e.key === 'Enter') { runCmd(inp.value); inp.value = ''; }
+    else if (e.key === 'ArrowUp')   { e.preventDefault(); hIdx = Math.min(hIdx+1, hist.length-1); inp.value = hist[hIdx] || ''; }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); hIdx = Math.max(hIdx-1, -1); inp.value = hIdx >= 0 ? hist[hIdx] : ''; }
+    else if (e.key === 'Tab') {
+      e.preventDefault();
+      const v = inp.value.toLowerCase(), m = Object.keys(CMDS).concat('clear').filter(k => k.startsWith(v));
+      if (m.length === 1) inp.value = m[0] + (m[0] === 'goto' ? ' ' : '');
+      else if (m.length > 1) termLine('out', m.join('   '));
+    }
+  });
+}
+
+/* ---- Matrix ---- */
+function startMatrix() {
+  if (reduceMotion) { toast('Animação desativada (movimento reduzido)'); return; }
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;background:#000;z-index:9000;cursor:pointer;';
+  ov.innerHTML = `<canvas style="display:block"></canvas><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:monospace;font-size:2rem;color:#00A1E0;text-align:center;text-shadow:0 0 20px #00A1E0;pointer-events:none">WAKE UP, NEO<br><span style="font-size:.85rem;opacity:.55">clique ou Esc para sair</span></div>`;
+  document.body.appendChild(ov);
+  const cv = $('canvas', ov), ctx = cv.getContext('2d');
+  let drops;
+  const size = () => { cv.width = innerWidth; cv.height = innerHeight; drops = Array(Math.floor(cv.width/18)).fill(1); };
+  size(); addEventListener('resize', size);
+  const iv = setInterval(() => {
+    ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.fillStyle = '#00A1E0'; ctx.font = '14px monospace';
+    drops.forEach((y,i) => { ctx.fillText(String.fromCharCode(0x30A0 + Math.random()*96), i*18, y*18); if (y*18 > cv.height && Math.random() > .975) drops[i] = 0; drops[i]++; });
+  }, 40);
+  const close = () => { clearInterval(iv); removeEventListener('resize', size); removeEventListener('keydown', onKey); ov.remove(); $('#dos-term-in')?.focus(); };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  ov.addEventListener('click', close, { once:true }); addEventListener('keydown', onKey);
+}
+
+/* ---- Kanban ---- */
+const COLS = Object.keys(KANBAN);
+const colId = c => 'kbc-' + c.replace(/\s/g,'_');
+let dragEl = null;
+
+function buildKanban() {
+  const board = $('#dos-kanban'), style = { 'Todo':'todo', 'In Progress':'prog', 'Done':'done' };
+  board.innerHTML = COLS.map(col => `
+    <div class="kb-col" data-col="${col}">
+      <div class="kb-col-head"><span class="kb-col-name ${style[col]}">${col.toUpperCase()}</span><span class="kb-col-count">0</span></div>
+      <div class="kb-cards" id="${colId(col)}"></div>
+      <form class="kb-add"><input placeholder="+ nova tarefa" maxlength="80" aria-label="Nova tarefa em ${col}"><button type="submit" aria-label="Adicionar">+</button></form>
+    </div>`).join('');
+  COLS.forEach(col => KANBAN[col].forEach(c => kCard(c, col)));
+  $$('.kb-col', board).forEach(colEl => {
+    const col = colEl.dataset.col;
+    colEl.addEventListener('dragover', e => { e.preventDefault(); colEl.classList.add('over'); });
+    colEl.addEventListener('dragleave', () => colEl.classList.remove('over'));
+    colEl.addEventListener('drop', e => { e.preventDefault(); colEl.classList.remove('over'); if (dragEl) moveCard(dragEl, col); });
+    $('form', colEl).addEventListener('submit', e => {
+      e.preventDefault(); const inp = $('input', e.target), t = inp.value.trim();
+      if (t) { kCard({ title:t, tags:['sf'], priority:'Média' }, col); inp.value = ''; counts(); }
+    });
+  });
+  counts();
+}
+function kCard(card, col) {
+  const el = document.createElement('div');
+  el.className = 'kb-card'; el.draggable = true; el.dataset.col = col;
+  el.innerHTML = `<div class="kb-card-title">${esc(card.title)}</div>
+    <div class="kb-card-meta">${card.tags.map(t => `<span class="kb-tag ${t}">${t}</span>`).join('')}
+    <span class="kb-pri">${esc(card.priority)}</span><button class="kb-move" title="Mover para próxima coluna" aria-label="Avançar">→</button></div>`;
+  el.addEventListener('dragstart', () => { dragEl = el; el.classList.add('dragging'); });
+  el.addEventListener('dragend',   () => { dragEl = null; el.classList.remove('dragging'); });
+  $('.kb-move', el).addEventListener('click', () => moveCard(el, COLS[(COLS.indexOf(el.dataset.col)+1) % COLS.length]));
+  $('#' + colId(col)).appendChild(el);
+}
+function moveCard(el, col) {
+  if (el.dataset.col === col) return;
+  el.dataset.col = col; $('#' + colId(col)).appendChild(el);
+  $('.kb-pri', el).textContent = col === 'Done' ? '✓' : ($('.kb-pri', el).textContent === '✓' ? 'Média' : $('.kb-pri', el).textContent);
+  counts();
+}
+function counts() { $$('.kb-col').forEach(c => $('.kb-col-count', c).textContent = $('.kb-cards', c).childElementCount); }
+
+/* ============ INIT ============ */
+$$('.js-years').forEach(el => el.textContent = YEARS);
+$$('.js-dur').forEach(el => { const [y,m] = el.dataset.from.split('-').map(Number); el.textContent = fmtDur(monthsSince(new Date(y, m-1, 1)) + 1); });
+$('#year').textContent = new Date().getFullYear();
+renderProjects();
+renderCerts();
+document.addEventListener('click', e => {
+  const b = e.target.closest('.copy-btn'); if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  navigator.clipboard?.writeText(b.dataset.copy).then(() => toast('E-mail copiado ✓'), () => toast(b.dataset.copy));
+});
+addEventListener('beforeprint', initSkills);
+route();
+</script>
+</body>
+</html>
